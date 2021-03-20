@@ -1,8 +1,8 @@
 {
-  "name": "wp-nuxt",
+  "name": "andesign",
   "version": "1.0.0",
-  "description": "Headless WordPress with Nuxt",
-  "author": "geoffgraham and sdras",
+  "description": "website for andesign",
+  "author": "tgmf",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -11,11 +11,17 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "axios": "^0.19.0",
-    "nuxt": "^2.0.0"
+    "axios": "^0.21.1",
+    "nuxt": "^2.15.3",
+    "update": "^0.7.4"
   },
   "devDependencies": {
     "node-sass": "^4.13.1",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^10.1.1",
+    "@vue/cli-service": "^4.5.11",
+    "@vue/cli-plugin-eslint": "^4.5.11",
+    "eslint": "^6.8.0",
+    "eslint-plugin-vue": "^6.1.2",
+    "vue-template-compiler": "^2.6.11"
   }
 }

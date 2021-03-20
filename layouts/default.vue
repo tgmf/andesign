@@ -17,8 +17,8 @@ export default {
 
 <style>
 html {
-  font-family: "Open Sans", sans-serif;
-  font-size: 18px;
+  font-family: "Circe", sans-serif;
+  font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -90,4 +90,27 @@ code {
 p {
   margin: 15px 0 20px;
 }
+
+.with-dot {
+  position: relative;
+}
+
+.with-dot:before, .with-animated-dot:before {
+  content: "";
+  width:7px;
+  height:7px;
+  border-radius: 9999px;
+  background-color: #E8AF64;
+  display: block;
+  position: absolute;
+  top:.85em;
+  left: -.5em;
+  transition: .3s width .3s ease;
+  z-index: -1;
+}
+
+.with-animated-dot:hover:before, .nuxt-link-active:before {
+  width: calc(100% + 1em);
+}
+
 </style>
