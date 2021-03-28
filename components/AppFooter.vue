@@ -64,7 +64,7 @@ import SearchToggle from "@/components/SearchToggle.vue";
 import NavContacts from "@/components/NavContacts.vue";
 
 export default {
-  name: "AppNav",
+  name: "AppFooter",
   components: {
     AppIcon,
     SearchToggle,

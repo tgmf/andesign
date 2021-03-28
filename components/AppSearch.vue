@@ -11,6 +11,7 @@
 
 <script>
 export default {
+  name: "AppSearch",
   props: {
     borderColor: {
       type: String,
@@ -48,16 +49,21 @@ form {
     border: 2px solid;
     height: 1.875em;
     width: 13.375em;
+    padding: .5em;
 
     &:focus {
-      border-color:inherit;
+      outline: none;
     }
   }
 
   button {
     position: absolute;
     right: .3em;
-    padding: .2em;
+    padding: .4em;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <v-app>
     <app-nav />
-    <nuxt />
-  </div>
+    <v-main>
+      <nuxt />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
@@ -15,7 +17,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 html {
   font-family: "Circe", sans-serif;
   font-size: 16px;
@@ -28,20 +30,26 @@ html {
 }
 
 body {
-  background-color: #fff;
+  background-color: #F6FBFB;
+}
+
+.v-application {
+    font-family: "Circe", sans-serif;
+    line-height: 1.2;
 }
 
 h1,
 h2,
 h3 {
-  font-family: "Alata", serif;
-  font-weight: normal;
+  font-family: "Circe", serif;
+  font-weight: bold;
+  color: #151D24;
 }
 
 *,
 *:before,
 *:after {
-  box-sizing: border-box;
+  box-sizing: inherit;
   margin: 0;
 }
 
@@ -89,13 +97,22 @@ code {
 
 p {
   margin: 15px 0 20px;
+  color: #151D24;
+  line-height: 1.4;
+}
+
+hr {
+  height: 7px;
+  border:none;
+  border-radius: 4px;
 }
 
 .with-dot {
   position: relative;
+  z-index: 0;
 }
 
-.with-dot:before, .with-animated-dot:before {
+.with-dot:before {
   content: "";
   width:7px;
   height:7px;
@@ -103,14 +120,76 @@ p {
   background-color: #E8AF64;
   display: block;
   position: absolute;
-  top:.85em;
-  left: -.5em;
-  transition: .3s width .3s ease;
+  bottom:.3em;
+  left: -.3em;
   z-index: -1;
 }
 
-.with-animated-dot:hover:before, .nuxt-link-active:before {
-  width: calc(100% + 1em);
+.with-dot.ease-width:before {
+  transition: .1s width .3s ease;
+}
+
+.with-dot.ease-width:hover:before, .nuxt-link-active:before, .with-dot.dot-active.ease-width:before, .with-dot.extrude-dot:before {
+  width: calc(100% + .6em);
+}
+
+.with-dot.ease-opacity:before {
+  transition: opacity .3s ease;
+}
+
+.with-dot.ease-opacity:hover:before, .with-dot.dot-active.ease-opacity:before {
+  opacity: 0;
+}
+
+.with-dot.ease-height:before {
+  transition: height .3s ease;
+}
+.with-dot.ease-height:hover:before, .with-dot.dot-active.ease-height:before {
+  height: 0;
+}
+
+.v-btn.view-button {
+  overflow: hidden;
+  position: relative;
+  font-size: 1.125em;
+  font-weight: bold;
+  text-align: center;
+
+  & span {
+    transition: .2s transform .3s ease-out;
+  }
+
+  &:before, &:after {
+    content: "";
+    margin:auto;
+    display: block;
+    position: absolute;
+    opacity: 1;
+    width:100%;
+    height:200%;
+    top: -300%;
+    background: url('/eye_back1.svg') center bottom no-repeat;
+    transition: .2s all .2s ease-out;
+    background-size: cover;
+  }
+
+  &:after {
+    content: url("/eye.svg");
+    background: url('/eye_back2.svg') center bottom no-repeat;
+    background-size: cover;
+    transition: .4s all .2s ease-in;
+    padding-top: 1.125em;
+    top: -200%;
+  }
+
+  &:hover span {
+    transform: translateY(150%);
+  }
+
+  &:hover:before, &:hover:after {
+    top: 0;
+    opacity:1;
+  }
 }
 
 </style>

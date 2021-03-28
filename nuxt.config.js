@@ -1,9 +1,14 @@
 import axios from "axios"
 let dynamicRoutes = () => {
+  // const routes = axios
+  //   .get("https://css-tricks.com/wp-json/wp/v2/posts?page=1&per_page=20")
+  //   .then(res => {
+  //     return res.data.map(post => `/blog/${post.slug}`)
+  //   })
   const routes = axios
-    .get("https://css-tricks.com/wp-json/wp/v2/posts?page=1&per_page=20")
+    .get("http://andesign.cpkiu.xyz/wp-json/wp/v2/case?page=1&per_page=100")
     .then(res => {
-      return res.data.map(post => `/blog/${post.slug}`)
+      return res.data.map(pCase => `/${pCase.slug}`)
     })
   console.log(routes)
   return routes
@@ -26,12 +31,7 @@ export default {
       }
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      {
-        rel: "stylesheet",
-        href:
-          "https://fonts.googleapis.com/css?family=Alata|Open+Sans&display=swap"
-      }
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
     ]
   },
   /*
@@ -57,7 +57,9 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: [],
+  buildModules: [
+    '@nuxtjs/vuetify',
+  ],
   /*
    ** Build configuration
    */
@@ -66,5 +68,29 @@ export default {
      ** You can extend webpack config here
      */
     extend (config, ctx) { }
-  }
+  },
+  vuetify: {
+    customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
+    theme: {
+      options: {
+        customProperties: true
+      },
+      dark: false,
+      light: true,
+      themes: {
+        dark: {
+          background: '#00a86b'
+        },
+        light: {
+          background: '#F6FBFB',
+          andeOrange: '#E8AF64',
+          andeDarkOrange: '#D97535',
+          andeGray: '#5F6A75',
+          andeLightGray: '#DCE3EB',
+          andeTeal: '#00AAB4',
+        }
+      }
+    }
+  },
 }

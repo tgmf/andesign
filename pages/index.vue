@@ -1,43 +1,36 @@
 <template>
   <div>
-    <app-masthead></app-masthead>
-    <div class="posts">
-      <main>
-        <div class="post" v-for="post in sortedPosts" :key="post.id">
-          <h3>
-            <a :href="`blog/${post.slug}`">{{ post.title.rendered }}</a>
-          </h3>
-          <small>{{ post.date | dateformat }}</small>
-          <div v-html="post.excerpt.rendered"></div>
-          <a :href="`blog/${post.slug}`" class="readmore slide">Read more ⟶</a>
-        </div>
-      </main>
-      <aside>
-        <h2 class="tags-title">Tags</h2>
-        <div class="tags-list">
-          <ul>
-            <li
-              @click="updateTag(tag)"
-              v-for="tag in tags"
-              :key="tag.id"
-              :class="[tag.id === selectedTag ? activeClass : '']"
+    <section class="page-background">
+      <v-container
+        fluid
+      >
+        <v-row>
+          <v-col
+            cols=12
+            md=10
+            offset-md=1
             >
-              <a>{{ tag.name }}</a>
-              <span v-if="tag.id === selectedTag">✕</span>
-            </li>
-          </ul>
-        </div>
-      </aside>
-    </div>
+          </v-col>
+        </v-row>
+      </v-container>
+    </section>
+    <app-masthead ></app-masthead>
+    <portfolio></portfolio>
+    <!-- <app-footer></app-footer> -->
+    <a id="map" />
   </div>
 </template>
 
 <script>
 import AppMasthead from "@/components/AppMasthead.vue";
+import Portfolio from "@/components/Portfolio.vue";
+import AppFooter from "@/components/AppFooter.vue";
 
 export default {
   components: {
-    AppMasthead
+    AppMasthead,
+    Portfolio,
+    AppFooter
   },
   data() {
     return {
@@ -47,25 +40,36 @@ export default {
   },
   computed: {
     posts() {
-      return this.$store.state.posts;
+      return this.$store.state.posts
+    },
+    pCases() {
+      return this.$store.state.pCases
     },
     tags() {
-      return this.$store.state.tags;
+      return this.$store.state.tags
+    },
+    categories() {
+      return this.$store.state.categories
     },
     sortedPosts() {
-      if (!this.selectedTag) return this.posts;
-      return this.posts.filter(el => el.tags.includes(this.selectedTag));
+      if (!this.selectedTag) return this.posts
+      return this.posts.filter(el => el.tags.includes(this.selectedTag))
+    },
+    sortedPCases() {
+      if (!this.selectedTag) return this.pCases
+      return this.pCases.filter(el => el.tags.includes(this.selectedTag))
     }
   },
   created() {
-    this.$store.dispatch("getPosts");
+    this.$store.dispatch("getPosts"),
+    this.$store.dispatch("getPCases")
   },
   methods: {
     updateTag(tag) {
       if (!this.selectedTag) {
-        this.selectedTag = tag.id;
+        this.selectedTag = tag.id
       } else {
-        this.selectedTag = null;
+        this.selectedTag = null
       }
     }
   }
@@ -98,21 +102,27 @@ a,
 a:active,
 a:visited {
   text-decoration: none;
-  color: black;
+  color: #151D24;
 }
 
-a.readmore {
-  display: inline-block;
-  font-size: 11px;
-  text-transform: uppercase;
-  padding: 5px 15px;
-  letter-spacing: 2px;
-  position: relative;
-  color: #000;
-  font-weight: 700;
-  font-family: "Open Sans", serif;
-  border: 1px solid #ccc;
-  background: #fff;
+.page-background {
+  position: fixed;
+  width: 100%;
+  height: calc(100vh - 96px);
+  display: flex;
+  align-items: center;
+
+  .container {
+    padding: .75em 4em;
+  
+    .col-12{
+      height: calc(80vh - 77px);
+      background: 
+        url("/Andy_web.png") no-repeat right center scroll; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      background-size: contain;
+    }
+  }
+  
 }
 
 .tags-title {
@@ -165,7 +175,7 @@ a.readmore {
   cursor: pointer;
   background: #fff;
   a {
-    color: #000;
+    color: #151D24;
   }
 }
 
