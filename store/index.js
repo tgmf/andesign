@@ -1,10 +1,11 @@
-const siteURL = "http://andesign.cpkiu.xyz/"
+const siteURL = "https://andesign.cpkiu.xyz"
 
 export const state = () => ({
   categories: [],
   pCases: [],
   posts: [],
   tags: [],
+  pages: [],
 })
 
 export const mutations = {
@@ -19,6 +20,9 @@ export const mutations = {
   },
   updateCategories: (state, categories) => {
     state.categories = categories
+  },
+  updatePages: (state, pages) => {
+    state.pages = pages
   }
 }
 
@@ -58,7 +62,7 @@ export const actions = {
 
       pCases = pCases
         .filter(el => el.status === "publish")
-        .map(({ id, slug, title, date, tags, content, categories, description, photo_gallery }) => ({
+        .map(({ id, slug, title, date, tags, content, categories, acf }) => ({
           id,
           slug,
           title,
@@ -66,8 +70,7 @@ export const actions = {
           tags,
           content,
           categories,
-          description,
-          photo_gallery
+          acf
         }))
 
       commit("updatePCases", pCases)
@@ -107,18 +110,44 @@ export const actions = {
       ).then(res => res.json())
 
       categories = categories
-        .map(({ id, slug, name, description, date, parent, cat_icon, theme }) => ({
+        .map(({ id, count, slug, name, description, date, parent, acf }) => ({
           id,
+          count,
           slug,
           name,
           description,
           date,
           parent,
-          cat_icon,
-          theme
+          acf
         }))
 
-      commit("updateCategories", categories)
+      commit("updateCategories", categories.sort((a, b) => a.acf.new_order - b.acf.new_order))
+    } catch (err) {
+      console.log(err)
+    }
+  },
+  async getPages ({ state, commit, dispatch }) {
+    if (state.pages.length) return
+
+    try {
+      let pages = await fetch(
+        `${siteURL}/wp-json/wp/v2/pages?page=1&per_page=100&_embed=1`
+      ).then(res => res.json())
+
+      pages = pages
+        .filter(el => el.status === "publish")
+        .map(({ id, date, slug, title, excerpt, categories, content, acf }) => ({
+          id,
+          date,
+          slug,
+          title,
+          excerpt,
+          categories,
+          content,
+          acf
+        }))
+
+      commit("updatePages", pages)
     } catch (err) {
       console.log(err)
     }

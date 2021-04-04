@@ -5,7 +5,7 @@
   >
     <v-slide-item
       v-for="pCase in pCases"
-      :key="pCase.id"
+      :key="category + pCase.id"
       ref="caseItem"
     >
       <v-sheet
@@ -20,7 +20,7 @@
             :order="even? 2 : 1"
           >
               <v-img
-                :src="pCase.photo_gallery[0].full_image_url"
+                :src="pCase.acf.media[0].url"
                 width="100%"
                 aspect-ratio="1.4"
               />
@@ -38,7 +38,7 @@
               class="plain andeLightGray"
             />
             <p
-              v-html="pCase.photo_gallery[0].caption"
+              v-html="pCase.acf.media[0].caption"
             />
             <v-spacer/>
             <div class="checkTheCaseOut">
@@ -90,15 +90,23 @@
 
 <script>
 export default {
-  name: "PortfolioCategory",
+  name: "PortfolioSlider",
   props: {
-    category: Number,
-    theme: String,
-    even: Boolean
+    category: {
+      type: Number,
+      default: null
+    },
+    theme: {
+      type: String,
+      default: "light"
+    },
+    even: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {
-      // SlideN: 0
       prevIsDisabled: !this.even,
       nextIsDisabled: this.even
     };
@@ -109,16 +117,16 @@ export default {
     }
   },
   created() {
-    this.$store.dispatch("getPCases")
   },
   mounted() {
-    this.even? setTimeout(() => this.setSlide(), 500) : ''
+    this.$nextTick(function () {
+      if (this.even) this.setSlide()
+    })
   },
   methods: {
     setSlide () {
       const wrapperWidth = this.$refs.caseSlider.$refs.wrapper.clientWidth,
       contentWidth = this.$refs.caseSlider.$refs.content.clientWidth
-      console.log(wrapperWidth, contentWidth)
       return this.$refs.caseSlider.scrollOffset = contentWidth - wrapperWidth
     },
     nextSlide () {
@@ -214,7 +222,7 @@ div.case-slider {
       }
 
       .view-button span {
-        background: url('/eye_orange.svg') center center no-repeat;
+        background: url("/img/eye_orange.svg") center center no-repeat;
       }
 
       .nav-buttons {
@@ -258,7 +266,7 @@ div.case-slider {
           height: 56px;
           background-color: var(--v-andeDarkOrange-base);
           border-radius: 9999px;
-          background-image: url('/mail_back2.svg');
+          background-image: url("/img/mail_back2.svg");
           background-repeat: no-repeat;
           background-position: center -134px;
           transition: .2s all .2s ease-out;
@@ -270,10 +278,10 @@ div.case-slider {
         }
 
         .prev-button::after, .next-button::after {
-          content: url('/forward.svg');
+          content: url("/img/forward.svg");
           position: absolute;
           background-color: transparent;
-          background-image: url('/mail_back1.svg');
+          background-image: url("/img/mail_back1.svg");
           background-repeat: no-repeat;
           background-position: center -134px;
           transition: .4s all .2s ease-in;
@@ -285,7 +293,7 @@ div.case-slider {
         }
 
         .prev-button::after {
-          content: url('/back.svg');
+          content: url("/img/back.svg");
           padding: 10px 8px;
         }
 

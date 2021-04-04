@@ -1,20 +1,34 @@
 <template>
   <v-app>
-    <app-nav />
+    <app-nav :categories="categories" />
+    <span class="descr andeGray--text">Группа визуальных коммуникаций</span>
     <v-main>
       <nuxt />
+      <app-map />
+      <app-footer  :categories="categories" />
     </v-main>
   </v-app>
 </template>
 
 <script>
-import AppNav from "~/components/AppNav.vue";
+import AppNav from "~/components/AppNav.vue"
+import AppMap from "~/components/AppMap.vue"
+import AppFooter from "~/components/AppFooter.vue"
 
 export default {
   components: {
-    AppNav
+    AppNav,
+    AppMap,
+    AppFooter
+  },
+  computed : {
+    categories() {
+      return this.$store.state.categories
+    }
+  },
+  created() {
   }
-};
+}
 </script>
 
 <style lang="scss">
@@ -31,6 +45,7 @@ html {
 
 body {
   background-color: #F6FBFB;
+  color: #151D24;
 }
 
 .v-application {
@@ -40,10 +55,12 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-family: "Circe", serif;
-  font-weight: bold;
+  font-weight: 300;
   color: #151D24;
+  text-transform: uppercase;
 }
 
 *,
@@ -62,8 +79,24 @@ h1 {
   text-align: center;
 }
 
-img {
-  width: 100%;
+.aligncenter,.alignleft,.alignright {
+    display: block;
+    padding: 0;
+}
+
+.aligncenter {
+    float: none;
+    margin: .5em auto 1em;
+}
+
+.alignright {
+    float: right;
+    margin: .5em 0 1em 1em;
+}
+
+.alignleft {
+    float: left;
+    margin: .5em 1em 1em 0;
 }
 
 video {
@@ -101,6 +134,12 @@ p {
   line-height: 1.4;
 }
 
+.big-thin-text {
+  font-size: 3.4375em;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
 hr {
   height: 7px;
   border:none;
@@ -117,7 +156,7 @@ hr {
   width:7px;
   height:7px;
   border-radius: 9999px;
-  background-color: #E8AF64;
+  background-color: var(--v-andeOrange-base);
   display: block;
   position: absolute;
   bottom:.3em;
@@ -168,14 +207,14 @@ hr {
     width:100%;
     height:200%;
     top: -300%;
-    background: url('/eye_back1.svg') center bottom no-repeat;
+    background: url("/img/eye_back1.svg") center bottom no-repeat;
     transition: .2s all .2s ease-out;
     background-size: cover;
   }
 
   &:after {
-    content: url("/eye.svg");
-    background: url('/eye_back2.svg') center bottom no-repeat;
+    content: url("/img/eye.svg");
+    background: url("/img/eye_back2.svg") center bottom no-repeat;
     background-size: cover;
     transition: .4s all .2s ease-in;
     padding-top: 1.125em;
@@ -189,6 +228,25 @@ hr {
   &:hover:before, &:hover:after {
     top: 0;
     opacity:1;
+  }
+}
+
+span.descr {
+  text-align: left;
+  text-transform: uppercase;
+  font-size: .875em;
+  font-weight: 400;
+  line-height: 1.45;
+  width: 10em;
+  top: 126px;
+  left:5em;
+  position: absolute;
+  z-index: 10;
+}
+
+@media screen and (min-width: 1264px) {
+  span.descr {
+    position: fixed;
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
- <form id="search-form">
+ <form class="search-form">
    <input type="search" name="search" @focus="$emit('input-focus')" @blur="$emit('input-blur')" :style="style" v-model="searchLine" >
    <button type="submit" @click="search">
       <svg xmlns="http://www.w3.org/2000/svg" width="17.395" height="17.399" viewBox="0 0 17.395 17.399">
@@ -43,12 +43,13 @@ export default {
 <style lang="scss" scoped>
 form {
   vertical-align: middle;
+  position: relative;
 
   input {
     border-radius: 7px;
     border: 2px solid;
     height: 1.875em;
-    width: 13.375em;
+    width: 100%;
     padding: .5em;
 
     &:focus {

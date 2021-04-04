@@ -1,21 +1,17 @@
 import axios from "axios"
 let dynamicRoutes = () => {
-  // const routes = axios
-  //   .get("https://css-tricks.com/wp-json/wp/v2/posts?page=1&per_page=20")
-  //   .then(res => {
-  //     return res.data.map(post => `/blog/${post.slug}`)
-  //   })
   const routes = axios
-    .get("http://andesign.cpkiu.xyz/wp-json/wp/v2/case?page=1&per_page=100")
+    .get("https://andesign.cpkiu.xyz/wp-json/wp/v2/categories?page=1&per_page=100&hide_empty=true&parent=0")
     .then(res => {
-      return res.data.map(pCase => `/${pCase.slug}`)
+      return res.data.map(category => `/${category.slug}`)
     })
   console.log(routes)
   return routes
 }
 
 export default {
-  mode: "universal",
+  target: "static",
+  components: true,
   /*
    ** Headers of the page
    */
@@ -31,7 +27,7 @@ export default {
       }
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" }
+      { rel: "icon", type: "image/png", href: "/favico.png" }
     ]
   },
   /*
@@ -47,8 +43,9 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    "~/plugins/posts.server.js",
-    "~/plugins/tags.server.js",
+    "~/plugins/categories.server.js",
+    "~/plugins/pages.server.js",
+    "~/plugins/pCases.server.js",
     "~/plugins/dateformat.js"
   ],
   generate: {

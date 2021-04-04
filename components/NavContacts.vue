@@ -44,7 +44,15 @@
             </svg>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title><a href="tel:+74957979473" target="_blank" color="white"><b>+7 (495) 797 94 73</b></a></v-list-item-title>
+            <v-list-item-title>
+              <a
+                href="tel:+74957979473"
+                target="_blank"
+                class="white--text"
+              >
+                <b>+7 (495) 797 94 73</b>
+              </a>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
@@ -60,7 +68,15 @@
             </svg>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title><a href="mailto:info@andesign.ru" target="_blank">info@andesign.ru</a></v-list-item-title>
+            <v-list-item-title>
+              <a
+                href="mailto:info@andesign.ru"
+                target="_blank"
+                class="white--text"
+              >
+                info@andesign.ru
+              </a>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item>
@@ -95,7 +111,7 @@
             </svg>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title><a @click="$vuetify.goTo('#map', options)" class="with-dot smaller">НА КАРТЕ</a></v-list-item-title>
+            <v-list-item-title><a @click="$vuetify.goTo('#map', options)" class="with-dot smaller white--text">НА КАРТЕ</a></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

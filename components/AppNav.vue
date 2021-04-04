@@ -33,8 +33,20 @@
           md="7"
         >
           <ul class="nav-menu">
-            <li v-for="link in navItems" :key="link.title">
-              <nuxt-link :to="link.path" class="with-dot ease-width">{{link.title}}</nuxt-link>
+            <li v-for="link in navItems" :key="link.slug">
+              <span
+                v-if="$route.name === 'index'"
+                @click="$vuetify.goTo('#'+link.slug)"
+                class="with-dot ease-width"
+              >
+                {{ link.name }}
+              </span>
+              <nuxt-link
+                v-else
+                :to="'/' + link.slug"
+                class="with-dot ease-width">
+                  {{ link.name }}
+                </nuxt-link>
             </li>
           </ul>
         </v-col>
@@ -59,9 +71,9 @@
 </template>
 
 <script>
-import AppIcon from "@/components/AppIcon.vue";
-import SearchToggle from "@/components/SearchToggle.vue";
-import NavContacts from "@/components/NavContacts.vue";
+import AppIcon from "@/components/AppIcon.vue"
+import SearchToggle from "@/components/SearchToggle.vue"
+import NavContacts from "@/components/NavContacts.vue"
 
 export default {
   name: "AppNav",
@@ -70,20 +82,22 @@ export default {
     SearchToggle,
     NavContacts
   },
+  props: {
+    categories: {
+      type: Array,
+      default: () => [
+        {}
+      ]
+    }
+  },
   data(){
     return {
-      brand: 'ЭндиЗайн',
-      sidebar: false,
-      offsetTop: 0,
-      navItems: [
-          { title: 'Дизайн', path: '/about'},
-          { title: 'Навигация', path: '/about'},
-          { title: 'Мебель', path: '/about'},
-          { title: 'Свет', path: '/about'},
-          { title: 'Проектирование', path: '/about'},
-          { title: 'Строительство', path: '/about'},
-          { title: 'Полиграфия', path: '/about'}
-     ]
+      brand: 'ЭндиЗайн'
+    }
+  },
+  computed: {
+    navItems() {
+      return this.categories.filter( cat => cat.parent === 0 );
     }
   }
 };
@@ -137,13 +151,14 @@ ul {
     display: flex;
     align-items: center;
 
-    a {
+    a, span {
       position: relative;
       text-transform: uppercase;
       margin: 0 16px 0 0;
+      cursor: pointer;
     }
 
-    &:last-child a {
+    &:last-child span, &:last-child a {
       margin: 0;
     }
   }

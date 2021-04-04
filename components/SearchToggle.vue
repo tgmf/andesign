@@ -6,7 +6,7 @@
         </svg>
       <span :class="[{ 'dot-active': toggled }, 'with-dot', 'ease-opacity']">Поиск</span>
       <div class="search-dropdown" v-if="toggled || focused">
-        <app-search @input-focus="focused = true" @input-blur="focused = false" fill-color="#EFF5F7" border-color="#E8AF64"></app-search>
+        <app-search @input-focus="focused = true" @input-blur="focused = false" fill-color="#EFF5F7" border-color="#E8AF64" ></app-search>
       </div>
     </div>
   </div>
@@ -49,13 +49,16 @@ div {
     font-weight: bold;
     text-transform: uppercase;
   }
-}
 
-.search-dropdown {
-  position: absolute;
-  padding-top: 4em;
-  left: -33%;
-  display: block;
+  .search-dropdown {
+    position: absolute;
+    padding-top: 4em;
+    left: -33%;
+    display: block;
+    width: 13.375em;
+
+  }
+
 }
 
 .with-dot:before {

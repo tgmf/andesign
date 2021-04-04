@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main>
     <section class="page-background">
       <v-container
         fluid
@@ -15,84 +15,68 @@
       </v-container>
     </section>
     <app-masthead ></app-masthead>
-    <portfolio></portfolio>
-    <!-- <app-footer></app-footer> -->
-    <a id="map" />
-  </div>
+    <portfolio :categories="categories"></portfolio>
+    <!-- <pages :pages="pages"></pages> -->
+  </main>
 </template>
 
 <script>
-import AppMasthead from "@/components/AppMasthead.vue";
-import Portfolio from "@/components/Portfolio.vue";
-import AppFooter from "@/components/AppFooter.vue";
-
+import AppMasthead from "@/components/AppMasthead.vue"
+import Portfolio from "@/components/Portfolio.vue"
 export default {
   components: {
     AppMasthead,
-    Portfolio,
-    AppFooter
+    Portfolio
   },
   data() {
     return {
-      selectedTag: null,
       activeClass: "active"
     };
   },
   computed: {
-    posts() {
-      return this.$store.state.posts
-    },
+    // posts() {
+    //   return this.$store.state.posts
+    // },
     pCases() {
       return this.$store.state.pCases
     },
-    tags() {
-      return this.$store.state.tags
-    },
+    // tags() {
+    //   return this.$store.state.tags
+    // },
     categories() {
       return this.$store.state.categories
-    },
-    sortedPosts() {
-      if (!this.selectedTag) return this.posts
-      return this.posts.filter(el => el.tags.includes(this.selectedTag))
-    },
-    sortedPCases() {
-      if (!this.selectedTag) return this.pCases
-      return this.pCases.filter(el => el.tags.includes(this.selectedTag))
     }
+    // sortedPosts() {
+    //   if (!this.selectedTag) return this.posts
+    //   return this.posts.filter(el => el.tags.includes(this.selectedTag))
+    // },
+    // sortedPCases() {
+    //   if (!this.selectedTag) return this.pCases
+    //   return this.pCases.filter(el => el.tags.includes(this.selectedTag))
+    // },
+    // pages() {
+    //   return this.$store.state.pages
+    // }
   },
   created() {
-    this.$store.dispatch("getPosts"),
+    // this.$store.dispatch("getPosts"),
     this.$store.dispatch("getPCases")
+    // this.$store.dispatch("getCategories"),
+    // this.$store.dispatch("getPages")
   },
   methods: {
-    updateTag(tag) {
-      if (!this.selectedTag) {
-        this.selectedTag = tag.id
-      } else {
-        this.selectedTag = null
-      }
-    }
+    // updateTag(tag) {
+    //   if (!this.selectedTag) {
+    //     this.selectedTag = tag.id
+    //   } else {
+    //     this.selectedTag = null
+    //   }
+    // }
   }
 };
 </script>
 
 <style lang="scss">
-.posts {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 6vw;
-  margin: 5em auto;
-  max-width: 80vw;
-}
-
-main {
-  grid-area: 1 / 1 / 2 / 2;
-}
-
-aside {
-  grid-area: 1 / 2 / 2 / 3;
-}
 
 h2 {
   margin-bottom: 2em;
@@ -118,7 +102,7 @@ a:visited {
     .col-12{
       height: calc(80vh - 77px);
       background: 
-        url("/Andy_web.png") no-repeat right center scroll; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        url("/img/Andy_web.png") no-repeat right center scroll; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
       background-size: contain;
     }
   }
