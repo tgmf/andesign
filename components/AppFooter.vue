@@ -73,6 +73,7 @@
           <v-form
             id="contact-form"
             v-model="valid"
+            @submit.prevent="submitForm"
           >
             <label
               for="name"
@@ -81,7 +82,7 @@
               От кого
             </label>
             <v-text-field
-              v-model="name"
+              v-model="form.Name"
               filled
               solo
               flat
@@ -96,7 +97,7 @@
               Телефон/E-mail
             </label>
             <v-text-field
-              v-model="contact"
+              v-model="form.contact"
               filled
               solo
               flat
@@ -104,7 +105,7 @@
               id="contact"
               name="contact"
               required
-            ></v-text-field>
+            />
             <label
               for="message"
               class="mb-1"
@@ -112,7 +113,7 @@
               Сообщение
             </label>
             <v-textarea
-              v-model="message"
+              v-model="form.message"
               filled
               solo
               flat
@@ -122,9 +123,19 @@
               color="andeDarkGray"
               id="message"
               name="message"
-            ></v-textarea>
+            />
+            <label
+              v-show="false"
+              for="company"
+            >Компания</label>
+            <v-text-field
+              v-show="false"
+              v-model="honeypot"
+              id="company"
+              name="company"
+              />
             <v-btn
-              :disabled="!valid"
+              :disabled="!valid || sending"
               elevation="0"
               outlined
               rounded
@@ -138,6 +149,15 @@
               Отправить
             </v-btn>
           </v-form>
+          <p
+            class="white--text"
+            v-show="sending">
+            Отправляю
+          </p>
+          <p
+            class="green--text"
+            v-show="response"
+            v-html="response" />
         </v-col>
         <v-col
           cols="12"
@@ -174,6 +194,7 @@
               height="45px"
               class="social-ig-button"
               elevated="false"
+              :disabled='sending'
             >
               <svg id="Instagram" xmlns="http://www.w3.org/2000/svg" width="18.884" height="18.915" viewBox="0 0 18.884 18.915" aria-labeled="id-alt">
                 <title id="ig-alt">Мы в Instagram</title>
@@ -203,6 +224,7 @@
 <script>
 import AppIcon from "@/components/AppIcon.vue"
 import AppSearch from "@/components/AppSearch.vue"
+import axios from "axios"
 
 export default {
   name: "AppFooter",
@@ -221,9 +243,14 @@ export default {
     return {
       brand: 'ЭндиЗайн',
       valid: true,
-      name: '',
-      contact: '',
-      message: '',
+      response: '',
+      honeypot: '',
+      sending: false,
+      form: {
+        Name: '',
+        contact: '',
+        message: ''
+      },
       contactRules: [
         v => !!v || 'Укажите E-mail или телефон'
       ]
@@ -237,11 +264,40 @@ export default {
   methods: {
     getCategoryChildren (id) {
       return this.categories.filter( cat => cat.parent == id )
-    },
+    }, 
+    async submitForm() {
+      if (!this.honeypot && !this.sending) {
+        this.sending = true
+        this.response = ''
+        const formData = new FormData();
+        Object.keys(this.form).forEach((key) => {
+          formData.append(key, this.form[key])
+        });
+        // Post the form, just make sure to set the 'Content-Type' header
+        const res = await axios.post('https://andesign.cpkiu.xyz/wp-json/contact-form-7/v1/contact-forms/242/feedback', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }).then((Response) => {
+          this.response = Response.data.message
+
+          this.form = {
+            Name: '',
+            contact: '',
+            message: ''
+          }
+
+          this.sending = false
+        })
+          .catch((err) => {
+            console.log(err)
+          });
+      }
+    }
   },
   created() {
     this.$nuxt.$on('set-message', (message) => {
-      this.message = 'Привет, хочу заказать ' + message +'!'
+      this.form.message = 'Привет, хочу заказать ' + message +'!'
     })
   }
 };
