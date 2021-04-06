@@ -60,7 +60,7 @@ export default {
   },
   created() {
     // this.$store.dispatch("getPosts"),
-    this.$store.dispatch("getPCases")
+    //this.$store.dispatch("getPCases")
     // this.$store.dispatch("getCategories"),
     // this.$store.dispatch("getPages")
   },

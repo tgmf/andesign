@@ -48,6 +48,9 @@ export default {
     "~/plugins/pCases.server.js",
     "~/plugins/dateformat.js"
   ],
+  router: {
+    base: '/'
+  },
   generate: {
     routes: dynamicRoutes
   },

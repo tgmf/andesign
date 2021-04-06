@@ -1,5 +1,5 @@
 <template>
-  <main class="category individual">
+  <div class="category individual">
     <section class="head">
       <v-container
           fluid
@@ -250,7 +250,7 @@
         </v-row>
       </v-container>
     </section>
-  </main>
+  </div>
 </template>
 
 <script>
@@ -321,7 +321,7 @@ export default {
 
 <style lang="scss">
 @import "@/assets/mixins.scss";
-main.category.individual {
+div.category.individual {
   position: relative;
     
   &::before {

@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <app-nav :categories="categories" />
-    <span class="descr andeGray--text">Группа визуальных коммуникаций</span>
     <v-main>
+      <app-nav :categories="categories" />
+      <span class="descr andeGray--text">Группа визуальных коммуникаций</span>
       <nuxt />
       <app-map />
       <app-footer  :categories="categories" />
@@ -75,8 +75,8 @@ h4 {
 }
 
 h1 {
+  font-size: 3.4375em;
   margin-bottom: 30px;
-  text-align: center;
 }
 
 .aligncenter,.alignleft,.alignright {
