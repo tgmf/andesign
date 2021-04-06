@@ -166,7 +166,7 @@ div.search-results {
   }
   
   .container {
-    padding: 8.75em 4em 2.5em;
+    padding: 6.5em 4em 2.5em;
     position: relative;
 
     .res-num {

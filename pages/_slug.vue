@@ -315,6 +315,9 @@ export default {
   created() {
     this.$store.dispatch("getPCases")
     this.populateChildrenModels()
+  },
+  validate({ params, store }) {
+    return store.state.categories.some(category => category.slug === params.slug)
   }
 };
 </script>
