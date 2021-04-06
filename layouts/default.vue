@@ -238,7 +238,7 @@ span.descr {
   font-weight: 400;
   line-height: 1.45;
   width: 10em;
-  top: 126px;
+  top: 36px;
   left:5em;
   position: absolute;
   z-index: 10;

@@ -38,7 +38,7 @@
     props: ['error'],
     layout: 'default',
     created() {
-      store.dispatch('getCategories')
+      this.$store.dispatch('getCategories')
     },
     computed: {
       categories() {
