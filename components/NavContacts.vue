@@ -111,7 +111,7 @@
             </svg>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title><a @click="$vuetify.goTo('#map', options)" class="with-dot smaller white--text">НА КАРТЕ</a></v-list-item-title>
+            <v-list-item-title><a @click="$vuetify.goTo('#map-section', options)" class="with-dot smaller white--text">НА КАРТЕ</a></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>

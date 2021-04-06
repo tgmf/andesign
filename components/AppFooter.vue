@@ -184,7 +184,7 @@
               </svg>
             </v-btn>
           </a>
-          <a
+          <!-- <a
             href="https://www.instagram.com/ande_sign_2004/"
             target="_blank"
           >
@@ -205,7 +205,7 @@
                 </g>
               </svg>
             </v-btn>
-          </a>
+          </a> -->
           <hr
             class="andeOrange my-4" 
             width="45px"

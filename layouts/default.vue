@@ -244,10 +244,4 @@ span.descr {
   z-index: 10;
 }
 
-@media screen and (min-width: 1264px) {
-  span.descr {
-    position: fixed;
-  }
-}
-
 </style>

@@ -30,6 +30,12 @@ export default {
       { rel: "icon", type: "image/png", href: "/favico.png" }
     ]
   },
+  vue: {
+    config: {
+      productionTip: false,
+      devtools: true
+    }
+  },
   /*
    ** Customize the progress-bar color
    */
