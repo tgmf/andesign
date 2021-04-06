@@ -35,8 +35,7 @@
 
 <script>
   export default {
-    props: ['error'],
-    layout: 'default'
+    props: ['error']
   }
 </script>
 

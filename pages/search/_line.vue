@@ -35,6 +35,7 @@
             </small>
           </h1>
           <nuxt-link
+            v-once
             v-for="(suggestion, index) in suggestions.sort((a, b) => b.relation - a.relation)"
             :key="suggestion.slug"
             :to="`/${suggestion.slug}`"
@@ -77,6 +78,10 @@ export default {
     },
     pCases() {
       return this.$store.state.pCases
+    },
+    suggestions() {
+      let suggestions = []
+      return 
     }
   },
   created() {
@@ -97,13 +102,11 @@ export default {
             relation += service.title?.toLowerCase().includes(line)*3 + service.description?.toLowerCase().includes(line)*1
           })
         }
-        if (existing) {
-          if (page.acf?.prologue?.length) existing.description = page.acf.prologue
-          existing.relation += relation
-          return 
-        }
         if (relation > 0) {
-          this.suggestions.push({title: page.title.rendered, slug: parent.slug, description: page.acf.prologue, relation: relation})
+          if (existing) {
+            return existing.relation += relation
+          }
+          this.suggestions.push({title: parent.name, slug: parent.slug, description: parent.description, relation: relation})
         }
       })
     },
@@ -114,12 +117,10 @@ export default {
         let existing = false
         if (this.suggestions.find(sugestion => sugestion.slug == parent.slug)) existing = this.suggestions.find(sugestion => sugestion.slug == parent.slug)
         let relation = cat.name?.toLowerCase().includes(line)*5 + cat.description?.toLowerCase().includes(line)*3
-        if (existing) {
-          if (existing?.description?.length == 0) existing.description = cat.description
-          existing.relation += relation
-          return 
-        }
         if (relation > 0) {
+          if (existing) {
+            return existing.relation += relation
+          }
           this.suggestions.push({title: parent.name, slug: parent.slug, description: parent.description, relation: relation})
         }
       })
@@ -137,10 +138,10 @@ export default {
             relation += image.caption?.toLowerCase().includes(line)*3 + image.description?.toLowerCase().includes(line)*1
           })
         }
-        if (existing) {
-          return existing.relation += relation
-        }
         if (relation > 0) {
+          if (existing) {
+            return existing.relation += relation
+          }
           this.suggestions.push({title: parent.name, slug: parent?.slug, description: parent.description, relation: relation})
         }
       })

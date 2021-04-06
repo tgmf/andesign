@@ -59,9 +59,11 @@ export default {
     search () {
       console.log(this.searchLine) 
       if (this.searchLine.length >= 3) {
+        let query = this.searchLine
         this.$refs.search.blur();
+        this.searchLine = ''
         this.err=''
-        return this.$router.push({name: 'search-line', params: { line: this.searchLine }})
+        return this.$router.push({name: 'search-line', params: { line: query }})
       }
       this.$refs.search.focus()
       return this.err = 'Введите еще хотя бы ' + (3 - this.searchLine.length) + (this.searchLine.length == 2 ? ' букву' : ' буквы') 
