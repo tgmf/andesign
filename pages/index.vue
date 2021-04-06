@@ -34,44 +34,13 @@ export default {
     };
   },
   computed: {
-    // posts() {
-    //   return this.$store.state.posts
-    // },
+
     pCases() {
       return this.$store.state.pCases
     },
-    // tags() {
-    //   return this.$store.state.tags
-    // },
     categories() {
       return this.$store.state.categories
     }
-    // sortedPosts() {
-    //   if (!this.selectedTag) return this.posts
-    //   return this.posts.filter(el => el.tags.includes(this.selectedTag))
-    // },
-    // sortedPCases() {
-    //   if (!this.selectedTag) return this.pCases
-    //   return this.pCases.filter(el => el.tags.includes(this.selectedTag))
-    // },
-    // pages() {
-    //   return this.$store.state.pages
-    // }
-  },
-  created() {
-    // this.$store.dispatch("getPosts"),
-    //this.$store.dispatch("getPCases")
-    // this.$store.dispatch("getCategories"),
-    // this.$store.dispatch("getPages")
-  },
-  methods: {
-    // updateTag(tag) {
-    //   if (!this.selectedTag) {
-    //     this.selectedTag = tag.id
-    //   } else {
-    //     this.selectedTag = null
-    //   }
-    // }
   }
 };
 </script>
