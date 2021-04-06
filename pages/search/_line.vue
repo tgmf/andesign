@@ -46,7 +46,7 @@
               v-html="index < 9 ? '0' + (index + 1) : index + 1"
             />
             <h2
-              class="result-title andeOrange--text"
+              class="result-title andeDarkOrange--text"
               v-html="suggestion.title"
             />
             <p
@@ -169,6 +169,7 @@ div.search-results {
     .res-num {
       font-size: 1.6875em;
       line-height: 40px;
+      color: #151D24!important;
     }
 
     h2 {

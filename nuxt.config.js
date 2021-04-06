@@ -52,7 +52,8 @@ export default {
     base: '/'
   },
   generate: {
-    routes: dynamicRoutes
+    routes: dynamicRoutes,
+    fallback: '404.html'
   },
   /*
    ** Nuxt.js dev-modules
