@@ -227,13 +227,16 @@ div.case-slider {
 
       .nav-buttons {
 
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
         p {
-          margin: 3em 0 .5em 1.5em;
+          margin: 3em 0 .5em 1.6em;
+          width: 100%;
         }
         
         .even & {
-          flex-wrap: wrap;
-          display: flex;
           justify-content: flex-end;
 
           p {
@@ -252,11 +255,11 @@ div.case-slider {
           border-radius: 9999px;
 
           &.prev-button {
-            margin-right: 5px;
+            margin-right: 0;
           }
 
           &.next-button {
-            margin-left: 5px;
+            margin-left: 0;
           }
         }
       

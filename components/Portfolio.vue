@@ -161,7 +161,9 @@ section.portfolio {
 
   .category {
     padding: 3em 0;
+    padding-left: 4em;
     margin-right: -4em;
+    margin-left: -4em;
 
     &.has-portfolio {
       background: var(--v-background-base);
@@ -172,8 +174,8 @@ section.portfolio {
     }
 
     &.even {
-      margin-right: 0;
-      margin-left: -4em;
+      padding-right: 4em;
+      padding-left: 0;
 
       .v-slide-group__wrapper {
         margin-right: 0;

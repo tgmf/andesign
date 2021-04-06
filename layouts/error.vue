@@ -36,7 +36,15 @@
 <script>
   export default {
     props: ['error'],
-    layout: 'default'
+    layout: 'default',
+    created() {
+      store.dispatch('getCategories')
+    },
+    computed: {
+      categories() {
+        return this.$store.state.categories
+      }
+    }
   }
 </script>
 
