@@ -78,10 +78,6 @@ export default {
     },
     pCases() {
       return this.$store.state.pCases
-    },
-    suggestions() {
-      let suggestions = []
-      return 
     }
   },
   created() {
