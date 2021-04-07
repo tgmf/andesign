@@ -59,7 +59,6 @@
                 v-html="pCase.title.rendered"
               />
               <hr
-                v-if="image.caption"
                 class="andeLightGray my-6"
               />
               <p
@@ -149,25 +148,27 @@ export default {
 </script>
 
 <style lang="scss" scope>
-div.case-viewer {
-  .container {
-    padding: 6.5em 4em;
-    height:100%;
+div.case-slider.case-viewer {
+  .v-sheet {
+    .container {
+      padding: 6.5em 4em;
+      height:100%;
 
-    hr {
-      height: 7px;
-      margin-left: 0;
-    }
-    
-    div.close-button {
-      
-      .v-btn.view-button span {
-        background: url(/img/close.svg) center center no-repeat;
+      hr {
+        height: 7px;
+        margin-left: 0;
       }
+      
+      div.close-button {
+        
+        .v-btn.view-button span {
+          background: url(/img/close.svg) center center no-repeat;
+        }
 
-      .view-button:after {
-        padding-top: .9em;
-        content: url(/img/close_white.svg);
+        .view-button:after {
+          padding-top: .9em;
+          content: url(/img/close_white.svg);
+        }
       }
     }
   }

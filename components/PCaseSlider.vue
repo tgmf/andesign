@@ -168,14 +168,6 @@ div.case-slider {
           width: 56px;
           height: 56px;
           border-radius: 9999px;
-
-          &.prev-button {
-            margin-right: 5px;
-          }
-
-          &.next-button {
-            margin-left: 5px;
-          }
         }
       
         .prev-button::before, .next-button::before {
