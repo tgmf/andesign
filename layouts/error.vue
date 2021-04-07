@@ -39,6 +39,8 @@
     layout: 'default',
     created() {
       this.$store.dispatch('getCategories')
+      this.$store.dispatch('getPages')
+      this.$store.dispatch('getPCases')
     },
     computed: {
       categories() {

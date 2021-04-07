@@ -43,7 +43,7 @@
             <v-spacer/>
             <div class="checkTheCaseOut">
               <p
-                @click="console.log('hey')"
+                @click="openCaseViewer(pCase)"
               >
                 cмотреть<br/>проект
               </p>
@@ -53,6 +53,7 @@
                 elevation="0"
                 color="andeLightGray"
                 class="view-button"
+                @click="openCaseViewer(pCase)"
               >&nbsp;</v-btn>
 
             </div>
@@ -151,6 +152,9 @@ export default {
         return this.prevIsDisabled = true
       }
       return this.$refs.caseSlider.scrollOffset -= itemWidth
+    },
+    openCaseViewer(pCase) {
+      this.$nuxt.$emit('open-case-viewer', pCase)
     }
   }
 };

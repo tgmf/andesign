@@ -91,17 +91,24 @@
           cols="12"
           md="7"
         >
-          <portfolio-slider :category="category.id" :theme="category.acf.theme" :even="index%2 ? true : false"></portfolio-slider>
+          <portfolio-slider :category="category.id" :theme="category.acf.theme" :even="index%2 ? true : false" />
         </v-col>
       </v-row>
     </v-container>
+    <v-dialog
+      v-model="dialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
+      <case-viewer :pCase="pCase" />
+    </v-dialog>
+
   </section>
 </template>
 
 <script>
-import PortfolioSlider from './PortfolioSlider.vue';
 export default {
-  components: { PortfolioSlider },
   name: "Portfolio",
   props: {
     categories: {
@@ -111,6 +118,21 @@ export default {
   },
   data() {
     return {
+      dialog: false,
+      pCase: {
+        acf: {
+          description: '',
+          media: []
+        },
+        categories: [],
+        content: {
+          rendered: ''
+        },
+        title: {
+          rendered: ''
+        },
+
+      }
     };
   },
   computed: {
@@ -119,6 +141,26 @@ export default {
     }
   },
   created() {
+    this.$nuxt.$on('open-case-viewer', (pCase) => {
+      this.pCase = Object.assign({}, pCase)
+      this.dialog = true
+    })
+    this.$nuxt.$on('close-case-viewer', () => {
+      this.pCase= {
+        acf: {
+          description: '',
+          media: []
+        },
+        categories: [],
+        content: {
+          rendered: ''
+        },
+        title: {
+          rendered: ''
+        },
+      }
+      this.dialog = false
+    })
   },
   methods: {
     getCategoryChildren (id) {
@@ -223,5 +265,9 @@ section.portfolio {
       }
     }
   }
+}
+
+.v-dialog {
+  background: var(--v-background-base);
 }
 </style>
