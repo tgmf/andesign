@@ -64,22 +64,22 @@
               <v-btn
                 fab
                 depressed
-                :disabled="prevIsDisabled"
+                :disabled="nextIsDisabled"
                 elevation="0"
                 color="andeLightGray"
-                class="prev-button"
-                @click="prevSlide"
-                ref="prevButton"
+                :class="[{'mb-15' : prevIsDisabled, 'mb-2' : !prevIsDisabled}, 'next-button']"
+                @click="nextSlide"
+                ref="nextButton"
               >&nbsp;</v-btn>
               <v-btn
                 fab
                 depressed
-                :disabled="nextIsDisabled"
+                :disabled="prevIsDisabled"
                 elevation="0"
                 color="andeLightGray"
-                class="next-button"
-                @click="nextSlide"
-                ref="nextButton"
+                :class="[{'mb-15' : nextIsDisabled}, 'prev-button']"
+                @click="prevSlide"
+                ref="prevButton"
               >&nbsp;</v-btn>
             </div>
           </v-col>
@@ -232,8 +232,7 @@ div.case-slider {
       .nav-buttons {
 
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        flex-direction: column;
 
         p {
           margin: 3em 0 .5em 1.6em;
@@ -241,7 +240,7 @@ div.case-slider {
         }
         
         .even & {
-          justify-content: flex-end;
+          align-items: flex-end;
 
           p {
             transform: rotate(0);

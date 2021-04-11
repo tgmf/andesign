@@ -1,64 +1,63 @@
 <template>
-  <div class="search-results">
-    <v-container
-      fluid
-    >
-      <v-row>
-        <v-col
-          md="4"
-          offset-md="2"
+  <v-container
+    fluid
+      class="search-results"
+  >
+    <v-row>
+      <v-col
+        md="4"
+        offset-md="2"
+      >
+        <div
+          class="query d-flex align-center my-2"
         >
-          <div
-            class="query d-flex align-center my-2"
+          <hr
+            width="45px"
+            class="andeTeal"
           >
-            <hr
-              width="45px"
-              class="andeTeal"
-            >
-            <span
-              class="ml-2"
-            >
-              Ваш запрос: {{ $route.params.line }}
-            </span>
-          </div>
-          <h1
-            v-if="suggestions.length"
+          <span
+            class="ml-2"
           >
-            Мы нашли вам:
-          </h1>
-          <h1
-            v-else
-          >
-            Мы ничего не нашли:(<br/>
-            <small>
-              Может, вам повезет больше:
-            </small>
-          </h1>
-          <nuxt-link
-            v-once
-            v-for="(suggestion, index) in suggestions.sort((a, b) => b.relation - a.relation)"
-            :key="suggestion.slug"
-            :to="`/${suggestion.slug}`"
-            class="mb-8"
-          >
-            <span
-              class="with-dot extrude-dot font-weight-black res-num"
-              v-html="index < 9 ? '0' + (index + 1) : index + 1"
-            />
-            <h2
-              class="result-title andeDarkOrange--text"
-              v-html="suggestion.title"
-            />
-            <p
-              class="result-description"
-              v-html="suggestion.description"
-            />
-            <div class="mt-12 d-flex flex-row"><hr width="7px" class="andeLightGray mr-1 ml-n4"> <hr width="45px" class="andeLightGray"></div>
-          </nuxt-link>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
+            Ваш запрос: {{ $route.params.line }}
+          </span>
+        </div>
+        <h1
+          v-if="suggestions.length"
+        >
+          Мы нашли вам:
+        </h1>
+        <h1
+          v-else
+        >
+          Мы ничего не нашли:(<br/>
+          <small>
+            Может, вам повезет больше:
+          </small>
+        </h1>
+        <nuxt-link
+          v-once
+          v-for="(suggestion, index) in suggestions.sort((a, b) => b.relation - a.relation)"
+          :key="suggestion.slug"
+          :to="`/${suggestion.slug}`"
+          class="mb-8"
+        >
+          <span
+            class="with-dot extrude-dot font-weight-black res-num"
+            v-html="index < 9 ? '0' + (index + 1) : index + 1"
+          />
+          <h2
+            class="result-title andeDarkOrange--text"
+            v-html="suggestion.title"
+          />
+          <p
+            class="result-description"
+            v-html="suggestion.description"
+          />
+          <div class="mt-12 d-flex flex-row"><hr width="7px" class="andeLightGray mr-1 ml-n4"> <hr width="45px" class="andeLightGray"></div>
+        </nuxt-link>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -149,6 +148,9 @@ export default {
 <style lang="scss" scoped>
 div.search-results {
     
+  padding: 12.5em 4em 2.5em;
+  position: relative;
+    
   &::before {
     content: "";
     position: absolute;
@@ -162,23 +164,18 @@ div.search-results {
     z-index: 0;
   }
   
-  .container {
-    padding: 6.5em 4em 2.5em;
-    position: relative;
+  .res-num {
+    font-size: 1.6875em;
+    line-height: 40px;
+    color: #151D24!important;
+  }
 
-    .res-num {
-      font-size: 1.6875em;
-      line-height: 40px;
-      color: #151D24!important;
-    }
+  h2 {
+    font-size: 1em;
+  }
 
-    h2 {
-      font-size: 1em;
-    }
-
-    a {
-      display: block;
-    }
+  a {
+    display: block;
   }
 }
 </style>

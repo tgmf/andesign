@@ -12,7 +12,12 @@
           <hr data-v-5209668b="" width="45px" class="andeTeal my-2">
           <h1 v-if="error.statusCode === 404">СТРАНИЦА НЕ НАЙДЕНА</h1>
           <h1 v-else>На сайте ведутся работы, заходите чуть позже</h1>
-          <img src="/img/404.svg" alt="404" class="my-4 d-block">
+          <img
+            v-if="error.statusCode === 404"
+            src="/img/404.svg"
+            alt="404"
+            class="my-4 d-block"
+          />
           <nuxt-link
             exact
             to="/"

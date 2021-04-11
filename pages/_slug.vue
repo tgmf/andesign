@@ -49,6 +49,7 @@
                   class="category-switches"
                 >
                   <v-switch
+                    color="andeTeal"
                     v-for="(child, index) in categoryChildren"
                     :key="child.id"
                     v-model="switches[index]"
@@ -61,11 +62,9 @@
                 cols="12"
                 :md="(categoryChildren.length ? 2 : 4) * (page.acf.top_right? 2 : 1)"
                 :offset-md="!categoryChildren.length ? 2 : ''"
+                v-html="page.acf.prologue || category.description.replace(/(?:\r\n|\r|\n)/g, '<br />')"
+                class="mb-0"
               >
-                <p
-                  class="mb-0"
-                  v-html="page.acf.prologue || category.description.replace(/(?:\r\n|\r|\n)/g, '<br />')"
-                />
               </v-col>
             </v-row>
             <v-row>
@@ -82,7 +81,11 @@
                   width="9.8vw"
                   @click="newMessage(category.name, switches)"
                   class="white--text view-button order-button"
-                ><span>Заказать</span></v-btn>
+                >
+                  <span>
+                    Заказать
+                  </span>
+                </v-btn>
                 <div class="mt-12 d-flex flex-row">
                   <hr
                     width="7px"
@@ -300,6 +303,8 @@ export default {
       return null
     },
     newMessage(message, options) {
+      console.log('new message: ', message)
+      
       if (options && options.find(el => el != null)) {
         const interestingCategories = this.categoryChildren.filter(({id}) => options.includes(id)),
         n = interestingCategories.length
@@ -309,7 +314,7 @@ export default {
         }
       }
       this.$nuxt.$emit('set-message', message)
-      this.$vuetify.goTo('#footer')
+      return this.$nuxt.$emit('open-dialog', 'order-form', {message: message})
     }
   },
   created() {
@@ -326,6 +331,7 @@ export default {
 @import "@/assets/mixins.scss";
 div.category.individual {
   position: relative;
+  padding-top: 6em;
     
   &::before {
     content: "";
@@ -378,7 +384,77 @@ div.category.individual {
 
       .category-switches {
         .v-input{
-          padding-left: calc(50% - 3em);
+          padding-left: calc(50% - 6em);
+
+          .v-label {
+            font-size: 1.25em;
+            line-height: 1.5;
+            text-transform: uppercase;
+            color: #151D24;
+            position: relative;
+            z-index: 0;
+            max-width: fit-content;
+
+            &::before {
+              content: "";
+              width: 7px;
+              height: 7px;
+              border-radius: 9999px;
+              background-color: var(--v-andeOrange-base);
+              display: block;
+              position: absolute;
+              bottom: 0.3em;
+              left: -0.3em;
+              z-index: -1;
+              transition: width .3s ease;
+            }
+          }
+
+          &.v-input--is-label-active .v-label::before {
+              width: calc(100% + .6em);
+          }
+
+          .v-input--selection-controls__input {
+            width:4.125em;
+            margin-right: .75em;
+
+            .v-input--switch__track {
+              height: 1.6875em;
+              width:4.125em;
+              border-radius: 99px;
+              opacity: .4;
+              border: solid white 2px;
+              top: 0;
+            }
+
+            .v-input--switch__thumb {
+              top: 0;
+              height: 1.6875em;
+              width: 1.6875em;
+              color: var(--v-andeDarkOrange-base);
+              background-image: url(/img/x.svg);
+              background-position: center center;
+              background-repeat: no-repeat;
+            }
+          
+            .v-input--selection-controls__ripple {
+              top: calc(50% - 22px);
+              left: -11px;
+              color: var(--v-andeDarkOrange-base);
+            }
+          }
+
+          &.v-input--is-label-active .v-input--switch__thumb {
+            background-image: url(/img/ok.svg);
+          }
+
+          &.v-input--is-dirty .v-input--selection-controls__ripple, &.v-input--switch.v-input--is-dirty .v-input--switch__thumb {
+              transform: translate(2.5625em, 0);
+          }
+
+          &.theme--light.v-input--switch .v-input--switch__track {
+            color: var(--v-andeOrange-base);
+          }
         }
       }
     }

@@ -4,9 +4,12 @@
       <app-nav :categories="categories" />
       <span class="descr andeGray--text">Группа визуальных коммуникаций</span>
       <nuxt />
-      <app-map />
-      <app-footer  :categories="categories" />
+      <app-map app />
+      <app-footer app :categories="categories" />
     </v-main>
+    <keep-alive>
+      <modal-component componentName="order-form" :componentProps="{allowUpload: true}" :dark="true" />
+    </keep-alive>
   </v-app>
 </template>
 
@@ -190,7 +193,7 @@ hr {
 .v-btn.view-button {
   overflow: hidden;
   position: relative;
-  font-size: 1.125em;
+  font-size: 1.1429em;
   font-weight: bold;
   text-align: center;
 
@@ -238,10 +241,9 @@ span.descr {
   font-weight: 400;
   line-height: 1.45;
   width: 10em;
-  top: 36px;
+  top: 132px;
   left:5em;
   position: absolute;
-  z-index: 10;
+  z-index: 1;
 }
-
 </style>

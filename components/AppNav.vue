@@ -1,11 +1,10 @@
 <template>
   <v-app-bar 
-    class="nav"
+    :class="[{'order-form-active' : orderFormActive}, 'nav']"
     fixed
     flat
     height="96"
     color="white"
-    app
     tag="nav"
   >
     <v-container
@@ -71,9 +70,9 @@
 </template>
 
 <script>
-import AppIcon from "@/components/AppIcon.vue"
-import SearchToggle from "@/components/SearchToggle.vue"
-import NavContacts from "@/components/NavContacts.vue"
+import AppIcon from "./AppIcon.vue"
+import SearchToggle from "./SearchToggle.vue"
+import NavContacts from "./NavContacts.vue"
 
 export default {
   name: "AppNav",
@@ -92,13 +91,22 @@ export default {
   },
   data(){
     return {
-      brand: 'ЭндиЗайн'
+      brand: 'ЭндиЗайн',
+      orderFormActive: false,
     }
   },
   computed: {
     navItems() {
       return this.categories.filter( cat => cat.parent === 0 );
     }
+  },
+  created() {
+    this.$nuxt.$on('open-dialog', () => {
+      this.orderFormActive = true
+    })
+    this.$nuxt.$on('close-dialog', () => {
+      this.orderFormActive = false
+    })
   }
 };
 </script>
@@ -108,6 +116,8 @@ export default {
   color: #000;
   border-bottom-left-radius: 2em!important;
   border-bottom-right-radius: 2em!important;
+  background-color: rgba(255, 255, 255, 0.75)!important;
+  transition: height .5s ease-out;
 
   .container {
   padding: .75em 3em;
@@ -122,9 +132,11 @@ export default {
     font-size: 14px;
     font-weight: bold;
   }
-  &.v-app-bar--is-scrolled {
-    background-color: rgba(255, 255, 255, 0.75)!important;
+
+  &.order-form-active {
+    height:100vh!important;
   }
+
 }
 
 @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {

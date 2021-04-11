@@ -69,7 +69,7 @@
                   depressed
                   height="3em"
                   width="9.8vw"
-                  @click="$vuetify.goTo('#footer')"
+                  @click.stop="orderButton"
                   class="white--text view-button order-button"
                 ><span>Заказать</span></v-btn>
               </v-sheet>
@@ -232,6 +232,11 @@ export default {
         { icon: '/img/award.svg', fact: '14', title: 'Наград в\xa0конкурсах годовых отчетов', description: 'В первую очередь, ЭндиЗайн ориентирован на\xa0сотрудничество с\xa0крупнейшими российскими и\xa0мировыми компаниями на\xa0оказание полного комплекса полиграфических, дизайнерских, информационных услуг.' },
       ]
     };
+  },
+  methods: {
+    orderButton() {
+      this.$nuxt.$emit('open-dialog', 'order-form')
+    }
   }
 };
 </script>
@@ -246,6 +251,7 @@ section.masthead {
   background-image: url("/img/index_left.png"), url("/img/index_right.png");
   background-repeat: no-repeat;
   background-position: -10% 10%, 112% 90%;
+  padding-top: 6em;
   h1 {
     color: white;
     @include fluid-type(font-size, 320px, 1366px, 30px, 65px);

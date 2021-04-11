@@ -63,101 +63,14 @@
           >
             ПОИСК
           </p>
-          <app-search></app-search>
+          <app-search />
         </v-col>
         <v-col
           cols="12"
           md="2"
           offset-md="1"
         >
-          <v-form
-            id="contact-form"
-            v-model="valid"
-            @submit.prevent="submitForm"
-          >
-            <label
-              for="name"
-              class="mb-1"
-            >
-              От кого
-            </label>
-            <v-text-field
-              v-model="form.Name"
-              filled
-              solo
-              flat
-              name="name"
-              id="name"
-              required
-            ></v-text-field>
-            <label
-              for="contact"
-              class="mb-1"
-            >
-              Телефон/E-mail
-            </label>
-            <v-text-field
-              v-model="form.contact"
-              filled
-              solo
-              flat
-              :rules="contactRules"
-              id="contact"
-              name="contact"
-              required
-            />
-            <label
-              for="message"
-              class="mb-1"
-            >
-              Сообщение
-            </label>
-            <v-textarea
-              v-model="form.message"
-              filled
-              solo
-              flat
-              auto-grow
-              rows="7"
-              background-color="white"
-              color="andeDarkGray"
-              id="message"
-              name="message"
-            />
-            <label
-              v-show="false"
-              for="company"
-            >Компания</label>
-            <v-text-field
-              v-show="false"
-              v-model="honeypot"
-              id="company"
-              name="company"
-              />
-            <v-btn
-              :disabled="!valid || sending"
-              elevation="0"
-              outlined
-              rounded
-              depressed
-              height="3em"
-              width="9.8vw"
-              color="white"
-              type="submit"
-              class="white--text view-button order-button"
-            >
-              Отправить
-            </v-btn>
-          </v-form>
-          <p
-            class="white--text"
-            v-show="sending">
-            Отправляю
-          </p>
-          <p
-            class="green--text"
-            v-show="response"
-            v-html="response" />
+          <order-form :dark="true" />
         </v-col>
         <v-col
           cols="12"
@@ -222,16 +135,9 @@
 </template>
 
 <script>
-import AppIcon from "@/components/AppIcon.vue"
-import AppSearch from "@/components/AppSearch.vue"
-import axios from "axios"
 
 export default {
   name: "AppFooter",
-  components: {
-    AppIcon,
-    AppSearch
-  },
   props: {
     categories: {
       type: Array,
@@ -241,19 +147,7 @@ export default {
   },
   data() {
     return {
-      brand: 'ЭндиЗайн',
-      valid: true,
-      response: '',
-      honeypot: '',
-      sending: false,
-      form: {
-        Name: '',
-        contact: '',
-        message: ''
-      },
-      contactRules: [
-        v => !!v || 'Укажите E-mail или телефон'
-      ]
+      brand: 'ЭндиЗайн'
     };
   },
   computed: {
@@ -264,41 +158,9 @@ export default {
   methods: {
     getCategoryChildren (id) {
       return this.categories.filter( cat => cat.parent == id )
-    }, 
-    async submitForm() {
-      if (!this.honeypot && !this.sending) {
-        this.sending = true
-        this.response = ''
-        const formData = new FormData();
-        Object.keys(this.form).forEach((key) => {
-          formData.append(key, this.form[key])
-        });
-        // Post the form, just make sure to set the 'Content-Type' header
-        const res = await axios.post('https://andesign.cpkiu.xyz/wp-json/contact-form-7/v1/contact-forms/242/feedback', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }).then((Response) => {
-          this.response = Response.data.message
-
-          this.form = {
-            Name: '',
-            contact: '',
-            message: ''
-          }
-
-          this.sending = false
-        })
-          .catch((err) => {
-            console.log(err)
-          });
-      }
     }
   },
   created() {
-    this.$nuxt.$on('set-message', (message) => {
-      this.form.message = 'Привет, хочу заказать ' + message +'!'
-    })
   }
 };
 </script>
@@ -351,7 +213,9 @@ footer {
 
             a {
               font-weight: 300;
+              text-transform: capitalize;
               text-decoration: underline;
+              line-height: 1.4;
             }
           }
         }
@@ -370,7 +234,7 @@ footer {
         min-height: 1.75em;
       }
 
-      .theme--light.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot:hover {
+      .theme--dark.v-text-field--filled:not(.v-input--is-focused):not(.v-input--has-state) > .v-input__control > .v-input__slot:hover {
         background: rgba(255, 255, 255, 0.75)!important;
       }
 
@@ -388,7 +252,7 @@ footer {
         }
       }
 
-      .theme--light.v-btn.v-btn--disabled {
+      .theme--dark.v-btn.v-btn--disabled {
         color: rgba(255, 255, 255, 0.5) !important;
 
         span {

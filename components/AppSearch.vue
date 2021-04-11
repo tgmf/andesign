@@ -57,7 +57,6 @@ export default {
   },
   methods: {
     search () {
-      console.log(this.searchLine) 
       if (this.searchLine.length >= 3) {
         let query = this.searchLine
         this.$refs.search.blur();

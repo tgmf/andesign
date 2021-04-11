@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div class="index">
     <section class="page-background">
       <v-container
         fluid
@@ -16,21 +16,15 @@
     </section>
     <app-masthead ></app-masthead>
     <portfolio :categories="categories"></portfolio>
-    <!-- <pages :pages="pages"></pages> -->
-  </main>
+  </div>
 </template>
 
 <script>
-import AppMasthead from "@/components/AppMasthead.vue"
-import Portfolio from "@/components/Portfolio.vue"
 export default {
-  components: {
-    AppMasthead,
-    Portfolio
-  },
+
   data() {
     return {
-      activeClass: "active"
+      activeClass: "active",
     };
   },
   computed: {
@@ -41,6 +35,8 @@ export default {
     categories() {
       return this.$store.state.categories
     }
+  },
+  created() {
   }
 };
 </script>
@@ -61,7 +57,7 @@ a:visited {
 .page-background {
   position: fixed;
   width: 100%;
-  height: calc(100vh - 96px);
+  height: 100vh;
   display: flex;
   align-items: center;
 
@@ -170,4 +166,13 @@ a:visited {
   right: 108%;
   backface-visibility: hidden;
 }
+
+.v-dialog {
+
+  .v-sheet {
+    position: relative;
+    background: radial-gradient(circle at 100% 0, #5F6A75, #151D24 25%);
+  }
+}
+  
 </style>
