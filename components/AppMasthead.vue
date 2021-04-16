@@ -242,9 +242,6 @@ export default {
       return this.$store.state.mainPage.facts
     }
   },
-  mounted() {
-    this.$store.dispatch('getMainPage')
-  },
   methods: {
     orderButton() {
       this.$nuxt.$emit('open-dialog', 'order-form')
