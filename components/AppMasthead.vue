@@ -209,12 +209,16 @@
         md="3"
         class="mt-0 py-5"
       >
-        <h3>{{ fact.title }}</h3>
+        <h3
+          v-html="fact.title"
+        />
         <hr
           class="white my-2"
           width="45px"
         />
-        <p>{{ fact.text }}</p>
+        <p
+          v-html="fact.text"
+        />
       </v-col>
       </v-row>
     </v-container>
