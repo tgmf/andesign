@@ -80,7 +80,9 @@
               cols="12"
               md="7"
             >
-            <p>Наша команда поможет воплотить любой Ваш проект от&nbsp;фундамента до&nbsp;визитки, ведь Группа "ЭндиЗайн" объединяет высоко-квалифицированных специалистов в&nbsp;областях:</p>
+            <p
+            v-html="intro"
+            />
             </v-col>
           </v-row>
         </v-col>
@@ -143,14 +145,19 @@
       </v-row>
       <v-row>
         <v-col 
-          v-for="comp in comps" :key="comp.number"
+          v-for="(service, index) in services" :key="service.descr"
           cols="12"
           md="1"
-          :offset-md="comp.number == '01' ? 2 : ''"
+          :offset-md="index === 0 ? 2 : ''"
           class="comp"
         >
-        <span class="with-dot extrude-dot font-weight-black comp-num">{{ comp.number }}</span>
-        <p class="my-0">{{ comp.text }}</p>
+        <span class="with-dot extrude-dot font-weight-black comp-num"
+            v-html="index < 9 ? '0' + (index + 1) : index + 1"
+        />
+        <p
+          class="my-0"
+          v-html="service.descr"
+        />
         </v-col>
       </v-row>
       <v-row>
@@ -166,7 +173,7 @@
       >
         <v-sheet class="fun-facts-head-bg"> </v-sheet>
         <v-col 
-          v-for="(fact, index) in funFacts" 
+          v-for="(fact, index) in facts" 
           :key="fact.title"
           cols="12"
           md="3"
@@ -181,7 +188,7 @@
             width="45px"
           />
           <span
-            v-html="fact.fact"
+            v-html="fact.featured"
           >
           </span>
         </v-col>
@@ -196,7 +203,7 @@
       >
       </v-col>
       <v-col
-        v-for="fact in funFacts"
+        v-for="fact in facts"
         :key="fact.title"
         cols="12"
         md="3"
@@ -207,7 +214,7 @@
           class="white my-2"
           width="45px"
         />
-        <p>{{ fact.description }}</p>
+        <p>{{ fact.text }}</p>
       </v-col>
       </v-row>
     </v-container>
@@ -218,20 +225,21 @@
 export default {
   name: "AppMasthead",
   data() {
-    return {
-      comps: [
-        { number: '01', text: 'архитектурного, графического и\xa0интернет дизайна;' },
-        { number: '02', text: 'создания систем освещения, навигации и\xa0наружной рекламы;' },
-        { number: '03', text: 'проектирования и\xa0производства мебели, торгового оборудования;' },
-        { number: '04', text: 'строительства и\xa0отделки;' },
-        { number: '05', text: 'полиграфии, маркетинга и\xa0рекламы.' }
-      ],
-      funFacts: [
-        { icon: '/img/sandglass.svg', fact: '18', title: 'Лет опыта работы', description: 'Группа визуальных коммуникаций "ЭндиЗайн" была основана, в\xa02003 году как бюро графического дизайна. Нетривиальный подход к\xa0задачам и\xa0ответственность позволили нам зарекомендовать себя надежным партнером и\xa0другом для крупнейших компаний российского рынка.' },
-        { icon: '/img/home.svg', fact: '6000 м<sup>2</sup>', title: 'Производственных помещений', description: 'Уже через пару лет это позволило нам открыть собственное производство наружной рекламы, световых технологий, печати и\xa0постпечатной обработке. На\xa0сегодняшний день мы добавили и\xa0успешно реализуем направления строительства быстровозводимых конструкций и\xa0производства мебели.' },
-        { icon: '/img/award.svg', fact: '14', title: 'Наград в\xa0конкурсах годовых отчетов', description: 'В первую очередь, ЭндиЗайн ориентирован на\xa0сотрудничество с\xa0крупнейшими российскими и\xa0мировыми компаниями на\xa0оказание полного комплекса полиграфических, дизайнерских, информационных услуг.' },
-      ]
-    };
+    return {}
+  },
+  computed: {
+    intro() {
+      return this.$store.state.mainPage.intro
+    },
+    services() {
+      return this.$store.state.mainPage.services
+    },
+    facts() {
+      return this.$store.state.mainPage.facts
+    }
+  },
+  mounted() {
+    this.$store.dispatch('getMainPage')
   },
   methods: {
     orderButton() {

@@ -6,9 +6,13 @@ export const state = () => ({
   posts: [],
   tags: [],
   pages: [],
+  mainPage: [],
 })
 
 export const mutations = {
+  updateMainPage: (state, mainPage) => {
+    state.mainPage = mainPage
+  },
   updatePosts: (state, posts) => {
     state.posts = posts
   },
@@ -27,6 +31,23 @@ export const mutations = {
 }
 
 export const actions = {
+
+
+  async getMainPage ({ state, commit, dispatch }) {
+    if (state.mainPage.length) return
+
+    try {
+      let mainPage = await fetch(
+        `${siteURL}/wp-json/acf/v3/options/options`
+      ).then(res => res.json())
+
+      console.log(mainPage)
+
+      commit("updateMainPage", mainPage.acf)
+    } catch (err) {
+      console.log(err)
+    }
+  },
   async getPosts ({ state, commit, dispatch }) {
     if (state.posts.length) return
 
