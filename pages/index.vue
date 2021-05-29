@@ -4,7 +4,9 @@
       <v-container
         fluid
       >
-        <v-row>
+        <v-row
+          class="row justify-end justify-md-start"
+        >
           <v-col
             cols=12
             md=10
@@ -59,16 +61,34 @@ a:visited {
   width: 100%;
   height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  overflow: hidden;
+
+    @media only screen and (min-width: 960px) {
+      align-items: center;
+    }
+  
 
   .container {
-    padding: .75em 4em;
+    padding: .75em 0;
+
+    @media only screen and (min-width: 960px) {
+      padding: .75em 4em;
+    }
   
     .col-12{
-      height: calc(80vh - 77px);
+      height: calc(80vh - 62px);
       background: 
-        url("/img/Andy_web.png") no-repeat right center scroll; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        url("/img/Andy_web.png") no-repeat 67vw 10vh scroll; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
       background-size: contain;
+
+      @media only screen and (min-width: 960px) {
+        height: calc(80vh - 77px);
+        padding: .75em 4em;
+        background: 
+          url("/img/Andy_web.png") no-repeat right center scroll; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        background-size: contain;
+      }
     }
   }
   

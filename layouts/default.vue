@@ -135,6 +135,11 @@ p {
   margin: 15px 0 20px;
   color: #151D24;
   line-height: 1.4;
+  font-size: .875em;
+  
+  @media only screen and (min-width: 960px) {
+    font-size: 1rem;
+  }
 }
 
 .big-thin-text {
@@ -193,9 +198,28 @@ hr {
 .v-btn.view-button {
   overflow: hidden;
   position: relative;
-  font-size: 1.1429em;
+  font-size: .75em;
   font-weight: bold;
   text-align: center;
+  height: 3.25em;
+  width: 11.25em;
+  
+  @media only screen and (min-width: 960px) {
+    font-size: 1.1429em;
+    height: 3em;
+    width: 9.8em;
+  }
+
+  &.v-btn--round {
+    width: 3.5em;
+    height: 3.5em;
+    font-size: 1em;
+  
+    @media only screen and (min-width: 960px) {
+      width: 3em;
+      font-size: 1.1429em;
+    }
+  }
 
   & span {
     transition: .2s transform .3s ease-out;
@@ -241,9 +265,16 @@ span.descr {
   font-weight: 400;
   line-height: 1.45;
   width: 10em;
-  top: 132px;
-  left:5em;
+  top: 71px;
+  left: 1.25em;
   position: absolute;
   z-index: 1;
+}
+
+@media only screen and (min-width: 960px) {
+  span.descr {
+    top: 132px;
+    left:5em;
+  }
 }
 </style>

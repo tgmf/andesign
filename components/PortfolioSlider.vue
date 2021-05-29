@@ -9,15 +9,15 @@
       ref="caseItem"
     >
       <v-sheet
-        width="46vw"
+        :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '90vw' : '46vw'"
       >
         <v-row
           class="fill-height"
         >
           <v-col
-            cols="12"
+            cols="11"
             md="10"
-            :order="even? 2 : 1"
+            :order-md="even? 2 : 1"
           >
               <v-img
                 :src="pCase.acf.media[0].url"
@@ -28,22 +28,24 @@
           <v-col
             cols="12"
             md="2"
-            :order="even ? 1 : 2"
+            :order-md="even ? 1 : 2"
             class="d-flex flex-column"
           >
             <h3
               v-html="pCase.title.rendered"
             />
             <hr
-              class="plain andeLightGray"
+              class="plain andeLightGray d-none d-md-block"
             />
             <p
+              v-if="pCase.acf.media[0].caption"
               v-html="pCase.acf.media[0].caption"
             />
             <v-spacer/>
             <div class="checkTheCaseOut">
               <p
                 @click="openCaseViewer(pCase)"
+                class="d-none d-md-block"
               >
                 cмотреть<br/>проект
               </p>
@@ -58,7 +60,9 @@
 
             </div>
             <div class="nav-buttons">
-              <p>
+              <p
+                class="d-none d-md-block"
+              >
                 еще
               </p>
               <v-btn
@@ -168,7 +172,12 @@ div.case-slider {
     background: transparent;
 
     .row {
-      margin: 0;
+      margin: 0 -.75em;
+      position: relative;
+
+      @media only screen and (min-width: 960px) {
+        margin: 0;
+      }
   
       h3 {
         font-size: 1rem;
@@ -214,6 +223,17 @@ div.case-slider {
       }
 
       .checkTheCaseOut {
+        position: absolute;
+        right: 0;
+        top: 10vw;
+        z-index: 1;
+
+        @media only screen and (min-width: 960px) {
+          position: relative;
+          right: auto;
+          top: auto;
+        }
+
         .even & {
           display: flex;
           flex-direction: column;
@@ -233,6 +253,15 @@ div.case-slider {
 
         display: flex;
         flex-direction: column;
+        position: absolute;
+        right: 0;
+        top: calc(10vw + 4em);
+
+        @media only screen and (min-width: 960px) {
+          position: relative;
+          right: auto;
+          top: auto;
+        }
 
         p {
           margin: 3em 0 .5em 1.6em;

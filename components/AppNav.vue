@@ -1,188 +1,261 @@
 <template>
-  <v-app-bar 
-    :class="[{'order-form-active' : orderFormActive}, 'nav']"
-    fixed
-    flat
-    height="96"
-    color="white"
-    tag="nav"
-  >
-    <v-container
-      fluid
+  <div class="nav-container">
+    <v-app-bar 
+      :class="[{'order-form-active' : orderFormActive}, {'sidebar-active' : sidebar}, 'nav']"
+      fixed
+      flat
+      :height="$vuetify.breakpoint.xs ? 70 : 96"
+      :color="$vuetify.breakpoint.xs ? 'transparent' : 'white'"
+      tag="nav"
     >
-      <span class="hidden-sm-and-up">      
-        <v-app-bar-nav-icon @click="sidebar = !sidebar"></v-app-bar-nav-icon>
-      </span>
-      <v-row>
-        <v-col
-          cols="12"
-          md="2"
-        >
-          <v-app-bar-title>
-          <nuxt-link
-            exact
-            to="/"
+      <v-container
+        fluid
+      >
+        <v-row>
+          <v-col
+            cols="6"
+            md="2"
           >
-              <app-icon :brand="brand"></app-icon>
-            </nuxt-link>
-          </v-app-bar-title>
-        </v-col>
-        <v-col
-          cols="12"
-          md="7"
-        >
-          <ul class="nav-menu">
-            <li v-for="link in navItems" :key="link.slug">
-              <span
-                v-if="$route.name === 'index'"
-                @click="$vuetify.goTo('#'+link.slug)"
-                class="with-dot ease-width"
-              >
-                {{ link.name }}
-              </span>
+            <v-app-bar-title>
               <nuxt-link
-                v-else
-                :to="'/' + link.slug"
-                class="with-dot ease-width">
+                exact
+                to="/"
+              >
+                <app-icon :brand="brand"></app-icon>
+              </nuxt-link>
+            </v-app-bar-title>
+          </v-col>
+          <v-col
+            cols="6"
+            class="d-flex d-sm-none"
+          >
+            <v-spacer/>
+            <span>      
+              <v-app-bar-nav-icon @click="sidebar = !sidebar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="25.833" height="19.667" viewBox="0 0 25.833 19.667">
+                  <line id="Line_17" data-name="Line 17" x2="23.833" transform="translate(1 18.667)" fill="none" stroke="#f6fbfb" stroke-linecap="round" stroke-width="2"/>
+                  <line id="Line_15" data-name="Line 15" x2="23.833" transform="translate(1 1)" fill="none" stroke="#f6fbfb" stroke-linecap="round" stroke-width="2"/>
+                  <line id="Line_18" data-name="Line 18" x2="23.833" transform="translate(1 9.833)" fill="none" stroke="#f6fbfb" stroke-linecap="round" stroke-width="2"/>
+                </svg>
+              </v-app-bar-nav-icon>
+            </span>
+          </v-col>
+          <v-col
+            cols="12"
+            md="7"
+            class="d-none d-sm-block"
+          >
+            <ul class="nav-menu">
+              <li v-for="link in navItems" :key="link.slug">
+                <span
+                  v-if="$route.name === 'index'"
+                  @click="$vuetify.goTo('#'+link.slug)"
+                  class="with-dot ease-width"
+                >
                   {{ link.name }}
-                </nuxt-link>
+                </span>
+                <nuxt-link
+                  v-else
+                  :to="'/' + link.slug"
+                  class="with-dot ease-width">
+                    {{ link.name }}
+                  </nuxt-link>
+              </li>
+            </ul>
+          </v-col>
+          <v-col
+            cols="12"
+            md="3"
+            xl="2"
+            offset-xl="1"
+            class="d-none d-sm-flex"
+          >
+          <ul>
+            <li>
+              <search-toggle></search-toggle>
+            </li>
+            <li>
+              <nav-contacts></nav-contacts>
             </li>
           </ul>
-        </v-col>
-        <v-col
-          cols="12"
-          md="3"
-          xl="2"
-          offset-xl="1"
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-app-bar>
+    <v-navigation-drawer
+      v-model="sidebar"
+      absolute
+      temporary
+      hide-overlay
+      class="d-flex d-sm-none"
+    >
+      <v-list
+        nav
+      >
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
         >
-        <ul>
-          <li>
-            <search-toggle></search-toggle>
-          </li>
-          <li>
-            <nav-contacts></nav-contacts>
-          </li>
-        </ul>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-app-bar>
+          <v-list-item
+          v-for="link in navItems"
+          :key="link.slug"
+          >
+            <span
+              v-if="$route.name === 'index'"
+              @click="$vuetify.goTo('#'+link.slug)"
+              class="with-dot ease-width"
+            >
+              {{ link.name }}
+            </span>
+            <nuxt-link
+              v-else
+              :to="'/' + link.slug"
+              class="with-dot ease-width">
+                {{ link.name }}
+              </nuxt-link>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+  </div>
 </template>
 
 <script>
-import AppIcon from "./AppIcon.vue"
-import SearchToggle from "./SearchToggle.vue"
-import NavContacts from "./NavContacts.vue"
+  import AppIcon from "./AppIcon.vue"
+  import SearchToggle from "./SearchToggle.vue"
+  import NavContacts from "./NavContacts.vue"
 
-export default {
-  name: "AppNav",
-  components: {
-    AppIcon,
-    SearchToggle,
-    NavContacts
-  },
-  props: {
-    categories: {
-      type: Array,
-      default: () => [
-        {}
-      ]
+  export default {
+    name: "AppNav",
+    components: {
+      AppIcon,
+      SearchToggle,
+      NavContacts
+    },
+    props: {
+      categories: {
+        type: Array,
+        default: () => [
+          {}
+        ]
+      }
+    },
+    data(){
+      return {
+        brand: 'ЭндиЗайн',
+        orderFormActive: false,
+        sidebar: false,
+        group: null,
+      }
+    },
+    computed: {
+      navItems() {
+        return this.categories.filter( cat => cat.parent === 0 );
+      }
+    },
+    created() {
+      this.$nuxt.$on('open-dialog', () => {
+        this.orderFormActive = true
+      })
+      this.$nuxt.$on('close-dialog', () => {
+        this.orderFormActive = false
+      })
     }
-  },
-  data(){
-    return {
-      brand: 'ЭндиЗайн',
-      orderFormActive: false,
-    }
-  },
-  computed: {
-    navItems() {
-      return this.categories.filter( cat => cat.parent === 0 );
-    }
-  },
-  created() {
-    this.$nuxt.$on('open-dialog', () => {
-      this.orderFormActive = true
-    })
-    this.$nuxt.$on('close-dialog', () => {
-      this.orderFormActive = false
-    })
-  }
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.nav {
-  color: #000;
-  border-bottom-left-radius: 2em!important;
-  border-bottom-right-radius: 2em!important;
-  background-color: rgba(255, 255, 255, 0.75)!important;
-  transition: height .5s ease-out;
-
-  .container {
-  padding: .75em 3em;
-
-    .row {
-      align-items:center;
-    }
-  }
-
-  a, span {
-    color: #5F6A75;
-    font-size: 14px;
-    font-weight: bold;
-  }
-
-  &.order-form-active {
-    height:100vh!important;
-  }
-
-}
-
-@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
   .nav {
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.75);
-    transition: background-color 0.5s cubic-bezier(1, 0, 0, 1);
-  }
-}
+    color: #000;
+    border-bottom-left-radius: 2em!important;
+    border-bottom-right-radius: 2em!important;
+    transition: height .5s ease-out, background-color .5s ease-out;
 
-ul {
-  justify-content: flex-end;
-  display: flex;
-  flex-direction: row;
-  padding-left:0;
-  flex-wrap: wrap;
+    @media only screen and (min-width: 600px) {
+      background-color: rgba(255, 255, 255, 0.75)!important;
+    }
 
-  &.nav-menu {
-    justify-content: space-between;
-  }
+    .container {
+      padding: .75em .25em;
 
-  li {
-    display: flex;
-    align-items: center;
+      @media only screen and (min-width: 600px) {
+        padding: .75em 3em;
+      }
+
+      .row {
+        align-items: center;
+      }
+    }
 
     a, span {
-      position: relative;
-      text-transform: uppercase;
-      margin: 0 16px 0 0;
-      cursor: pointer;
+      color: #5F6A75;
+      font-size: 14px;
+      font-weight: bold;
     }
 
-    &:last-child span, &:last-child a {
-      margin: 0;
+    .v-btn.v-btn--icon.v-size--default {
+      content: "";
+      width: 56px;
+      height: 56px;
+      background-color: var(--v-andeDarkOrange-base);
+      border-radius: 9999px;
+
+      i {
+        color: white;
+      }
+    }
+
+    &.order-form-active {
+      height:100vh!important;
     }
   }
-   
-}
 
-.with-dot:before {
-  bottom: 0;
-  left: -.5em;
-}
+  @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    @media only screen and (min-width: 600px) {
+      .nav {
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.75);
+        transition: background-color 0.5s cubic-bezier(1, 0, 0, 1);
+      }
+    }
+  }
 
-.with-dot.ease-width:hover:before, .nuxt-link-active:before, .with-dot.dot-active.ease-width:before {
-  width: calc(100% + 1em);
-}
+  ul {
+    justify-content: flex-end;
+    display: flex;
+    flex-direction: row;
+    padding-left:0;
+    flex-wrap: wrap;
+
+    &.nav-menu {
+      justify-content: space-between;
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+
+      a, span {
+        position: relative;
+        text-transform: uppercase;
+        margin: 0 16px 0 0;
+        cursor: pointer;
+      }
+
+      &:last-child span, &:last-child a {
+        margin: 0;
+      }
+    }
+    
+  }
+
+  .with-dot:before {
+    bottom: 0;
+    left: -.5em;
+  }
+
+  .with-dot.ease-width:hover:before, .nuxt-link-active:before, .with-dot.dot-active.ease-width:before {
+    width: calc(100% + 1em);
+  }
 </style>

@@ -42,15 +42,21 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-svg {
-  vertical-align: middle;
-  margin-right: .5em;
-  margin-bottom: .5em;
-  #Path_1 {
-    transition: transform .2s cubic-bezier(0.25, 0.1, 0.55, 2.3);
+  svg {
+    vertical-align: middle;
+    margin-right: .5em;
+    margin-bottom: .5em;
+    #Path_1 {
+      transition: transform .2s cubic-bezier(0.25, 0.1, 0.55, 2.3);
+    }
+    &:hover #Path_1 {
+      transform: translate(32.553px, 3px);
+    }
   }
-  &:hover #Path_1 {
-    transform: translate(32.553px, 3px);
+
+  @media only screen and (max-width: 600px) {
+    svg {
+      width: 91px;
+    }
   }
-}
 </style>

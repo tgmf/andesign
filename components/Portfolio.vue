@@ -26,7 +26,7 @@
           <h2>{{ category.name }}</h2>
           <v-row>
             <v-col
-              cols="12"
+              cols="6"
               :md="category.count === 1 ? 8 : 6"
               class="subcategories d-flex flex-column"
             >
@@ -49,9 +49,7 @@
                 large
                 rounded
                 depressed
-                height="54px"
                 :class="[{'mb-auto': category.count > 1 }, {'mb-8': category.count === 1 }, 'white--text', 'view-button', 'mt-2']"
-                width="9.8vw"
                 :to="{ path: '/' + category.slug }"
               ><span>Смотреть</span></v-btn>
               <p
@@ -60,7 +58,7 @@
                 v-html="category.description.replace(/(?:\r\n|\r|\n)/g, '<br />')"
               />
               <div
-                class="mt-12 d-flex flex-row justify-center"
+                class="mt-12 d-none d-md-flex flex-row justify-center"
                 v-if="index !== parentCategories.length - 1"
               >
                 <hr
@@ -75,12 +73,11 @@
             </v-col>
             <v-col
               v-if="category.count > 1"
-              cols="12"
-              md="6"
-              class="category-description d-flex align-end"
+              cols="6"
+              class="category-description d-flex align-md-end"
             >
               <p
-                class="mb-0"
+                class="mb-md-0 mt-0 mt-md-2"
                 v-html="category.description.replace(/(?:\r\n|\r|\n)/g, '<br />')"
               />
             </v-col>
@@ -90,10 +87,23 @@
           v-if="category.count > 1"
           cols="12"
           md="7"
+          class="slider-container"
         >
           <portfolio-slider :category="category.id" :theme="category.acf.theme" :even="index%2 ? true : false" />
         </v-col>
       </v-row>
+      <div
+        class="mt-12 d-flex d-md-none flex-row justify-center"
+      >
+        <hr
+          width="7px"
+          class="andeLightGray mr-1 ml-16"
+        >
+        <hr
+          width="45px"
+          class="andeLightGray"
+        >
+      </div>
     </v-container>
     <v-dialog
       v-model="dialog"
@@ -175,6 +185,7 @@ export default {
 section.portfolio {
   display: flex;
   position: relative;
+  background-color: #F6FBFB;
   
   &::before {
     content: "";
@@ -197,18 +208,30 @@ section.portfolio {
   }
 
   .container {
-    padding: 2.5em 4em;
+    padding: 2.5em 1.25em;
     position: relative;
+    @media only screen and (min-width: 960px) {
+      padding: 2.5em 4em;
+    }
   }
 
   .category {
-    padding: 3em 0;
-    padding-left: 4em;
-    margin-right: -4em;
-    margin-left: -4em;
+    padding: 3em 0 0 1.25em;
+    margin-right: -1.25em;
+    margin-left: -2em;
+    
+    @media only screen and (min-width: 960px) {
+      padding: 3em 0 3em 4em;
+      margin-right: -4.25em;
+      margin-left: -4.25em;
+    }
 
     &.has-portfolio {
       background: var(--v-background-base);
+
+      .col-md-7 {
+        overflow: hidden;
+      }
     }
 
     .v-slide-group__wrapper {
@@ -216,8 +239,11 @@ section.portfolio {
     }
 
     &.even {
-      padding-right: 4em;
-      padding-left: 0;
+
+      @media only screen and (min-width: 960px) {
+        padding-left: 0;
+        padding-right: 4em;
+      }
 
       .v-slide-group__wrapper {
         margin-right: 0;
@@ -228,8 +254,13 @@ section.portfolio {
     &.dark {
       background: radial-gradient(circle at 100% 0, #5F6A75, #151D24 25%);
       color: #fff;
-      margin-left: -4em;
-      margin-right: -4em;
+      margin-left: -1.25em;
+      margin-right: -1.25em;
+
+      @media only screen and (min-width: 960px) {
+        margin-left: -4em;
+        margin-right: -4em;
+      }
 
       h2 {
         color: var(--v-andeOrange-base);
@@ -257,9 +288,13 @@ section.portfolio {
           list-style: none;
         
           a {
-            font-size: 1.25em;
+            font-size: 1em;
             text-transform: uppercase;
             color: #151D24;
+
+            @media only screen and (min-width: 960px) {
+              font-size: 1.25em;
+            }
           }
         }
       }

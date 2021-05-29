@@ -41,8 +41,6 @@ export const actions = {
         `${siteURL}/wp-json/acf/v3/options/options`
       ).then(res => res.json())
 
-      console.log(mainPage)
-
       commit("updateMainPage", mainPage.acf)
     } catch (err) {
       console.log(err)

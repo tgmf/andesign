@@ -30,6 +30,7 @@
         <v-col
           cols="12"
           md="3"
+          class="d-block"
         >
           <v-list>
             <v-list-item
@@ -69,6 +70,7 @@
           cols="12"
           md="2"
           offset-md="1"
+          class="d-none d-md-flex"
         >
           <order-form :dark="true" />
         </v-col>
@@ -76,7 +78,7 @@
           cols="12"
           md="1"
           offset-md="1"
-          class="social"
+          class="social d-none d-md-flex"
         >
           <a
             href="https://ru-ru.facebook.com/profile.php?id=100004352977996"
@@ -169,9 +171,15 @@ export default {
 footer {
   position: relative;
   background: radial-gradient(circle at 100% 0, #5F6A75, #151D24 25%);
+  overflow: hidden;
 
   .container {
-    padding: 2.5em 4em;
+    padding: 2.5em 1.25em;
+    @media only screen and (min-width: 960px) {
+      & {
+        padding: 2.5em 4em;
+      }
+    }
 
     .col-12 {
       display: flex;

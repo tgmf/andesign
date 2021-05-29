@@ -86,8 +86,8 @@
                 </v-list>
               </v-col>
               <v-col
-                cols="12"
                 sm="6"
+                class="d-none d-md-flex"
               >
                 <v-img
                   src="/img/qrcode1617815155.png"

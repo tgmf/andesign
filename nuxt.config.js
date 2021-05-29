@@ -52,7 +52,7 @@ export default {
     "~/plugins/categories.server.js",
     "~/plugins/pages.server.js",
     "~/plugins/pCases.server.js",
-    "~/plugins/dateformat.js"
+    "~/plugins/dateformat.js",
   ],
   router: {
     base: '/'
