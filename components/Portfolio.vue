@@ -187,17 +187,19 @@ section.portfolio {
   position: relative;
   background-color: #F6FBFB;
   
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background: url('/img/index_left.png') no-repeat, url('/img/index_right.png') no-repeat;
-    background-position: -10% 20vh, 112% -14vh;
-    mix-blend-mode: darken;
-    transform: rotate(180deg);
+  @media only screen and (min-width: 960px) {
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      background: url('/img/index_left.png') no-repeat, url('/img/index_right.png') no-repeat;
+      background-position: -10% 20vh, 112% -14vh;
+      mix-blend-mode: darken;
+      transform: rotate(180deg);
+    }
   }
 
   h2 {
