@@ -63,6 +63,7 @@ a:visited {
   display: flex;
   align-items: flex-end;
   overflow: hidden;
+  background-color: #F6FBFB;
 
     @media only screen and (min-width: 960px) {
       align-items: center;
