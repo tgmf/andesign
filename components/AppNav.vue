@@ -32,7 +32,7 @@
           >
             <v-spacer/>
             <span>      
-              <v-app-bar-nav-icon @click="sidebar = !sidebar">
+              <v-app-bar-nav-icon @click="drawer = !drawer">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25.833" height="19.667" viewBox="0 0 25.833 19.667">
                   <line id="Line_17" data-name="Line 17" x2="23.833" transform="translate(1 18.667)" fill="none" stroke="#f6fbfb" stroke-linecap="round" stroke-width="2"/>
                   <line id="Line_15" data-name="Line 15" x2="23.833" transform="translate(1 1)" fill="none" stroke="#f6fbfb" stroke-linecap="round" stroke-width="2"/>
@@ -134,7 +134,7 @@
       </v-container>
     </v-app-bar>
     <v-navigation-drawer
-      v-model="sidebar"
+      v-model="drawer"
       absolute
       temporary
       hide-overlay
@@ -300,7 +300,13 @@
         orderFormActive: false,
         sidebar: false,
         group: null,
+        drawer: false,
       }
+    },
+    watch: {
+      group () {
+        this.drawer = false
+      },
     },
     computed: {
       navItems() {
@@ -417,6 +423,7 @@
   }
 
   .drawer {
+    position: fixed;
     span {
       text-transform: uppercase;
     }
