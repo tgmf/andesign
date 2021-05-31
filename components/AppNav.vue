@@ -363,6 +363,7 @@
       height: 56px;
       background-color: var(--v-andeDarkOrange-base);
       border-radius: 9999px;
+      box-shadow: 0 0 1em 0.5em white;
 
       i {
         color: white;

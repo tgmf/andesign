@@ -284,6 +284,8 @@ span.descr {
 @media only screen and (min-width: 1424px) {
   span.descr {
     font-size: .875em;
+    top: 9em;
+    left: 5em;
   }
 }
 
