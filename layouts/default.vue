@@ -272,16 +272,19 @@ span.descr {
   left: 2em;
   position: absolute;
   z-index: 1;
+}
   
-  @media only screen and (min-width: 1264px) {
+@media only screen and (min-width: 960px) {
+  span.descr {
+    top: 13em;
+    left: 3em;
+  }
+}
+
+@media only screen and (min-width: 1424px) {
+  span.descr {
     font-size: .875em;
   }
 }
 
-@media only screen and (min-width: 960px) {
-  span.descr {
-    top: 132px;
-    left:5em;
-  }
-}
 </style>

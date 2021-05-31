@@ -222,14 +222,18 @@
     border-bottom-right-radius: 2em!important;
     transition: height .5s ease-out, background-color .5s ease-out;
 
-    @media only screen and (min-width: 600px) {
+    @media only screen and (min-width: 960px) {
       background-color: rgba(255, 255, 255, 0.75)!important;
     }
 
     .container {
       padding: .75em .25em;
 
-      @media only screen and (min-width: 600px) {
+      @media only screen and (min-width: 960px) {
+        padding: .75em .5em;
+      }
+
+      @media only screen and (min-width: 1424px) {
         padding: .75em 3em;
       }
 
@@ -262,7 +266,7 @@
   }
 
   @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
-    @media only screen and (min-width: 600px) {
+    @media only screen and (min-width: 960px) {
       .nav {
         -webkit-backdrop-filter: blur(10px);
         backdrop-filter: blur(10px);
