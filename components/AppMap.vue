@@ -3,31 +3,39 @@
     <v-img
       src="/img/map.png"
       aspect="3.2"
+      min-height="30em"
+      class="d-none d-md-flex"
+    />
+    <v-img
+      src="/img/map_m.png"
+      aspect="0.66"
+      max-height="100vh"
+      class="d-flex d-md-none"
     />
     <v-container
       fluid
     >
-      <v-row>
+      <v-row
+        class="justify-center">
         <v-col
-          cols="12"
-          md="3"
-          offset-md="4"
+          cols="8"
+          md="5"
+          lg="3"
           class="contacts"
         >
           <h2>Схема проезда</h2>
           <hr
             class="andeTeal"
-            width="293"
           >
           <v-sheet
-            color="andeDarkOrange"
+            color="andeDarkOrange contacts-info"
             rounded
             class="mt-7"
           >
             <v-row>
               <v-col
                 cols="12"
-                sm="6"
+                md="6"
               >
                 <v-list
                   dense
@@ -86,7 +94,7 @@
                 </v-list>
               </v-col>
               <v-col
-                sm="6"
+                md="6"
                 class="d-none d-md-flex"
               >
                 <v-img
@@ -132,21 +140,46 @@ export default {
     .contacts {
       z-index: 1;
       padding-top: 2em;
-      padding-bottom:10vh;
+      padding-bottom:2em;
+  
+        @media only screen and (min-width: 960px) {
+          padding-bottom:10vh;
+        }
 
       h2 {
-        font-size: 3.4375em;
+        font-size: 2.375em;
+        max-width: 5em;
         font-weight: 300;
         text-transform: uppercase;
         margin:0;
+  
+        @media only screen and (min-width: 960px) {
+          font-size: 3.4375em;
+        }
       }
 
       hr {
         margin: 0 -12px 12px 0;
+        width: 12em;
+  
+        @media only screen and (min-width: 960px) {
+          width: 18em;
+        }
+      }
+
+      .contacts-info {
+        max-width: 18em;
+  
+        @media only screen and (min-width: 960px) {
+          max-width: none;
+        }
       }
 
       .v-list {
-        padding-bottom: 2em;
+  
+        @media only screen and (min-width: 960px) {
+          padding-bottom: 2em;
+        }
 
         a, p, span {
           font-size: 1rem;

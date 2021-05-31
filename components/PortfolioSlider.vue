@@ -9,14 +9,15 @@
       ref="caseItem"
     >
       <v-sheet
-        :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '90vw' : '46vw'"
+        :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '90vw' : $vuetify.breakpoint.md ? '65vw' : '46vw'"
       >
         <v-row
           class="fill-height"
         >
           <v-col
             cols="11"
-            md="10"
+            md="9"
+            lg="10"
             :order-md="even? 2 : 1"
           >
               <v-img
@@ -26,8 +27,9 @@
               />
           </v-col>
           <v-col
-            cols="12"
-            md="2"
+            cols="11"
+            md="3"
+            lg="2"
             :order-md="even ? 1 : 2"
             class="d-flex flex-column"
           >
@@ -186,9 +188,11 @@ div.case-slider {
         color: var(--v-andeOrange-base);
         margin-bottom: 1em;
         white-space: normal;
-
+      
         .even & {
-          text-align: right;
+          @media only screen and (min-width: 960px) {
+            text-align: right;
+          }
         }
       }
 
@@ -198,8 +202,10 @@ div.case-slider {
         position: relative;
 
         .even & {
-        margin-right: -24px;
-        margin-left: 0;
+          @media only screen and (min-width: 960px) {
+            margin-right: -24px;
+            margin-left: 0;
+          }
         }
       }
 
@@ -209,7 +215,9 @@ div.case-slider {
         font-size:.75em;
 
         .even & {
-          text-align: right;
+          @media only screen and (min-width: 960px) {
+            text-align: right;
+          }
         }
       }
 
@@ -235,12 +243,14 @@ div.case-slider {
         }
 
         .even & {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-end;
-          p {
-            transform: rotate(0);
-            margin: 2em 0.75em .5em 0;
+          @media only screen and (min-width: 960px) {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            p {
+              transform: rotate(0);
+              margin: 2em 0.75em .5em 0;
+            }
           }
         }
       }
@@ -269,13 +279,15 @@ div.case-slider {
         }
         
         .even & {
-          align-items: flex-end;
+          @media only screen and (min-width: 960px) {
+            align-items: flex-end;
 
-          p {
-            transform: rotate(0);
-            margin: 3em 1.5em .5em 0;
-            min-width: 56px;
-            flex: 1;
+            p {
+              transform: rotate(0);
+              margin: 3em 1.5em .5em 0;
+              min-width: 56px;
+              flex: 1;
+            }
           }
         }
 

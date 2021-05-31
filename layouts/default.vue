@@ -35,6 +35,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/mixins.scss";
 html {
   font-family: "Circe", sans-serif;
   font-size: 16px;
@@ -144,6 +145,7 @@ p {
 
 .big-thin-text {
   font-size: 3.4375em;
+  @include fluid-type(font-size, 1280px, 1920px, 38px, 55px);
   font-weight: 300;
   text-transform: uppercase;
 }
@@ -204,7 +206,7 @@ hr {
   height: 3.25em;
   width: 11.25em;
   
-  @media only screen and (min-width: 960px) {
+  @media only screen and (min-width: 1424px) {
     font-size: 1.1429em;
     height: 3em;
     width: 9.8em;
@@ -215,8 +217,9 @@ hr {
     height: 3.5em;
     font-size: 1em;
   
-    @media only screen and (min-width: 960px) {
+    @media only screen and (min-width: 1424px) {
       width: 3em;
+      height: 3em;
       font-size: 1.1429em;
     }
   }
@@ -261,14 +264,18 @@ hr {
 span.descr {
   text-align: left;
   text-transform: uppercase;
-  font-size: .875em;
+  font-size: .625em;
   font-weight: 400;
   line-height: 1.45;
   width: 10em;
-  top: 71px;
-  left: 1.25em;
+  top: 7em;
+  left: 2em;
   position: absolute;
   z-index: 1;
+  
+  @media only screen and (min-width: 1264px) {
+    font-size: .875em;
+  }
 }
 
 @media only screen and (min-width: 960px) {

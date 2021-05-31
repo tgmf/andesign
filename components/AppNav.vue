@@ -4,8 +4,8 @@
       :class="[{'order-form-active' : orderFormActive}, {'sidebar-active' : sidebar}, 'nav']"
       fixed
       flat
-      :height="$vuetify.breakpoint.xs ? 70 : 96"
-      :color="$vuetify.breakpoint.xs ? 'transparent' : 'white'"
+      :height="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? 70 : 96"
+      :color="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? 'transparent' : 'white'"
       tag="nav"
     >
       <v-container
@@ -14,7 +14,8 @@
         <v-row>
           <v-col
             cols="6"
-            md="2"
+            md="3"
+            lg="2"
           >
             <v-app-bar-title>
               <nuxt-link
@@ -27,7 +28,7 @@
           </v-col>
           <v-col
             cols="6"
-            class="d-flex d-sm-none"
+            class="d-flex d-md-none"
           >
             <v-spacer/>
             <span>      
@@ -41,9 +42,59 @@
             </span>
           </v-col>
           <v-col
+            md="9"
+            class="d-none d-md-block d-lg-none"
+          >
+            <v-slide-group
+              class="nav-menu"
+              show-arrows
+            >
+              <v-slide-item
+                v-for="link in navItems"
+                :key="link.slug"
+                class="mx-5"
+              >
+                <span
+                  v-if="$route.name === 'index'"
+                  @click="$vuetify.goTo('#'+link.slug)"
+                  class="with-dot ease-width"
+                >
+                  {{ link.name }}
+                </span>
+                <nuxt-link
+                  v-else
+                  :to="'/' + link.slug"
+                  class="with-dot ease-width"
+                >
+                  {{ link.name }}
+                </nuxt-link>
+              </v-slide-item>
+              <template v-slot:prev>
+                <v-btn
+                  fab
+                  depressed
+                  elevation="0"
+                  color="andeLightGray"
+                  class="prev-button"
+                  ref="prevMenuItem"
+                >&nbsp;</v-btn>
+              </template>
+              <template v-slot:next>
+                <v-btn
+                  fab
+                  depressed
+                  elevation="0"
+                  color="andeLightGray"
+                  class="next-button"
+                  ref="nextMenuItem"
+                >&nbsp;</v-btn>
+              </template>
+            </v-slide-group>
+          </v-col>
+          <v-col
             cols="12"
-            md="7"
-            class="d-none d-sm-block"
+            lg="7"
+            class="d-none d-lg-block"
           >
             <ul class="nav-menu">
               <li v-for="link in navItems" :key="link.slug">
@@ -65,10 +116,10 @@
           </v-col>
           <v-col
             cols="12"
-            md="3"
+            lg="3"
             xl="2"
             offset-xl="1"
-            class="d-none d-sm-flex"
+            class="d-none d-lg-block"
           >
           <ul>
             <li>
@@ -247,7 +298,6 @@
         margin: 0;
       }
     }
-    
   }
 
   .with-dot:before {
@@ -257,5 +307,81 @@
 
   .with-dot.ease-width:hover:before, .nuxt-link-active:before, .with-dot.dot-active.ease-width:before {
     width: calc(100% + 1em);
+  }
+</style>
+
+<style lang="scss">
+  .nav-menu.v-slide-group {
+    .v-slide-group__prev--disabled, .v-slide-group__next--disabled {
+      display: none !important;
+    }
+
+    .v-slide-group__content {
+
+      height: 1em;
+      align-self: center;
+
+      a, span {
+        position: relative;
+        text-transform: uppercase;
+        margin: 0 2em;
+        cursor: pointer;
+      }
+
+      &:last-child span, &:last-child a {
+        margin: 0;
+      }
+    }
+
+    .v-btn {
+      z-index: 1;
+      overflow: hidden;
+      width: 56px;
+      height: 56px;
+      border-radius: 9999px;
+
+      &.prev-button {
+        margin-right: 0;
+      }
+
+      &.next-button {
+        margin-left: 0;
+      }
+    }
+  
+    .prev-button::before, .next-button::before {
+      content: "";
+      width: 56px;
+      height: 56px;
+      border-radius: 9999px;
+      transition: .2s all .2s ease-out;
+      opacity: 1;
+      background-color: var(--v-andeDarkOrange-base);
+    }
+
+    .prev-button:active::before, .next-button:active::before {
+      background-position: center top;
+      background-color: currentColor;
+    }
+
+    .prev-button::after, .next-button::after {
+      content: url("/img/forward.svg");
+      position: absolute;
+      transition: .4s all .2s ease-in;
+      opacity: 1;
+      width: 56px;
+      height: 56px;
+      border-radius: 9999px;
+      padding: 10px 20px;
+    }
+
+    .prev-button::after {
+      content: url("/img/back.svg");
+      padding: 10px 8px;
+    }
+
+    .next-button:hover::after, .prev-button:hover::after {
+      background-position: center top;
+    }
   }
 </style>

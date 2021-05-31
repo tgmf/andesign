@@ -74,6 +74,10 @@ a:visited {
     padding: .75em 0;
 
     @media only screen and (min-width: 960px) {
+      padding: .75em 1.5em;
+    }
+
+    @media only screen and (min-width: 1424px) {
       padding: .75em 4em;
     }
   
@@ -85,10 +89,14 @@ a:visited {
 
       @media only screen and (min-width: 960px) {
         height: calc(80vh - 77px);
-        padding: .75em 4em;
+        padding: .75em 1.5em;
         background: 
           url("/img/Andy_web.png") no-repeat right center scroll; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
         background-size: contain;
+      }
+
+      @media only screen and (min-width: 1424px) {
+        padding: .75em 4em;
       }
     }
   }

@@ -5,10 +5,15 @@
           fluid
         >
         <v-row>
-          <v-col>
+          <v-col
+            cols="12"
+            :lg="page.acf.top_right? 6 : 12"
+          >
             <v-row>
               <v-col
-                :offset-md="page.acf.top_right? 2 : 1"
+                md="1"
+                offset-md="1"
+                :offset-lg="page.acf.top_right? 2 : 1"
               >
                 <div
                   class="category-header"
@@ -27,10 +32,13 @@
             </v-row>
             <v-row>
               <v-col
-                v-if="categoryChildren.length"
+                v-if="categoryChildren.length || page.acf.file"
                 cols="12"
-                :md="page.acf.top_right? 4 : 3"
-                :offset-md="page.acf.top_right? 2 : 1"
+                sm="6"
+                md="4"
+                offset-md="1"
+                :lg="page.acf.top_right ? 4 : 3"
+                :offset-lg="page.acf.top_right ? 2 : 1"
               >
                 <v-row>
                   <v-col
@@ -57,11 +65,30 @@
                     :value="child.id"
                   ></v-switch>
                 </div>
+                <a
+                  v-if="page.acf.file"
+                  :href="page.acf.file"
+                  target="_blank"
+                >
+                  <v-btn
+                    large
+                    rounded
+                    outlined
+                    depressed
+                    height="3em"
+                    class="white--text view-button download-button my-12"
+                  >
+                    <span>
+                      Презентация
+                    </span>
+                  </v-btn>
+                </a>
               </v-col>
               <v-col
-                cols="12"
-                :md="(categoryChildren.length ? 2 : 4) * (page.acf.top_right? 2 : 1)"
-                :offset-md="!categoryChildren.length ? 2 : ''"
+                :md="(categoryChildren.length ? 3 : 6) * (page.acf.top_right? 2 : 1)"
+                :lg="(categoryChildren.length ? 2 : 4) * (page.acf.top_right? 2 : 1)"
+                offset-md="1"
+                :offset-lg="!categoryChildren.length ? 2 : ''"
                 v-html="page.acf.prologue || category.description.replace(/(?:\r\n|\r|\n)/g, '<br />')"
                 class="mb-0"
               >
@@ -86,7 +113,7 @@
                     Заказать
                   </span>
                 </v-btn>
-                <div class="mt-12 d-flex flex-row">
+                <div class="mt-12 flex-row d-none d-lg-flex">
                   <hr
                     width="7px"
                     class="andeLightGray mr-1 ml-n3"
@@ -100,16 +127,18 @@
             </v-row>
           </v-col>
           <v-col
+            cols="12"
+            lg="6"
             v-if="page.acf.top_right"
             v-html="page.acf.top_right"
-            class="top-right"
+            class="top-right d-none d-md-block"
           />
         </v-row>
       </v-container>
     </section>
     <section
       v-if="page.content.rendered"
-      class="page-content"
+      class="page-content d-none d-md-block"
       >
       <v-container
         fluid
@@ -133,7 +162,7 @@
             v-for="(service, index) in page.acf.services"
             :key="service.title"
             md="6"
-            class="service mt-8 mb-16"
+            class="service mt-8 mb-8 mb-lg-16"
           >
             <v-row>
               <v-col
@@ -171,7 +200,7 @@
                 md="2"
                 :offset-md="((index+1)%2)*2 + 2"
               >
-                <div class="mt-4 d-flex flex-row">
+                <div class="mt-4 mt-lg-6 d-flex flex-row justify-end justify-md-start">
                   <hr
                     width="7px"
                     class="andeLightGray mr-1 ml-n3"
@@ -188,8 +217,6 @@
                   rounded
                   outlined
                   depressed
-                  height="3em"
-                  width="9.8vw"
                   @click="newMessage(service.title)"
                   class="white--text view-button order-button"
                 ><span>Заказать</span></v-btn>
@@ -214,7 +241,7 @@
           <v-col
             cols="12"
             md="3"
-            offset-md="1"
+            offset-lg="1"
             class="d-flex flex-column"
           >
             <div class="subcategories d-flex align-center my-2">
@@ -244,7 +271,8 @@
           </v-col>
           <v-col
             cols="12"
-            md="8"
+            md="9"
+            lg="8"
             class="slider"
           >
             <p-case-slider
@@ -290,7 +318,6 @@ export default {
       if (this.categoryChildren.length) {
         this.categoryChildren.forEach((child) => {
           this.switches.push( this.option === child.id ? child.id : null)
-
         })
       }
     },
@@ -315,6 +342,22 @@ export default {
       }
       this.$nuxt.$emit('set-message', message)
       return this.$nuxt.$emit('open-dialog', 'order-form', {message: message})
+    },
+    downloadFile(url) {
+      axios({
+          url: url,
+          method: 'GET',
+          responseType: 'blob',
+      }).then((response) => {
+            var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+            var fileLink = document.createElement('a');
+
+            fileLink.href = fileURL;
+            fileLink.setAttribute('download', 'Презентация — ЭндиЗайн — '+ category.name +'.pdf');
+            document.body.appendChild(fileLink);
+
+            fileLink.click();
+      });
     }
   },
   created() {
@@ -333,22 +376,39 @@ div.category.individual {
   position: relative;
   padding-top: 6em;
     
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background: url('/img/index_left.png') no-repeat, url('/img/index_right.png') no-repeat;
-    background-position: -10% calc(100% + 126px), 110% -20em;
-    transform: rotate(180deg);
-    z-index: 0;
+  @media only screen and (min-width: 960px) {
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      background: url('/img/index_left.png') no-repeat, url('/img/index_right.png') no-repeat;
+      background-position: -20% calc(100% + 126px), 123% -20em;
+      transform: rotate(180deg);
+      z-index: 0;
+    }
+  }
+
+  @media only screen and (min-width: 1424px) {
+    &::before {
+      background-position: -10% calc(100% + 126px), 110% -20em;
+    }
   }
   
+  
   .container {
-    padding: 2.5em 4em 2.5em;
+    padding: 2.5em 1.25em;
     position: relative;
+
+    @media only screen and (min-width: 960px) {
+      padding: 2.5em 1.5em;
+    }
+
+    @media only screen and (min-width: 1424px) {
+      padding: 2.5em 4em;
+    }
   }
 
   section:last-child .container  {
@@ -357,6 +417,7 @@ div.category.individual {
 
   h2,h3 {
     font-size: 3.4375em;
+    @include fluid-type(font-size, 1280px, 1920px, 20px, 55px);
     font-weight: 300;
     text-transform: uppercase;
     padding-right: 3em;
@@ -369,7 +430,15 @@ div.category.individual {
 
   .head {
     .container {
+      padding: 8.75em 1.25em 2.5em;
+
+    @media only screen and (min-width: 960px) {
+      padding: 8.75em 1.5em 2.5em;
+    }
+
+    @media only screen and (min-width: 1424px) {
       padding: 8.75em 4em 2.5em;
+    }
 
       .category-header {
         width: -moz-fit-content;
@@ -377,6 +446,7 @@ div.category.individual {
 
         h1 {
           font-size: 7.375em;
+          @include fluid-type(font-size, 320px, 1920px, 30px, 118px);
           font-weight: 300;
           text-transform: uppercase;
         }
@@ -384,7 +454,10 @@ div.category.individual {
 
       .category-switches {
         .v-input{
-          padding-left: calc(50% - 6em);
+          
+          @media only screen and (min-width: 1424px) {
+            padding-left: calc(50% - 6em);
+          }
 
           .v-label {
             font-size: 1.25em;
@@ -461,10 +534,20 @@ div.category.individual {
   }
 
   section.services {
+      
+    h2 {
+      font-weight: 300;
+      text-transform: uppercase;
+      margin-bottom: 1em;
+      @include fluid-type(font-size, 1280px, 1920px, 20px, 55px);
+    }
     
     ul {
       list-style: none;
-      padding-left: 0;
+      
+      @media only screen and (min-width: 960px) {
+        padding-left: 0;
+      }
     
       li {
 
@@ -491,7 +574,7 @@ div.category.individual {
 
       p {
         color: var(--v-andeTeal-base);
-        font-size: 3.1em;
+        @include fluid-type(font-size, 1280px, 1920px, 30px, 62px);
         font-weight: bold;
         margin: 0 0 -.125em 0;
         line-height: 1;
@@ -502,8 +585,16 @@ div.category.individual {
   section.cases {
       
     .case {
-      margin-right: -4em;        
+      margin-right: -1.25em;        
       padding: 0 0 5em 0;
+
+      @media only screen and (min-width: 960px) {
+        margin-right: -1.5em; 
+      }
+
+      @media only screen and (min-width: 1424px) {
+        margin-right: -4em; 
+      }
 
       &:last-child {
         padding-bottom: 0;
@@ -520,7 +611,7 @@ div.category.individual {
         font-weight: 300;
         text-transform: uppercase;
         margin-bottom: 1em;
-        @include fluid-type(font-size, 320px, 1366px, 30px, 55px);
+        @include fluid-type(font-size, 1280px, 1920px, 20px, 55px);
       }
     }
 
@@ -530,6 +621,14 @@ div.category.individual {
   }
 
   .v-btn {
+
+    width: 11.25em;
+    height: 3.25em;
+    
+    @media only screen and (min-width: 1424px) {
+      width: 10.388889em;
+      height: 3em;
+    }
 
     background: var(--v-andeDarkOrange-base);
 
@@ -542,6 +641,23 @@ div.category.individual {
       content: url("/img/mail.svg");
       background: url("/img/mail_back2.svg") center bottom no-repeat;
       background-size: cover;
+    }
+
+    &.download-button {
+      background: var(--v-andeTeal-base);
+      width: 12.875em;
+      max-width: 100%; 
+
+      @media only screen and (min-width: 1424px) {
+        width: 15.5em;
+        max-width: 100%; 
+      }
+
+      &:after {
+        content: url("/img/download.svg");
+        padding-top: 0.825em;
+      }
+
     }
   }
 }

@@ -7,7 +7,7 @@
         <v-col
           cols="12"
           md="3"
-          offset-md="1"
+          offset-lg="1"
         >
           <nuxt-link
             exact
@@ -22,14 +22,15 @@
           </p>
           <v-spacer/>
           <p
-            class="copyright white--text"
+            class="copyright white--text d-none d-md-block"
           >
             © ООО "ЭндиЗайн", 2004 - 2021
           </p>
         </v-col>
         <v-col
           cols="12"
-          md="3"
+          md="4"
+          lg="3"
           class="d-block"
         >
           <v-list>
@@ -65,20 +66,27 @@
             ПОИСК
           </p>
           <app-search />
+          <v-spacer/>
+          <p
+            class="copyright white--text d-block d-md-none mt-8"
+          >
+            © ООО "ЭндиЗайн", 2004 - 2021
+          </p>
         </v-col>
         <v-col
           cols="12"
-          md="2"
+          md="4"
           offset-md="1"
+          lg="2"
           class="d-none d-md-flex"
         >
           <order-form :dark="true" />
         </v-col>
         <v-col
           cols="12"
-          md="1"
-          offset-md="1"
-          class="social d-none d-md-flex"
+          lg="1"
+          offset-lg="1"
+          class="social d-none d-lg-flex"
         >
           <a
             href="https://ru-ru.facebook.com/profile.php?id=100004352977996"

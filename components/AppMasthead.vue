@@ -8,7 +8,8 @@
           class="hero"
           cols="10"
           offset="2"
-          md="4"
+          md="6"
+          lg="4"
         >
           <h1
             class="moto"
@@ -34,11 +35,13 @@
               </template>
             </v-img>
           </h1>
-          <v-row class="mt-7">
+          <v-row class="mt-7 mt-md-n5 mt-lg-7 mb-md-7">
             <v-col
               cols="12"
-              md="4"
-              offset-md="3"
+              md="3"
+              lg="4"
+              offset-md="2"
+              offset-lg="3"
               class="pa-1"
             >
               <v-btn
@@ -93,7 +96,8 @@
         <v-col
           cols="12"
           md="1"
-          offset-md="5"
+          offset-md="3"
+          offset-lg="5"
           class="social d-none d-md-flex"
         >
           <!-- <a
@@ -151,15 +155,17 @@
         <v-col
           cols="8"
           offset="2"
-          md="12"
-          offset-md="0"
+          md="9"
+          lg="12"
+          offset-lg="0"
         >
           <v-row>
             <v-col 
               v-for="(service, index) in services" :key="service.descr"
               cols="6"
-              md="1"
-              :offset-md="index === 0 ? 2 : ''"
+              md="2"
+              lg="1"
+              :offset-lg="index === 0 ? 2 : 0"
               class="comp"
             >
             <span class="with-dot extrude-dot font-weight-black comp-num"
@@ -253,9 +259,10 @@
           v-for="(fact, index) in facts" 
           :key="fact.title"
           cols="3"
-          md="3"
+          :md="index == 2 ? 3 : 4"
+          lg="3"
           :offset="index == 0 ? 1 : '0'"
-          :offset-md="index == 0 ? 2 : '0'"
+          :offset-lg="index == 0 ? 2 : '0'"
           class="mb-0 pb-0"
           >
           <!-- <img 
@@ -280,14 +287,15 @@
         <v-col
           class="mt-0"
           cols="1"
-          offset-md="1"
+          offset-lg="1"
         >
         </v-col>
         <v-col
-          v-for="fact in facts"
+          v-for="(fact, index) in facts"
           :key="fact.title"
           cols="3"
-          md="3"
+          :md="index == 2 ? 3 : 4"
+          lg="3"
           offset-md="0"
           class="mt-0 py-5"
         >
@@ -404,7 +412,11 @@ section.masthead {
   @media only screen and (min-width: 960px) {
     background-image: url("/img/index_left.png"), url("/img/index_right.png");
     background-repeat: no-repeat;
-    background-position: -10% 10%, 112% 90%;
+    background-position: -40% 10%, 135% 90%;
+    
+    @media only screen and (min-width: 1424px) {
+      background-position: -10% 10%, 112% 90%;
+    }
   }
   
   h1 {
@@ -416,7 +428,11 @@ section.masthead {
     padding: 2.5em 1.25em .6em;
 
     @media only screen and (min-width: 960px) {
-      padding-right: 4em;
+      padding: 2.5em 1.5em .6em;
+    }
+
+    @media only screen and (min-width: 1424px) {
+      padding: 2.5em 4em .6em;
     }
   }
 
@@ -430,6 +446,10 @@ section.masthead {
     @media only screen and (min-width: 960px) {
       margin-top: 1.5em;
       margin-left: -2.125em;
+      width: 60%;
+    }
+
+    @media only screen and (min-width: 1424px) {
       width: 89%;
     }
 
@@ -450,18 +470,30 @@ section.masthead {
       background: url("/img/mail_back2.svg") center bottom no-repeat;
       background-size: cover;
     }
+      
+    @media only screen and (min-width: 960px) {
+      &.view-button {
+        width: 9.32291vw;
+      }
+    }
   }
 
   .hero-order-wrapper {
     cursor: pointer;
     width: 12.3vw;
     height: 12.3vw;
+    top: calc(-6.15vw + 1.6em);
     position: absolute;
-    top: calc(-6.15vw + 1.9em);
     display: flex;
     align-items: center;
     justify-content: center;
     background: url("/img/hero-order-btn.png") center top no-repeat;
+
+    @media only screen and (min-width: 960px) {
+      width: 12.3vw;
+      height: 12.3vw;
+      top: calc(-6.15vw + 1.6em);
+    }
 
     &:hover .order-button:after, &:hover .order-button:before {
       top: 0;
@@ -604,7 +636,8 @@ section.masthead {
         margin-bottom: -0.35em;
 
         @media only screen and (min-width: 960px) {
-          font-size: 6.25em;
+          font-size: 6vw;
+          font-size: clamp(3em, 6vw, 6em) 
         }
       }
 
@@ -615,11 +648,19 @@ section.masthead {
       .fun-facts-head-bg {
         z-index: 0;
         position: absolute;
-        left: 10%;
-        right: 10%;
         top: 0;
         bottom: -1px;
         background-color: rgba(246, 251, 251, 0.5)!important;
+
+        @media only screen and (min-width: 960px) {
+          left: -.75em;
+          right: -.75em;
+        }
+
+        @media only screen and (min-width: 1424px) {
+        left: 10%;
+        right: 10%;
+        }
       }
 
       @supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
@@ -637,6 +678,13 @@ section.masthead {
       transition: transform .4s ease-in;
 
       @media only screen and (min-width: 960px) {
+        width: 100vw;
+        left: -1.5em;
+        position: relative;
+      }
+
+      @media only screen and (min-width: 1424px) {
+        left: 0;
         width: auto;
       }
 

@@ -12,7 +12,7 @@
         <v-col
           cols="12"
           md="4"
-          :offset-md="(index%2 && category.count > 1)  ? 0:1"
+          :offset-lg="(index%2 && category.count > 1)  ? 0:1"
           :order-md="(index%2 && category.count > 1)  ? 1:0"
         >
         <img
@@ -27,7 +27,8 @@
           <v-row>
             <v-col
               cols="6"
-              :md="category.count === 1 ? 8 : 6"
+              md="12"
+              :lg="category.count === 1 ? 8 : 6"
               class="subcategories d-flex flex-column"
             >
               <ul
@@ -74,6 +75,8 @@
             <v-col
               v-if="category.count > 1"
               cols="6"
+              md="12"
+              lg="6"
               class="category-description d-flex align-md-end"
             >
               <p
@@ -86,24 +89,25 @@
         <v-col
           v-if="category.count > 1"
           cols="12"
-          md="7"
+          md="8"
+          lg="7"
           class="slider-container"
         >
           <portfolio-slider :category="category.id" :theme="category.acf.theme" :even="index%2 ? true : false" />
         </v-col>
+        <div
+          class="my-6 mx-auto d-flex d-md-none flex-row justify-center"
+        >
+          <hr
+            width="7px"
+            class="andeLightGray mr-1"
+          >
+          <hr
+            width="45px"
+            class="andeLightGray"
+          >
+        </div>
       </v-row>
-      <div
-        class="mt-12 d-flex d-md-none flex-row justify-center"
-      >
-        <hr
-          width="7px"
-          class="andeLightGray mr-1 ml-16"
-        >
-        <hr
-          width="45px"
-          class="andeLightGray"
-        >
-      </div>
     </v-container>
     <v-dialog
       v-model="dialog"
@@ -113,7 +117,6 @@
     >
       <case-viewer :pCase="pCase" />
     </v-dialog>
-
   </section>
 </template>
 
@@ -185,7 +188,6 @@ export default {
 section.portfolio {
   display: flex;
   position: relative;
-  background-color: #F6FBFB;
   
   @media only screen and (min-width: 960px) {
     &::before {
@@ -196,9 +198,15 @@ section.portfolio {
       bottom: 0;
       top: 0;
       background: url('/img/index_left.png') no-repeat, url('/img/index_right.png') no-repeat;
-      background-position: -10% 20vh, 112% -14vh;
+      background-position: -47% 20vh, 143% -14vh;
       mix-blend-mode: darken;
       transform: rotate(180deg);
+    }
+  }
+
+  @media only screen and (min-width: 1424px) {
+    &::before {
+      background-position: -10% 20vh, 112% -14vh;
     }
   }
 
@@ -206,13 +214,16 @@ section.portfolio {
     font-weight: 300;
     text-transform: uppercase;
     margin-bottom: 1em;
-    @include fluid-type(font-size, 320px, 1366px, 30px, 55px);
+    @include fluid-type(font-size, 1280px, 1440px, 38px, 55px);
   }
 
   .container {
     padding: 2.5em 1.25em;
     position: relative;
     @media only screen and (min-width: 960px) {
+      padding: 2.5em 1.5em;
+    }
+    @media only screen and (min-width: 1424px) {
       padding: 2.5em 4em;
     }
   }
@@ -223,6 +234,12 @@ section.portfolio {
     margin-left: -2em;
     
     @media only screen and (min-width: 960px) {
+      padding: 3em 0 3em 1.5em;
+      margin-right: -1.75em;
+      margin-left: -1.75em;
+    }
+    
+    @media only screen and (min-width: 1424px) {
       padding: 3em 0 3em 4em;
       margin-right: -4.25em;
       margin-left: -4.25em;
@@ -244,12 +261,16 @@ section.portfolio {
 
       @media only screen and (min-width: 960px) {
         padding-left: 0;
-        padding-right: 4em;
+        padding-right: 1.5em;
+
+        .v-slide-group__wrapper {
+          margin-right: 0;
+          margin-left: -1em;
+        }
       }
 
-      .v-slide-group__wrapper {
-        margin-right: 0;
-        margin-left: -1em;
+      @media only screen and (min-width: 1424px) {
+        padding-right: 4em;
       }
     }
 
@@ -260,6 +281,11 @@ section.portfolio {
       margin-right: -1.25em;
 
       @media only screen and (min-width: 960px) {
+        margin-left: -1.5em;
+        margin-right: -1.5em;
+      }
+
+      @media only screen and (min-width: 1424px) {
         margin-left: -4em;
         margin-right: -4em;
       }

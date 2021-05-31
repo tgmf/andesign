@@ -79,10 +79,11 @@ export default {
   },
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    optionsPath: './vuetify.options.js',
     treeShake: true,
     theme: {
       options: {
-        customProperties: true
+        customProperties: true,
       },
       dark: false,
       light: true,
@@ -98,7 +99,15 @@ export default {
           andeLightGray: '#DCE3EB',
           andeTeal: '#00AAB4',
         }
-      }
-    }
+      },
+    },
+    breakpoint: {
+      thresholds: {
+        xs: 600,
+        sm: 960,
+        md: 1440,
+        lg: 1920,
+      },
+    },
   },
 }

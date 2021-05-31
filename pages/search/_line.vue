@@ -5,8 +5,10 @@
   >
     <v-row>
       <v-col
-        md="4"
-        offset-md="2"
+        md="7"
+        offset-md="1"
+        lg="4"
+        offset-lg="2"
       >
         <div
           class="query d-flex align-center my-2"
@@ -30,9 +32,6 @@
           v-else
         >
           Мы ничего не нашли:(<br/>
-          <small>
-            Может, вам повезет больше:
-          </small>
         </h1>
         <nuxt-link
           v-once
@@ -53,7 +52,7 @@
             class="result-description"
             v-html="suggestion.description"
           />
-          <div class="mt-12 d-flex flex-row"><hr width="7px" class="andeLightGray mr-1 ml-n4"> <hr width="45px" class="andeLightGray"></div>
+          <div class="mt-12 d-flex flex-row justify-center justify-md-start"><hr width="7px" class="andeLightGray mr-1 ml-n4"> <hr width="45px" class="andeLightGray"></div>
         </nuxt-link>
       </v-col>
     </v-row>
@@ -148,20 +147,32 @@ export default {
 <style lang="scss" scoped>
 div.search-results {
     
-  padding: 12.5em 4em 2.5em;
+  padding: 12.5em 1.25em 2.5em;
   position: relative;
     
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background: url('/img/index_left.png') no-repeat, url('/img/index_right.png') no-repeat;
-    background-position: -10% calc(100% + 126px), 110% -20em;
-    transform: rotate(180deg);
-    z-index: 0;
+  @media only screen and (min-width: 960px) {
+    padding: 12.5em 1.5em 2.5em;
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      background: url('/img/index_left.png') no-repeat, url('/img/index_right.png') no-repeat;
+      background-position: -20% calc(100% + 126px), 130% -20em;
+      transform: rotate(180deg);
+      z-index: 0;
+    }
+  }
+    
+  @media only screen and (min-width: 1424px) {
+    padding: 12.5em 4em 2.5em;
+    
+    &::before {
+      background-position: -10% calc(100% + 126px), 110% -20em;
+    }
   }
   
   .res-num {
