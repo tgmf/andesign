@@ -61,7 +61,7 @@
               >&nbsp;</v-btn>
 
             </div>
-            <div class="nav-buttons">
+            <div class="nav-buttons d-none d-sm-flex">
               <p
                 class="d-none d-md-block"
               >
@@ -232,7 +232,7 @@ div.case-slider {
 
       .checkTheCaseOut {
         position: absolute;
-        right: 0;
+        right: 5vw;
         top: 10vw;
         z-index: 1;
 
@@ -264,7 +264,7 @@ div.case-slider {
         display: flex;
         flex-direction: column;
         position: absolute;
-        right: 0;
+        right: 5vw;
         top: calc(10vw + 4em);
 
         @media only screen and (min-width: 960px) {

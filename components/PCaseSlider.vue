@@ -153,6 +153,11 @@ div.case-slider {
       }
 
       .nav-buttons {
+        right: -4vw;
+
+        @media only screen and (min-width: 960px) {
+          right: auto;
+        }
 
         p {
           writing-mode: vertical-rl;
