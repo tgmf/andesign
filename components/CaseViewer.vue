@@ -59,7 +59,7 @@
                 v-html="pCase.title.rendered"
               />
               <hr
-                class="andeLightGray my-6"
+                class="andeLightGray my-6 d-none d-md-block"
               />
               <p
                 v-html="image.caption"
@@ -151,8 +151,16 @@ export default {
 div.case-slider.case-viewer {
   .v-sheet {
     .container {
-      padding: 6.5em 4em;
+      padding: 6.5em 1.25em;
       height:100%;
+      
+      @media only screen and (min-width: 960px) {
+      padding: 6.5em 1.5em;
+      }
+      
+      @media only screen and (min-width: 960px) {
+      padding: 6.5em 4em;
+      }
 
       hr {
         height: 7px;
@@ -160,7 +168,16 @@ div.case-slider.case-viewer {
       }
       
       div.close-button {
+        position: absolute;
+        right: 5vw;
+        top: 0;
         
+        @media only screen and (min-width: 960px) {
+          position: relative;
+          right: auto;
+          top: auto;
+        }
+
         .v-btn.view-button span {
           background: url(/img/close.svg) center center no-repeat;
         }
