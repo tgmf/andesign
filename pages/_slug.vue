@@ -104,8 +104,6 @@
                   rounded
                   outlined
                   depressed
-                  height="3em"
-                  width="9.8vw"
                   @click="newMessage(category.name, switches)"
                   class="white--text view-button order-button"
                 >
@@ -497,13 +495,17 @@ div.category.individual {
           }
 
           .v-label {
-            font-size: 1.25em;
+            font-size: 1em;
             line-height: 1.5;
             text-transform: uppercase;
             color: #151D24;
             position: relative;
             z-index: 0;
             max-width: fit-content;
+
+            @media only screen and (min-width: 960px) {
+              font-size: 1.25em;
+            }
 
             &::before {
               content: "";

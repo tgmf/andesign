@@ -39,7 +39,7 @@
             <v-spacer/>
             <div
               v-if="images.length > 1"
-              class="nav-buttons">
+              class="nav-buttons d-none d-md-block">
               <p>
                 еще
               </p>
