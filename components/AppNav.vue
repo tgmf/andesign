@@ -30,16 +30,20 @@
             cols="6"
             class="d-flex d-md-none"
           >
-            <v-spacer/>
-            <span>      
-              <v-app-bar-nav-icon @click="drawer = !drawer">
-                <svg xmlns="http://www.w3.org/2000/svg" width="25.833" height="19.667" viewBox="0 0 25.833 19.667">
-                  <line id="Line_17" data-name="Line 17" x2="23.833" transform="translate(1 18.667)" fill="none" stroke="#f6fbfb" stroke-linecap="round" stroke-width="2"/>
-                  <line id="Line_15" data-name="Line 15" x2="23.833" transform="translate(1 1)" fill="none" stroke="#f6fbfb" stroke-linecap="round" stroke-width="2"/>
-                  <line id="Line_18" data-name="Line 18" x2="23.833" transform="translate(1 9.833)" fill="none" stroke="#f6fbfb" stroke-linecap="round" stroke-width="2"/>
-                </svg>
-              </v-app-bar-nav-icon>
-            </span>
+            <v-spacer/>  
+            <v-app-bar-nav-icon
+              @click="drawer = !drawer"
+              :class="[{'is-active': drawer}, 'hamburger hamburger--spring']"
+              :ripple="false"
+            >
+              <span
+                class="hamburger-box"
+              >
+                <span
+                  class="hamburger-inner"
+                />
+              </span>
+            </v-app-bar-nav-icon>
           </v-col>
           <v-col
             md="9"
@@ -137,7 +141,9 @@
       v-model="drawer"
       absolute
       temporary
+      right
       hide-overlay
+      dark
       class="d-flex d-md-none andeDarkOrange drawer"
     >
       <v-container
@@ -149,26 +155,37 @@
               nav
             >
               <v-list-item-group
+                v-if="$route.name === 'index'"
                 v-model="group"
-                active-class="deep-purple--text text--accent-4"
+                theme="dark"
               >
                 <v-list-item
-                v-for="link in navItems"
-                :key="link.slug"
+                  v-for="link in navItems"
+                  :key="link.slug"
+                    @click="$vuetify.goTo('#'+link.slug)"
                 >
                   <span
-                    v-if="$route.name === 'index'"
-                    @click="$vuetify.goTo('#'+link.slug)"
                     class="with-dot ease-width white--text"
                   >
                     {{ link.name }}
                   </span>
-                  <nuxt-link
-                    v-else
-                    :to="'/' + link.slug"
-                    class="with-dot ease-width">
-                      {{ link.name }}
-                    </nuxt-link>
+                </v-list-item>
+              </v-list-item-group>
+              <v-list-item-group
+                v-else
+                v-model="group"
+                theme="dark"
+              >
+                <v-list-item
+                  v-for="link in navItems"
+                  :key="link.slug"
+                  :to="'/' + link.slug"
+                >
+                  <span
+                    class="with-dot ease-width white--text"
+                  >
+                    {{ link.name }}
+                  </span>
                 </v-list-item>
               </v-list-item-group>
             </v-list>
@@ -325,11 +342,14 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "@/assets/hamburgers.min.css";
+
   .nav {
     color: #000;
     border-bottom-left-radius: 2em!important;
     border-bottom-right-radius: 2em!important;
     transition: height .5s ease-out, background-color .5s ease-out;
+    z-index: 8 !important;
 
     @media only screen and (min-width: 960px) {
       background-color: rgba(255, 255, 255, 0.75)!important;
@@ -357,16 +377,42 @@
       font-weight: bold;
     }
 
-    .v-btn.v-btn--icon.v-size--default {
+    .v-btn.v-btn--icon.hamburger {
       content: "";
       width: 56px;
       height: 56px;
       background-color: var(--v-andeDarkOrange-base);
       border-radius: 9999px;
-      box-shadow: 0 0 1em 0.5em white;
+      
+      &:not(.is-active) {
+      //  box-shadow: 0 0 1em 0.5em white;
+      }
+
+      &:hover, &.is-active:hover {
+        opacity: 1;
+      }
+
+      &::before, &:focus::before, &:hover::before {
+        content:none;
+      }
+
+      &.is-active:hover {
+        opacity: 1;
+      }
 
       i {
         color: white;
+      }
+      
+      .hamburger-box {
+        width: 26px;
+        height: 22px;
+
+        .hamburger-inner, .hamburger-inner:after, .hamburger-inner:before {
+          background-color: white;
+          width: 26px;
+          height: 2px;
+        }
       }
     }
 
@@ -419,14 +465,17 @@
     left: -.5em;
   }
 
-  .with-dot.ease-width:hover:before, .nuxt-link-active:before, .with-dot.dot-active.ease-width:before {
+  .with-dot.ease-width:hover:before, .nuxt-link-active:before, .with-dot.dot-active.ease-width:before, .v-list-item--active .with-dot.ease-width:before {
     width: calc(100% + 1em);
   }
 
   .drawer {
     position: fixed;
-    span {
+    span, a {
       text-transform: uppercase;
+    }
+    .v-list-item--active:before {
+      opacity: 0;
     }
   }
 </style>

@@ -19,7 +19,7 @@ export default {
   props: {
     height: {
       type: String,
-      default: "37.174"
+      default: "39.174"
     },
     width: {
       type: String,

@@ -26,7 +26,8 @@
           <h2>{{ category.name }}</h2>
           <v-row>
             <v-col
-              cols="6"
+              cols="12"
+              sm="6"
               md="12"
               :lg="category.count === 1 ? 8 : 6"
               class="subcategories d-flex flex-column"
@@ -74,7 +75,8 @@
             </v-col>
             <v-col
               v-if="category.count > 1"
-              cols="6"
+              cols="12"
+              sm="6"
               md="12"
               lg="6"
               class="category-description d-flex align-md-end"
@@ -214,7 +216,10 @@ section.portfolio {
     font-weight: 300;
     text-transform: uppercase;
     margin-bottom: 1em;
-    @include fluid-type(font-size, 1280px, 1440px, 38px, 55px);
+    font-size: 30px;
+    @media only screen and (min-width: 960px) {
+      @include fluid-type(font-size, 960px, 1440px, 30px, 55px);
+    }
   }
 
   .container {
@@ -254,7 +259,7 @@ section.portfolio {
     }
 
     .v-slide-group__wrapper {
-      margin-right: -1em;
+      margin-right: -.75em;
     }
 
     &.even {

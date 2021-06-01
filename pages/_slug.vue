@@ -161,8 +161,9 @@
           <v-col
             v-for="(service, index) in page.acf.services"
             :key="service.title"
-            md="6"
-            class="service mt-8 mb-8 mb-lg-16"
+            cols="12"
+            sm="6"
+            class="service mt-8 mb-8 mb-lg-16 d-flex flex-column"
           >
             <v-row>
               <v-col
@@ -195,12 +196,14 @@
               рублей
               </v-col>
             </v-row>
-            <v-row>
+            <v-spacer />
+            <v-row
+              class="align-end">
               <v-col
                 md="2"
                 :offset-md="((index+1)%2)*2 + 2"
               >
-                <div class="mt-4 mt-lg-6 d-flex flex-row justify-end justify-md-start">
+                <div class="mb-4 mb-lg-6 d-flex flex-row justify-end justify-md-start">
                   <hr
                     width="7px"
                     class="andeLightGray mr-1 ml-n3"
