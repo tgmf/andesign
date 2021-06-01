@@ -9,7 +9,7 @@
       ref="caseItem"
     >
       <v-sheet
-        width="54vw"
+        :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '82vw' : $vuetify.breakpoint.md ? '65vw' : '54vw'"
       >
         <v-row
           class="fill-height"
@@ -31,7 +31,7 @@
           >
             <hr
               v-if="image.caption"
-              class="plain andeLightGray mt-16"
+              class="plain andeLightGray mt-16 d-none d-md-block"
             />
             <p
               v-html="image.caption"
@@ -39,8 +39,9 @@
             <v-spacer/>
             <div
               v-if="images.length > 1"
-              class="nav-buttons d-none d-md-block">
-              <p>
+              class="nav-buttons d-none d-sm-block">
+              <p
+              class="d-none d-md-block">
                 еще
               </p>
               <v-btn
@@ -120,7 +121,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/mixins.scss";
 div.case-slider {
 
@@ -213,9 +214,10 @@ div.case-slider {
       }
     }
   }
-
+}
+</style>
+<style lang="scss">
   .v-slide-group__next, .v-slide-group__prev {
     display: none !important;
   }  
-}
 </style>
