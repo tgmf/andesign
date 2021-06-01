@@ -141,6 +141,8 @@
       v-model="drawer"
       absolute
       temporary
+      floating
+      rounded
       right
       hide-overlay
       dark

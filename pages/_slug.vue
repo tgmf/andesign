@@ -376,26 +376,32 @@ export default {
 <style lang="scss" scoped>
 .page-enter-active,
 .layout-enter-active {
+  overflow: hidden;
   animation: acrossIn .40s ease-out both;
 } 
 .page-leave-active, 
 .layout-leave-active {
+  overflow: hidden;
   animation: acrossOut .60s ease-in both;
 } 
 @keyframes acrossIn {
   0% {
     transform: translate3d(100%, 0, 0);
+    width: 0;
   }
   100% {
     transform: translate3d(0, 0, 0);
+    width: 100vw;
   }
 }
 @keyframes acrossOut {
   0% {
     transform: translate3d(0, 0, 0);
+    width: 100vw;
   }
   100% {
     transform: translate3d(100%, 0, 0);
+    width: 0;
   }
     }
 </style>
