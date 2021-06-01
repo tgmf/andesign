@@ -138,7 +138,7 @@
       absolute
       temporary
       hide-overlay
-      class="d-flex d-sm-none andeDarkOrange drawer"
+      class="d-flex d-md-none andeDarkOrange drawer"
     >
       <v-container
         fluid
