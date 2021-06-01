@@ -370,8 +370,36 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.page-enter-active,
+.layout-enter-active {
+  animation: acrossIn .40s ease-out both;
+} 
+.page-leave-active, 
+.layout-leave-active {
+  animation: acrossOut .60s ease-in both;
+} 
+@keyframes acrossIn {
+  0% {
+    transform: translate3d(100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes acrossOut {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(100%, 0, 0);
+  }
+    }
+</style>
+
 <style lang="scss">
 @import "@/assets/mixins.scss";
+
 div.category.individual {
   position: relative;
   padding-top: 6em;

@@ -45,6 +45,14 @@ export default {
 
 <style lang="scss">
 
+.page-enter-active, .page-leave-active {
+  transition: all .30s ease-out;
+}
+.page-enter, .page-leave-active {
+  opacity: 0;
+  transform-origin: 50% 50%;
+}
+
 h2 {
   margin-bottom: 2em;
 }
