@@ -7,6 +7,13 @@
       v-for="image in pCase.acf.media"
       :key="image.id"
       ref="portfolioCaseItem"
+      @touchstart.native.stop
+      @touchmove.native.stop
+      @touchend.native.stop
+      v-touch="{
+        left: () => nextSlide(),
+        right: () => prevSlide()
+      }"
     >
       <v-sheet
         width="100vw"

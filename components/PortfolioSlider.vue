@@ -7,6 +7,13 @@
       v-for="pCase in pCases"
       :key="category + pCase.id"
       ref="caseItem"
+      @touchstart.native.stop
+      @touchmove.native.stop
+      @touchend.native.stop
+      v-touch="{
+        left: () => nextSlide(),
+        right: () => prevSlide()
+      }"
     >
       <v-sheet
         :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '90vw' : $vuetify.breakpoint.md ? '65vw' : '46vw'"
@@ -161,7 +168,10 @@ export default {
     },
     openCaseViewer(pCase) {
       this.$nuxt.$emit('open-case-viewer', pCase)
-    }
+    },
+    swipe (direction) {
+      return
+    },
   }
 };
 </script>

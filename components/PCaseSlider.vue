@@ -7,6 +7,13 @@
       v-for="image in images"
       :key="image.id"
       ref="caseItem"
+      @touchstart.native.stop
+      @touchmove.native.stop
+      @touchend.native.stop
+      v-touch="{
+        left: () => nextSlide(),
+        right: () => prevSlide()
+      }"
     >
       <v-sheet
         :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '82vw' : $vuetify.breakpoint.md ? '65vw' : '54vw'"
