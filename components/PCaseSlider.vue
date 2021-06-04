@@ -21,7 +21,7 @@
               <v-img
                 :src="image.url"
                 width="100%"
-                aspect-ratio="1.4"
+                :aspect-ratio="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? 1.14 : 1.4"
               />
           </v-col>
           <v-col
