@@ -482,8 +482,10 @@
     }
   }
 
-  .v-app-bar--is-scrolled .v-app-bar-title {
-    display: none;
+  @media only screen and (max-width: 960px) {
+    .v-app-bar--is-scrolled .v-app-bar-title {
+      display: none;
+    }
   }
 </style>
 
