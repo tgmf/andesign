@@ -84,7 +84,8 @@
           </v-row>
           <v-row>
             <v-col
-              cols="12"
+              cols="11"
+              sm="8"
               md="7"
             >
             <p

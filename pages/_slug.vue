@@ -384,8 +384,8 @@ export default {
 } 
 @keyframes acrossIn {
   0% {
-    transform: translate3d(100%, 0, 0);
-    width: 0;
+    transform: translate3d(-100%, 0, 0);
+    width: 20vw;
   }
   100% {
     transform: translate3d(0, 0, 0);
@@ -398,8 +398,8 @@ export default {
     width: 100vw;
   }
   100% {
-    transform: translate3d(100%, 0, 0);
-    width: 0;
+    transform: translate3d(-100%, 0, 0);
+    width: 20vw;
   }
     }
 </style>
@@ -625,10 +625,11 @@ div.category.individual {
       
     .case {
       margin-right: -1.25em;        
-      padding: 0 0 5em 0;
+      padding: 0 0 1em 0;
 
       @media only screen and (min-width: 960px) {
-        margin-right: -1.5em; 
+        margin-right: -1.5em;      
+        padding: 0 0 5em 0;
       }
 
       @media only screen and (min-width: 1424px) {

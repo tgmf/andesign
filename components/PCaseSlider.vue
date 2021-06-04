@@ -39,7 +39,7 @@
             <v-spacer/>
             <div
               v-if="images.length > 1"
-              class="nav-buttons d-none d-sm-block">
+              class="nav-buttons d-none d-sm-flex">
               <p
               class="d-none d-md-block">
                 еще
@@ -222,7 +222,7 @@ div.case-slider {
 }
 </style>
 <style lang="scss">
-  .v-slide-group__next, .v-slide-group__prev {
-    display: none !important;
-  }  
+  // .slider-container .v-slide-group__next, .slider-container .v-slide-group__prev {
+  //   display: none !important;
+  // }
 </style>

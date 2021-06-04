@@ -17,7 +17,7 @@
           <v-col
             cols="11"
             md="9"
-            lg="10"
+            xl="10"
             :order-md="even? 2 : 1"
           >
               <v-img
@@ -29,7 +29,7 @@
           <v-col
             cols="11"
             md="3"
-            lg="2"
+            xl="2"
             :order-md="even ? 1 : 2"
             class="d-flex flex-column"
           >
@@ -265,12 +265,14 @@ div.case-slider {
         flex-direction: column;
         position: absolute;
         right: 5vw;
-        top: calc(10vw + 4em);
+        top: 10em;
 
         @media only screen and (min-width: 960px) {
           position: relative;
           right: auto;
           top: auto;
+          left: auto;
+          display: block;
         }
 
         p {
@@ -304,6 +306,11 @@ div.case-slider {
 
           &.next-button {
             margin-left: 0;
+            align-self: flex-end;
+            @media only screen and (min-width: 960px) {
+              align-self: auto;
+            }
+
           }
         }
       

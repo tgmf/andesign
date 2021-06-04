@@ -246,7 +246,7 @@ section.portfolio {
     
     @media only screen and (min-width: 1424px) {
       padding: 3em 0 3em 4em;
-      margin-right: -4.25em;
+      margin-right: -4em;
       margin-left: -4.25em;
     }
 

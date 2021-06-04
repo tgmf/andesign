@@ -32,7 +32,7 @@
                   :disabled="prevIsDisabled"
                   elevation="0"
                   color="andeLightGray"
-                  class="prev-button ml-auto"
+                  class="prev-button ml-md-auto"
                   @click="prevSlide"
                   ref="prevButton"
                 >&nbsp;</v-btn>
@@ -67,7 +67,7 @@
               <v-spacer/>
               <div
                 v-if="pCase.acf.media.length > 1"
-                class="nav-buttons mt-2 mb-6">
+                class="nav-buttons mt-md-2 mb-md-6">
                 <v-btn
                   fab
                   depressed
@@ -186,6 +186,10 @@ div.case-slider.case-viewer {
           padding-top: .9em;
           content: url(/img/close_white.svg);
         }
+      }
+
+      .nav-buttons {
+        left: 5vw;
       }
     }
   }

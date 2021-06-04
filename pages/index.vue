@@ -45,6 +45,10 @@ export default {
 
 <style lang="scss">
 
+#main-content {
+  background-color: #F6FBFB;
+}
+
 .page-enter-active, .page-leave-active {
   transition: all .30s ease-out;
 }

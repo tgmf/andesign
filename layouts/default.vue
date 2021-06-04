@@ -1,7 +1,12 @@
 <template>
   <v-app>
-    <v-main>
-      <app-nav app :categories="categories" />
+    <app-nav
+      app
+      :categories="categories"
+    />
+    <v-main
+      id="main"
+    >
       <span class="descr andeGray--text">Группа визуальных коммуникаций</span>
       <nuxt />
       <app-map app />

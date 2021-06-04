@@ -4,6 +4,7 @@
       :class="[{'order-form-active' : orderFormActive}, {'sidebar-active' : sidebar}, 'nav']"
       fixed
       flat
+      clipped-right
       :height="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? 70 : 96"
       :color="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? 'transparent' : 'white'"
       tag="nav"
@@ -479,6 +480,10 @@
     .v-list-item--active:before {
       opacity: 0;
     }
+  }
+
+  .v-app-bar--is-scrolled .v-app-bar-title {
+    display: none;
   }
 </style>
 
