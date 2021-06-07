@@ -5,7 +5,6 @@ let dynamicRoutes = () => {
     .then(res => {
       return res.data.map(category => `/${category.slug}`)
     })
-  console.log(routes)
   return routes
 }
 

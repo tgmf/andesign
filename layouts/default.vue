@@ -9,8 +9,8 @@
     >
       <span class="descr andeGray--text">Группа визуальных коммуникаций</span>
       <nuxt />
-      <app-map app />
-      <app-footer app :categories="categories" />
+      <app-map />
+      <app-footer :categories="categories" />
     </v-main>
     <keep-alive>
       <modal-component componentName="order-form" :componentProps="{allowUpload: true}" :dark="true" />

@@ -1,6 +1,7 @@
 <template>
   <section class="map-section" id="map-section">
     <yandex-map
+      v-if="showMap"
       :coords="coords"
       :style="style"
       :controls="['zoomControl', 'typeSelector']"
@@ -135,6 +136,7 @@ export default {
 		return {
       coords: [55.8684000,37.573000],
       style: (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) ? "width: 100%; height: 100vh;" : "width: 100%; height: 30em;",
+      showMap: false,
       mapIsThere: false, 
       markerIcon: {
         layout: 'default#imageWithContent',
@@ -148,7 +150,8 @@ export default {
   },
   mounted() { 
     this.$nextTick(function () {
-      this.onResize();
+      this.showMap = true
+      this.onResize()
     })
     window.addEventListener('resize', this.onResize)
   },
@@ -157,8 +160,10 @@ export default {
       if (process.client) {
         let width = window.innerWidth
         console.log(width)
-        this.coords = [55.8678 + 0.0000005 * (width - 320), 37.5728 + 0.000001 * (width*3.6 - 1056)]
+        if (width < 960) {
+          this.coords = [55.8678 + 0.0000005 * (width - 320), 37.5728 + 0.000001 * (width*3.6 - 1056)]
           this.style = "width: 100%; height: 100vh;"
+        }
         if (width >= 960) {
           this.coords = [55.868888, 37.5728 + 0.000001 * (width*4.4 - 1056)]
           this.style = "width: 100%; height: 30em;"
@@ -166,9 +171,9 @@ export default {
         if (width >= 1416) this.coords = [55.868888, 37.5728 + 0.000001 * (width*3.3 - 1056)]
       } else this.coords = [55.8684, 37.573]
     },
-    onMapInit(map) {
+    onMapInit(myMap) {
       this.mapIsThere = true
-      console.log(map)
+      console.log(myMap)
       let myPolyline = new ymaps.Polyline([
           // Указываем координаты вершин ломаной.
           [55.870071, 37.584380],
@@ -194,7 +199,7 @@ export default {
       });
 
       // Добавляем линии на карту.
-      map.geoObjects
+      myMap.geoObjects
         .add(myPolyline);
     }
   }
