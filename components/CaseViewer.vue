@@ -197,6 +197,13 @@ div.case-slider.case-viewer {
 
       .nav-buttons {
         left: 5vw;
+
+        @media only screen and (min-width: 960px) {
+          left: 0;
+          .prev-button {
+              left: 5vw;
+            }
+        }
       }
     }
   }

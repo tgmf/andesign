@@ -145,7 +145,6 @@ export default {
   },
   computed: {
     style() {
-      if (!this.mapIsThere) return "width: 100%;"
       return (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) ? "width: 100%; height: 100vh;" : "width: 100%; height: 30em;"
     }
   },
