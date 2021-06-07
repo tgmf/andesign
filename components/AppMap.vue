@@ -19,7 +19,7 @@
       v-if="!mapIsThere"
       src="/img/map.png"
       aspect="3.2"
-      min-height="30em"
+      min-height="37em"
       class="map-img d-none d-md-flex"
     />
     <v-img
@@ -135,7 +135,7 @@ export default {
   data() {
 		return {
       coords: [55.8684000,37.573000],
-      style: (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) ? "width: 100%; height: 100vh;" : "width: 100%; height: 30em;",
+      style: (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) ? "width: 100%; height: 100vh;" : "width: 100%; height: 37em;",
       showMap: false,
       mapIsThere: false, 
       markerIcon: {
@@ -166,7 +166,7 @@ export default {
         }
         if (width >= 960) {
           this.coords = [55.868888, 37.5728 + 0.000001 * (width*4.4 - 1056)]
-          this.style = "width: 100%; height: 30em;"
+          this.style = "width: 100%; height: 37em;"
         }
         if (width >= 1416) this.coords = [55.868888, 37.5728 + 0.000001 * (width*3.3 - 1056)]
       } else this.coords = [55.8684, 37.573]
@@ -210,12 +210,12 @@ export default {
 .map-section {
   width: 100vw;
   position: relative;
-  min-height: 30em;
+  min-height: 37em;
 
   .map-img {
     margin-top: -100vh;
     @media only screen and (min-width: 960px) {
-      margin-top: -30em;
+      margin-top: -37em;
     }
   }
 
