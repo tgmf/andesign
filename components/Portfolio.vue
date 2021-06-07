@@ -95,7 +95,7 @@
           lg="7"
           class="slider-container"
         >
-          <portfolio-slider :category="category.id" :theme="category.acf.theme" :even="index%2 ? true : false" />
+          <portfolio-slider :category="category.id" :theme="category.acf.theme" :even="index%2 ? true : false" :rowIndex="index" />
         </v-col>
         <div
           class="my-6 mx-auto d-flex d-md-none flex-row justify-center"

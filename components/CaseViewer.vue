@@ -7,9 +7,6 @@
       v-for="image in pCase.acf.media"
       :key="image.id"
       ref="portfolioCaseItem"
-      @touchstart.native.stop
-      @touchmove.native.stop
-      @touchend.native.stop
       v-touch="{
         left: () => nextSlide(),
         right: () => prevSlide()
@@ -128,21 +125,23 @@ export default {
       this.prevIsDisabled = false
       const itemWidth = this.$refs.portfolioCaseItem[0].$el.clientWidth,
       contentWidth = this.$refs.portfolioCaseSlider.$refs.content.clientWidth,
+      currentItem = Math.floor(this.$refs.portfolioCaseSlider.scrollOffset / itemWidth) + 1,
       limit = contentWidth - itemWidth - 1
       if (this.$refs.portfolioCaseSlider.scrollOffset + itemWidth >= limit) {
         this.$refs.portfolioCaseSlider.scrollOffset = limit
         return this.nextIsDisabled = true
       }
-      return this.$refs.portfolioCaseSlider.scrollOffset += itemWidth
+      return this.$refs.portfolioCaseSlider.scrollOffset = currentItem * itemWidth
     },
     prevSlide() {
       this.nextIsDisabled = false
-      const itemWidth = this.$refs.portfolioCaseItem[0].$el.clientWidth
+      const itemWidth = this.$refs.portfolioCaseItem[0].$el.clientWidth,
+      currentItem = Math.floor(this.$refs.portfolioCaseSlider.scrollOffset / itemWidth) - 1
       if (this.$refs.portfolioCaseSlider.scrollOffset - itemWidth <= 0 ) {
         this.$refs.portfolioCaseSlider.scrollOffset = 0
         return this.prevIsDisabled = true
       }
-      return this.$refs.portfolioCaseSlider.scrollOffset -= itemWidth
+      return this.$refs.portfolioCaseSlider.scrollOffset = currentItem * itemWidth
     },
     close() {
       this.$refs.portfolioCaseSlider.scrollOffset = 0
@@ -155,6 +154,11 @@ export default {
 </script>
 
 <style lang="scss" scope>
+
+.v-slide-group__wrapper {
+  touch-action: auto !important;
+}
+
 div.case-slider.case-viewer {
   .v-sheet {
     .container {

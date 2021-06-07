@@ -7,9 +7,6 @@
       v-for="image in images"
       :key="image.id"
       ref="caseItem"
-      @touchstart.native.stop
-      @touchmove.native.stop
-      @touchend.native.stop
       v-touch="{
         left: () => nextSlide(),
         right: () => prevSlide()
@@ -106,23 +103,25 @@ export default {
       const itemWidth = this.$refs.caseItem[0].$el.clientWidth,
       contentWidth = this.$refs.caseSlider.$refs.content.clientWidth,
       wrapperWidth = this.$refs.caseSlider.$refs.wrapper.clientWidth,
+      currentItem = Math.floor(this.$refs.caseSlider.scrollOffset / itemWidth) + 1,
       limit = this.even ? contentWidth - wrapperWidth : contentWidth - itemWidth - 1
       if (this.$refs.caseSlider.scrollOffset + itemWidth >= limit) {
         this.$refs.caseSlider.scrollOffset = limit
         return this.nextIsDisabled = true
       }
-      return this.$refs.caseSlider.scrollOffset += itemWidth
+      return this.$refs.caseSlider.scrollOffset = currentItem * itemWidth
     },
     prevSlide () {
       this.nextIsDisabled = false
       const itemWidth = this.$refs.caseItem[0].$el.clientWidth,
       wrapperWidth = this.$refs.caseSlider.$refs.wrapper.clientWidth,
+      currentItem = Math.floor(this.$refs.caseSlider.scrollOffset / itemWidth) - 1,
       limit = this.even ? itemWidth - wrapperWidth + 1 : 0
       if (this.$refs.caseSlider.scrollOffset - itemWidth <= limit ) {
         this.$refs.caseSlider.scrollOffset = limit
         return this.prevIsDisabled = true
       }
-      return this.$refs.caseSlider.scrollOffset -= itemWidth
+      return this.$refs.caseSlider.scrollOffset = currentItem * itemWidth
     }
   }
 }
@@ -130,6 +129,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/mixins.scss";
+
+.v-slide-group__wrapper {
+  touch-action: auto !important;
+}
+
 div.case-slider {
 
   .v-sheet {
