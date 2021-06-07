@@ -19,14 +19,14 @@
       src="/img/map.png"
       aspect="3.2"
       min-height="30em"
-      class="d-none d-md-flex"
+      class="map-img d-none d-md-flex"
     />
     <v-img
       v-if="!mapIsThere"
       src="/img/map_m.png"
       aspect="0.66"
       max-height="100vh"
-      class="d-flex d-md-none"
+      class="map-img d-flex d-md-none"
     />
     <v-container
       fluid
@@ -134,6 +134,7 @@ export default {
   data() {
 		return {
       coords: [55.8684000,37.573000],
+      style: (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) ? "width: 100%; height: 100vh;" : "width: 100%; height: 30em;",
       mapIsThere: false, 
       markerIcon: {
         layout: 'default#imageWithContent',
@@ -144,9 +145,6 @@ export default {
 	  }
   },
   computed: {
-    style() {
-      return (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) ? "width: 100%; height: 100vh;" : "width: 100%; height: 30em;"
-    }
   },
   mounted() { 
     this.$nextTick(function () {
@@ -160,7 +158,11 @@ export default {
         let width = window.innerWidth
         console.log(width)
         this.coords = [55.8678 + 0.0000005 * (width - 320), 37.5728 + 0.000001 * (width*3.6 - 1056)]
-        if (width >= 960) this.coords = [55.868888, 37.5728 + 0.000001 * (width*4.4 - 1056)]
+          this.style = "width: 100%; height: 100vh;"
+        if (width >= 960) {
+          this.coords = [55.868888, 37.5728 + 0.000001 * (width*4.4 - 1056)]
+          this.style = "width: 100%; height: 30em;"
+        }
         if (width >= 1416) this.coords = [55.868888, 37.5728 + 0.000001 * (width*3.3 - 1056)]
       } else this.coords = [55.8684, 37.573]
     },
@@ -204,6 +206,13 @@ export default {
   width: 100vw;
   position: relative;
   min-height: 30em;
+
+  .map-img {
+    margin-top: -100vh;
+    @media only screen and (min-width: 960px) {
+      margin-top: -30em;
+    }
+  }
 
   .container {
     
