@@ -1,12 +1,28 @@
 <template>
   <section class="map-section" id="map-section">
+    <yandex-map
+      :coords="coords"
+      :style="style"
+      :controls="['zoomControl', 'typeSelector']"
+      zoom="17"
+      @map-was-initialized="onMapInit"
+    >
+      <ymap-marker
+        marker-id="1"
+        marker-type="placemark"
+        :coords="[55.8688,37.5728]"
+        :icon="markerIcon"
+      ></ymap-marker>
+    </yandex-map>
     <v-img
+      v-if="!mapIsThere"
       src="/img/map.png"
       aspect="3.2"
       min-height="30em"
       class="d-none d-md-flex"
     />
     <v-img
+      v-if="!mapIsThere"
       src="/img/map_m.png"
       aspect="0.66"
       max-height="100vh"
@@ -88,7 +104,7 @@
                       </svg>
                     </v-list-item-icon>
                     <v-list-item-content>
-                      <v-list-item-title><a href="https://goo.gl/maps/3YYArR5eeEWbKQvU8" target="_blank">127410, г. Москва,<br />ул. Поморская,<br />д. 39, стр. 1</a></v-list-item-title>
+                      <v-list-item-title><a href="https://yandex.com/maps/-/CCUaRRCNpC" target="_blank">127410, г. Москва,<br />ул. Поморская,<br />д. 39, стр. 1</a></v-list-item-title>
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
@@ -112,23 +128,81 @@
 </template>
 
 <script>
-import StaticMap from 'vue-static-map';
 
 export default {
   name: "AppMap",
-  components: {
-    StaticMap
-  },
   data() {
 		return {
+      coords: [55.8684000,37.573000],
+      mapIsThere: false, 
+      markerIcon: {
+        layout: 'default#imageWithContent',
+        imageHref: 'img/map_icon.svg',
+        imageSize: [38, 46],
+        imageOffset: [0, 0],
+      }
 	  }
+  },
+  computed: {
+    style() {
+      if (!this.mapIsThere) return "width: 100%;"
+      return (this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm) ? "width: 100%; height: 100vh;" : "width: 100%; height: 30em;"
+    }
+  },
+  mounted() { 
+    this.$nextTick(function () {
+      this.onResize();
+    })
+    window.addEventListener('resize', this.onResize)
+  },
+  methods: {
+    onResize() {
+      if (process.client) {
+        let width = window.innerWidth
+        console.log(width)
+        this.coords = [55.8678 + 0.0000005 * (width - 320), 37.5728 + 0.000001 * (width*3.6 - 1056)]
+        if (width >= 960) this.coords = [55.868888, 37.5728 + 0.000001 * (width*4.4 - 1056)]
+        if (width >= 1416) this.coords = [55.868888, 37.5728 + 0.000001 * (width*3.3 - 1056)]
+      } else this.coords = [55.8684, 37.573]
+    },
+    onMapInit(map) {
+      this.mapIsThere = true
+      console.log(map)
+      let myPolyline = new ymaps.Polyline([
+          // Указываем координаты вершин ломаной.
+          [55.870071, 37.584380],
+          [55.869711, 37.584096],
+          [55.870110, 37.583230],
+          [55.869605, 37.572334],
+          [55.869217, 37.572289],
+          [55.868555, 37.572722]
+      ], {
+          // Описываем свойства геообъекта.
+          // Содержимое балуна.
+          balloonContent: "На авто"
+      }, {
+          // Задаем опции геообъекта.
+          // Отключаем кнопку закрытия балуна.
+          balloonCloseButton: false,
+          // Цвет линии.
+          strokeColor: "#e8af64",
+          // Ширина линии.
+          strokeWidth: 6,
+          // Коэффициент прозрачности.
+          strokeOpacity: 1
+      });
+
+      // Добавляем линии на карту.
+      map.geoObjects
+        .add(myPolyline);
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .map-section {
-  width: 100%;
+  width: 100vw;
   position: relative;
   min-height: 30em;
 
@@ -136,14 +210,16 @@ export default {
     
     position: absolute;
     bottom:0;
+    pointer-events: none; 
 
     .contacts {
       z-index: 1;
       padding-top: 2em;
       padding-bottom:2em;
+      pointer-events: auto;
   
         @media only screen and (min-width: 960px) {
-          padding-bottom:10vh;
+          padding-bottom:4em;
         }
 
       h2 {

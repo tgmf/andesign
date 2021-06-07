@@ -15,7 +15,8 @@
     "nuxt": "^2.15.4",
     "update": "^0.7.4",
     "vue-lodash": "^2.1.2",
-    "vue-static-map": "^3.0.2"
+    "vue-static-map": "^3.0.2",
+    "vue-yandex-maps": "^0.10.10"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.11.3",
