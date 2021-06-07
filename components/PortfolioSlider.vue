@@ -134,7 +134,7 @@ export default {
   },
   mounted() {
     this.$nextTick(function () {
-      if (this.even) this.setSlide()
+      if (this.even && !(this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm)) this.setSlide()
     })
   },
   methods: {
