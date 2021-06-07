@@ -6,8 +6,8 @@
       <v-row>
         <v-col
           class="hero"
-          cols="10"
-          offset="2"
+          cols="12"
+          offset-md="2"
           md="6"
           lg="4"
         >
@@ -154,8 +154,8 @@
       </v-row>
       <v-row>
         <v-col
-          cols="8"
-          offset="2"
+          cols="10"
+          offset-md="2"
           md="9"
           lg="12"
           offset-lg="0"
@@ -439,7 +439,6 @@ section.masthead {
 
   .moto {
     font-size: 16px;
-    margin-left: -1.125em;
     margin-top: 2.5em;
     width: 75%;
     z-index: 1;
