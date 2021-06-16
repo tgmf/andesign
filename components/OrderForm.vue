@@ -173,7 +173,7 @@ export default {
         Object.keys(this.form).forEach((key) => {
           formData.append(key, this.form[key])
         });
-        const res = await axios.post('https://andesign.cpkiu.xyz/wp-json/contact-form-7/v1/contact-forms/242/feedback', formData, {
+        const res = await axios.post('https://admin.andesign.ru/wp-json/contact-form-7/v1/contact-forms/242/feedback', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }

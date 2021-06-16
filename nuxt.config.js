@@ -1,7 +1,7 @@
 import axios from "axios"
 let dynamicRoutes = () => {
   const routes = axios
-    .get("https://andesign.cpkiu.xyz/wp-json/wp/v2/categories?page=1&per_page=100&hide_empty=true&parent=0")
+    .get("https://admin.andesign.ru/wp-json/wp/v2/categories?page=1&per_page=100&hide_empty=true&parent=0")
     .then(res => {
       return res.data.map(category => `/${category.slug}`)
     })
