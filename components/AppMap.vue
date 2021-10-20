@@ -194,7 +194,7 @@ export default {
           // Отключаем кнопку закрытия балуна.
           balloonCloseButton: false,
           // Цвет линии.
-          strokeColor: "#e8af64",
+          strokeColor: "#5F6A75",
           // Ширина линии.
           strokeWidth: 6,
           // Коэффициент прозрачности.
