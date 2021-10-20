@@ -6,8 +6,8 @@
       :style="style"
       :controls="['zoomControl', 'typeSelector']"
       zoom="17"
-      dragable="false"
-      scrollZoom="false"
+      :dragable="false"
+      :scrollZoom="false"
       @map-was-initialized="onMapInit"
     >
       <ymap-marker
@@ -39,7 +39,8 @@
         <v-col
           cols="8"
           md="5"
-          lg="3"
+          lg="4"
+          xl="3"
           class="contacts"
         >
           <h2>Схема проезда</h2>
@@ -119,6 +120,8 @@
                 <v-img
                   src="/img/qrcode1617815155.png"
                   max-width="80%"
+                  aspect-ratio="1"
+                  contain
                   class="mx-auto mt-3"
                 />
               </v-col>
