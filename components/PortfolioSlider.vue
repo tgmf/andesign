@@ -1,102 +1,109 @@
 <template>
-  <v-slide-group
-    :class="[{even : even}, 'case-slider']"
-    ref="caseSlider"
+<v-container
+  class="px-3 ps-md-6 pe-md-0 PortfolioSlider-container"
+>
+  <v-row
+    no-gutters
+    class="pa-0"
   >
-    <v-slide-item
-      v-for="pCase in pCases"
-      :key="category + pCase.id"
-      ref="caseItem"
-      v-touch="{
-        left: () => nextSlide(),
-        right: () => prevSlide(),
-      }"
-    >
-      <v-sheet
-        :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '90vw' : $vuetify.breakpoint.md ? '65vw' : '46vw'"
+      <v-col
+        class="pa-0"
       >
-        <v-row
-          class="fill-height"
+      <div
+        class="case-slider"
+        ref="caseSlider"
+      >
+        <div
+          class="slider-wrapper d-flex"
+          ref="caseWrapper"
+          :style="'transform: translateX(-'+ slidePosition +'px)'"
         >
-          <v-col
-            cols="11"
-            md="9"
-            xl="10"
-            :order-md="even? 2 : 1"
+          <v-sheet
+            v-for="pCase in pCases"
+            :key="category + pCase.id"
+            ref="caseItem"
+            v-touch="{
+              left: () => nextSlide(),
+              right: () => prevSlide(),
+            }"
+            :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? pCase.acf.media[0].width/pCase.acf.media[0].height*12.5 + 2 + 'em' : $vuetify.breakpoint.md ? pCase.acf.media[0].width/pCase.acf.media[0].height*24.5625 + 2 + 'em' : pCase.acf.media[0].width/pCase.acf.media[0].height*32 + 2 + 'em'"
           >
-              <v-img
-                :src="pCase.acf.media[0].url"
-                width="100%"
-                :aspect-ratio="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? 1.14 : 1.4"
-              />
-          </v-col>
-          <v-col
-            cols="11"
-            md="3"
-            xl="2"
-            :order-md="even ? 1 : 2"
-            class="d-flex flex-column"
-          >
-            <h3
-              v-html="pCase.title.rendered"
-            />
-            <hr
-              class="plain andeLightGray d-none d-md-block"
-            />
-            <p
-              v-if="pCase.acf.media[0].caption"
-              v-html="pCase.acf.media[0].caption"
-            />
-            <v-spacer/>
-            <div class="checkTheCaseOut">
-              <p
-                @click="openCaseViewer(pCase)"
-                class="d-none d-md-block"
+            <v-row>
+              <v-col
+                class="ps-1 pe-sm-4"
               >
-                cмотреть<br/>проект
-              </p>
-              <v-btn
-                fab
-                depressed
-                elevation="0"
-                color="andeLightGray"
-                class="view-button"
-                @click="openCaseViewer(pCase)"
-              >&nbsp;</v-btn>
-
-            </div>
-            <div class="nav-buttons d-none d-sm-flex">
-              <p
-                class="d-none d-md-block"
+                  <v-img
+                    contain
+                    :src="pCase.acf.media[0].sizes['case-img']"
+                    ref="caseImg"
+                    :height="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '12.5em' : $vuetify.breakpoint.md ? '24.5625em' : '32em'"
+                    :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? pCase.acf.media[0].width/pCase.acf.media[0].height*12.5 + 'em' : $vuetify.breakpoint.md ? pCase.acf.media[0].width/pCase.acf.media[0].height*24.5625 + 'em' : pCase.acf.media[0].width/pCase.acf.media[0].height*32 + 'em'"
+                  />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col
+                class="ps-1"
               >
-                еще
-              </p>
-              <v-btn
-                fab
-                depressed
-                :disabled="nextIsDisabled"
-                elevation="0"
-                color="andeLightGray"
-                :class="[{'mb-15' : prevIsDisabled, 'mb-2' : !prevIsDisabled}, 'next-button']"
-                @click="nextSlide"
-                ref="nextButton"
-              >&nbsp;</v-btn>
-              <v-btn
-                fab
-                depressed
-                :disabled="prevIsDisabled"
-                elevation="0"
-                color="andeLightGray"
-                :class="[{'mb-15' : nextIsDisabled}, 'prev-button']"
-                @click="prevSlide"
-                ref="prevButton"
-              >&nbsp;</v-btn>
-            </div>
-          </v-col>
-        </v-row>
-      </v-sheet>
-    </v-slide-item>
-  </v-slide-group>
+                <div
+                  style="max-width:24em"
+                >
+                  <h3
+                    v-html="pCase.title.rendered"
+                  />
+                  <p
+                    v-if="pCase.acf.media[0].caption"
+                    v-html="pCase.acf.media[0].caption"
+                  />
+                </div>
+              </v-col>
+            </v-row>
+          </v-sheet>
+        </div>
+      </div>
+    </v-col>
+  </v-row>
+  <v-row
+    no-gutters
+  >
+    <v-col>
+      <div
+        class="d-flex nav-buttons"
+      >
+        <v-btn
+          v-if="pCases.length"
+          fab
+          depressed
+          :disabled="!slide"
+          elevation="0"
+          color="andeLightGray"
+          class="prev-button"
+          @click="prevSlide"
+          ref="prevButton"
+        >&nbsp;</v-btn>
+        <v-btn
+          v-if="pCases.length"
+          fab
+          depressed
+          :disabled="!(pCases.length > slide + 1)"
+          elevation="0"
+          color="andeLightGray"
+          class="next-button"
+          @click="nextSlide"
+          ref="nextButton"
+        >&nbsp;</v-btn>
+        <v-btn
+          fab
+          depressed
+          elevation="0"
+          color="andeLightGray"
+          class="view-button"
+          @click="openCaseViewer"
+        >&nbsp;</v-btn>
+      </div>
+    </v-col>
+  </v-row>
+</v-container>
 </template>
 
 <script>
@@ -111,10 +118,6 @@ export default {
       type: String,
       default: "light"
     },
-    even: {
-      type: Boolean,
-      default: false
-    },
     rowIndex: {
       type: Number,
       default: 0
@@ -122,55 +125,43 @@ export default {
   },
   data() {
     return {
-      prevIsDisabled: !this.even,
-      nextIsDisabled: this.even
+      slide: 0,
+      slidePosition: 0,
     };
   },
   computed: {
     pCases () {
       return this.$store.state.pCases.filter( pCase => pCase.categories.includes(this.category) )
-    }
+    },
   },
   created() {
   },
   mounted() {
-    this.$nextTick(function () {
-      if (this.even && !(this.$vuetify.breakpoint.xs || this.$vuetify.breakpoint.sm)) this.setSlide()
-    })
+  },
+  watch: {
   },
   methods: {
-    setSlide () {
-      const wrapperWidth = this.$refs.caseSlider.$refs.wrapper.clientWidth,
-      contentWidth = this.$refs.caseSlider.$refs.content.clientWidth
-      return this.$refs.caseSlider.scrollOffset = contentWidth - wrapperWidth
+    setSlide (slide) {
+      this.$nextTick(function () {
+        this.slidePosition = this.$refs.caseItem.slice(0, slide).reduce( (a, b) => (a + b.$el.clientWidth), 0)
+      })
     },
     nextSlide () {
-      this.prevIsDisabled = false
-      const itemWidth = this.$refs.caseItem[0].$el.clientWidth,
-      contentWidth = this.$refs.caseSlider.$refs.content.clientWidth,
-      wrapperWidth = this.$refs.caseSlider.$refs.wrapper.clientWidth,
-      currentItem = Math.floor(this.$refs.caseSlider.scrollOffset / itemWidth) + 1,
-      limit = this.even ? contentWidth - wrapperWidth : contentWidth - itemWidth - 1
-      if (this.$refs.caseSlider.scrollOffset + itemWidth >= limit) {
-        this.$refs.caseSlider.scrollOffset = limit
-        return this.nextIsDisabled = true
+      if (this.slide < this.$refs.caseItem.length - 1) {
+        this.slide++
+        return this.setSlide(this.slide)
       }
-      return this.$refs.caseSlider.scrollOffset = currentItem * itemWidth
+      return
     },
     prevSlide () {
-      this.nextIsDisabled = false
-      const itemWidth = this.$refs.caseItem[0].$el.clientWidth,
-      wrapperWidth = this.$refs.caseSlider.$refs.wrapper.clientWidth,
-      currentItem = Math.floor(this.$refs.caseSlider.scrollOffset / itemWidth) - 1,
-      limit = this.even ? itemWidth - wrapperWidth + 1 : 0
-      if (this.$refs.caseSlider.scrollOffset - itemWidth <= limit ) {
-        this.$refs.caseSlider.scrollOffset = limit
-        return this.prevIsDisabled = true
+      if (this.slide) {
+        this.slide--
+        return this.setSlide(this.slide)
       }
-      return this.$refs.caseSlider.scrollOffset = currentItem * itemWidth
+      return
     },
-    openCaseViewer(pCase) {
-      this.$nuxt.$emit('open-case-viewer', pCase)
+    openCaseViewer() {
+      this.$nuxt.$emit('open-case-viewer', this.pCases[this.slide])
     },
   }
 };
@@ -179,206 +170,169 @@ export default {
 <style lang="scss">
 @import "@/assets/mixins.scss";
 
-.v-slide-group__wrapper {
-  touch-action: auto !important;
-}
+.slider-container {
+  padding: 0;
 
-div.case-slider {
+  .PortfolioSlider-container{
 
-  .v-sheet {
-    background: transparent;
+    div.case-slider {
 
-    .row {
-      margin: 0 -.75em;
-      position: relative;
+      overflow: hidden;
 
-      @media only screen and (min-width: 960px) {
-        margin: 0;
+      .slider-wrapper {
+        touch-action: auto !important;
+        transition: ease 0.2s;
       }
-  
-      h3 {
-        font-size: 1rem;
-        font-weight: 400;
-        text-transform: uppercase;
-        color: var(--v-andeOrange-base);
-        margin-bottom: 1em;
-        white-space: normal;
+      .v-sheet {
+        background: 0 0;
+        max-width: 100vw;
+
+        @media only screen and (min-width: 960px) {
+          max-width: 65vw;
+        }
+
+        .row {
+          margin: 0;
+          position: relative;
+
+          @media only screen and (min-width: 960px) {
+            margin: 0;
+          }
       
-        .even & {
-          @media only screen and (min-width: 960px) {
-            text-align: right;
-          }
-        }
-      }
-
-      hr {
-        height: 2px;
-        margin-left: -24px;
-        position: relative;
-
-        .even & {
-          @media only screen and (min-width: 960px) {
-            margin-right: -24px;
-            margin-left: 0;
-          }
-        }
-      }
-
-      p {
-        white-space: normal;
-        color: var(--v-andeGray-base);
-        font-size:.75em;
-
-        .even & {
-          @media only screen and (min-width: 960px) {
-            text-align: right;
-          }
-        }
-      }
-
-      .checkTheCaseOut p, .nav-buttons p {
-        writing-mode: vertical-rl;
-        text-orientation: mixed;
-        transform: rotate(180deg);
-        font-size: .75em;
-        max-height: 50px;
-        margin: 2em 0 .5em .75em;
-      }
-
-      .checkTheCaseOut {
-        position: absolute;
-        right: 5vw;
-        top: 10vw;
-        z-index: 1;
-
-        @media only screen and (min-width: 960px) {
-          position: relative;
-          right: auto;
-          top: auto;
-        }
-
-        .even & {
-          @media only screen and (min-width: 960px) {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            p {
-              transform: rotate(0);
-              margin: 2em 0.75em .5em 0;
-            }
-          }
-        }
-      }
-
-      .view-button span {
-        background: url("/img/eye_orange.svg") center center no-repeat;
-      }
-
-      .nav-buttons {
-
-        display: flex;
-        flex-direction: column;
-        position: absolute;
-        right: 5vw;
-        top: 10em;
-
-        @media only screen and (min-width: 960px) {
-          position: relative;
-          right: auto;
-          top: auto;
-          left: auto;
-          display: block;
-        }
-
-        p {
-          margin: 3em 0 .5em 1.6em;
-          width: 100%;
-        }
-        
-        .even & {
-          @media only screen and (min-width: 960px) {
-            align-items: flex-end;
-
-            p {
-              transform: rotate(0);
-              margin: 3em 1.5em .5em 0;
-              min-width: 56px;
-              flex: 1;
-            }
-          }
-        }
-
-        .v-btn {
-          z-index: 1;
-          overflow: hidden;
-          width: 56px;
-          height: 56px;
-          border-radius: 9999px;
-
-          &.prev-button {
-            margin-right: 0;
+          h3 {
+            font-size: 1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            color: var(--v-andeOrange-base);
+            margin-bottom: 1em;
+            white-space: normal;
+          
           }
 
-          &.next-button {
-            margin-left: 0;
-            align-self: flex-end;
+          hr {
+            height: 2px;
+            margin-left: -24px;
+            position: relative;
+          }
+
+          p {
+            white-space: normal;
+            color: var(--v-andeGray-base);
+            font-size:.75em;
+          }
+
+          .checkTheCaseOut p {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            font-size: .75em;
+            max-height: 50px;
+            margin: 2em 0 .5em .75em;
+          }
+
+          .checkTheCaseOut {
+            position: absolute;
+            right: 5vw;
+            top: 10vw;
+            z-index: 1;
+
             @media only screen and (min-width: 960px) {
-              align-self: auto;
+              position: relative;
+              right: auto;
+              top: auto;
             }
-
           }
-        }
-      
-        .prev-button::before, .next-button::before {
-          content: "";
-          width: 56px;
-          height: 56px;
-          background-color: var(--v-andeDarkOrange-base);
-          border-radius: 9999px;
-          background-image: url("/img/mail_back2.svg");
-          background-repeat: no-repeat;
-          background-position: center -134px;
-          transition: .2s all .2s ease-out;
-          opacity: 1;
-        }
-
-        .prev-button:hover::before, .next-button:hover::before {
-          background-position: center top;
-        }
-
-        .prev-button::after, .next-button::after {
-          content: url("/img/forward.svg");
-          position: absolute;
-          background-color: transparent;
-          background-image: url("/img/mail_back1.svg");
-          background-repeat: no-repeat;
-          background-position: center -134px;
-          transition: .4s all .2s ease-in;
-          opacity: 1;
-          width: 56px;
-          height: 56px;
-          border-radius: 9999px;
-          padding: 10px 20px;
-        }
-
-        .prev-button::after {
-          content: url("/img/back.svg");
-          padding: 10px 8px;
-        }
-
-        .next-button:hover::after, .prev-button:hover::after {
-          background-position: center top;
-        }
-
-        .v-btn--disabled {
-          display: none;
         }
       }
     }
-  }
+    .view-button span {
+      background: url("/img/eye_orange.svg") center center no-repeat;
+    }
 
-  .v-slide-group__next, .v-slide-group__prev {
-    display: none !important;
-  }  
+    .nav-buttons {
+
+      width: 150px;
+      display: flex;
+      justify-content: space-between;
+
+      @media only screen and (min-width: 960px) {
+        position: relative;
+      }
+
+      p {
+        margin: 3em 0 .5em 1.6em;
+        width: 100%;
+      }
+
+      .v-btn {
+        z-index: 1;
+        overflow: hidden;
+        width: 42px;
+        height: 42px;
+        border-radius: 9999px;
+
+        &.prev-button {
+          margin-right: 0;
+        }
+
+        &.next-button {
+          margin-left: 0;
+          align-self: flex-end;
+          @media only screen and (min-width: 960px) {
+            align-self: auto;
+          }
+        }
+
+        &:focus::before, &:hover::before {
+          opacity: 1;
+        }
+      }
+
+      .prev-button::before, .next-button::before {
+        content: "";
+        width: 42px;
+        height: 42px;
+        background-color: var(--v-andeDarkOrange-base);
+        border-radius: 9999px;
+        background-image: url("/img/mail_back2.svg");
+        background-repeat: no-repeat;
+        background-position: center -114px;
+        transition: .2s all .2s ease-out;
+        opacity: 1;
+      }
+
+      .prev-button:hover::before, .next-button:hover::before {
+        background-position: center top;
+      }
+
+      .prev-button::after, .next-button::after {
+        content: url("/img/forward.svg");
+        position: absolute;
+        background-color: transparent;
+        background-image: url("/img/mail_back1.svg");
+        background-repeat: no-repeat;
+        background-position: center -114px;
+        transition: .4s all .2s ease-in;
+        opacity: 1;
+        width: 42px;
+        height: 42px;
+        border-radius: 9999px;
+        padding: 8px 14px;
+      }
+
+      .prev-button::after {
+        content: url("/img/back.svg");
+        padding: 8px 5px 0 0;
+      }
+
+      .next-button:hover::after, .prev-button:hover::after {
+        background-position: center top;
+      }
+
+      .v-btn--disabled {
+        opacity: 0.25;
+      }
+    }
+  }
 }
 </style>

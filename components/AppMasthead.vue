@@ -42,7 +42,7 @@
               lg="4"
               offset-md="2"
               offset-lg="3"
-              class="pa-1"
+              class="px-1 py-0"
             >
               <v-btn
                 color="andeTeal"
@@ -126,8 +126,8 @@
           >
             <v-btn
               fab
-              width="45px"
-              height="45px"
+              width="42px"
+              height="42px"
               class="social-ig-button"
               elevated="false"
             >
@@ -143,7 +143,7 @@
           </a>
           <hr
             class="andeOrange my-4" 
-            width="45px"
+            width="42px"
           />
           <p
             class="andeGray--text"
@@ -208,8 +208,8 @@
           >
             <v-btn
               fab
-              width="45px"
-              height="45px"
+              width="42px"
+              height="42px"
               class="social-ig-button"
               elevated="false"
             >
@@ -225,7 +225,7 @@
           </a>
           <hr
             class="andeOrange my-4" 
-            width="45px"
+            width="42px"
           />
           <p
             class="andeGray--text"
@@ -271,7 +271,7 @@
           > -->
           <hr
             class="andeTeal my-2" 
-            width="45px"
+            width="42px"
           />
           <span
             v-html="fact.featured"
@@ -305,7 +305,7 @@
           />
           <hr
             class="white my-2"
-            width="45px"
+            width="42px"
           />
           <p
             v-html="fact.text"

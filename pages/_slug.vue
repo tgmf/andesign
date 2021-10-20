@@ -245,36 +245,42 @@
             offset-lg="1"
             class="d-flex flex-column"
           >
-            <div class="subcategories d-flex align-center my-2">
-              <hr
-                width="45px"
-                class="andeTeal"
-              >
-              <span class="ml-2">
-                {{ getCategoryChildrenByIDs(pCase.categories) }}
-              </span>
-            </div>
-            <h2>{{ pCase.title.rendered }}</h2>
-            <p
-              class="mb-0"
-              v-html="pCase.acf.description"
-            />
-            <div class="mt-12 d-flex flex-row justify-center">
-              <hr
-                width="7px"
-                class="andeLightGray mr-1 ml-16"
-              >
-              <hr
-                width="45px"
-                class="andeLightGray"
-              >
+            <div 
+              class="d-flex flex-column"
+              :style="'min-height: ' + (($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '0' : $vuetify.breakpoint.md ? '24.5625em' : '32em')"
+            >
+              <div class="subcategories d-flex align-center my-2">
+                <hr
+                  width="45px"
+                  class="andeTeal"
+                >
+                <span class="ml-2">
+                  {{ getCategoryChildrenByIDs(pCase.categories) }}
+                </span>
+              </div>
+              <h2>{{ pCase.title.rendered }}</h2>
+              <v-spacer />
+              <p
+                class="mb-0"
+                v-html="pCase.acf.description"
+              />
+              <div class="mt-12 d-flex flex-row justify-center">
+                <hr
+                  width="7px"
+                  class="andeLightGray mr-1 ml-16"
+                >
+                <hr
+                  width="45px"
+                  class="andeLightGray"
+                >
+              </div>
             </div>
           </v-col>
           <v-col
             cols="12"
             md="9"
             lg="8"
-            class="slider"
+            class="slider pa-0"
           >
             <p-case-slider
               v-if="pCase.acf.media.length" :images="pCase.acf.media"/>

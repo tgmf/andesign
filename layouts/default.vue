@@ -8,6 +8,24 @@
       id="main"
     >
       <span class="descr andeGray--text">Группа визуальных коммуникаций</span>
+      <v-btn
+            v-scroll="onScroll"
+            v-show="showToTop"
+            fab
+            dark
+            fixed
+            :top = "!($vuetify.breakpoint.xs || $vuetify.breakpoint.sm)"
+            :bottom = "($vuetify.breakpoint.xs || $vuetify.breakpoint.sm)"
+            :left = "!($vuetify.breakpoint.xs || $vuetify.breakpoint.sm)"
+            :right = "($vuetify.breakpoint.xs || $vuetify.breakpoint.sm)"
+            color="andeOrange"
+            style="margin-top:7em; margin-left: 3em; margin-right:.25em"
+            @click="toTop"
+          >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24.528" height="15.567" viewBox="0 0 24.528 15.567">
+                <path id="Path_1487" data-name="Path 1487" d="M-1091.5,1353l12.623,10.854-5.259,4.522-7.363,6.331" transform="translate(-1351.589 -1077.344) rotate(-90)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+              </svg>
+          </v-btn>
       <nuxt />
       <app-map />
       <app-footer :categories="categories" />
@@ -29,12 +47,27 @@ export default {
     AppMap,
     AppFooter
   },
+  data() {
+    return {
+      showToTop: false,
+    }
+  },
   computed : {
     categories() {
       return this.$store.state.categories
     }
   },
   created() {
+  },
+  methods: {
+    onScroll (e) {
+      if (typeof window === 'undefined') return
+      const top = window.pageYOffset ||   e.target.scrollTop || 0
+      this.showToTop = top > 50
+    },
+    toTop () {
+      this.$vuetify.goTo(0)
+    }
   }
 }
 </script>
@@ -217,18 +250,6 @@ hr {
     width: 9.8em;
   }
 
-  &.v-btn--round {
-    width: 3.5em;
-    height: 3.5em;
-    font-size: 1em;
-  
-    @media only screen and (min-width: 1424px) {
-      width: 3em;
-      height: 3em;
-      font-size: 1.1429em;
-    }
-  }
-
   & span {
     transition: .2s transform .3s ease-out;
   }
@@ -252,7 +273,7 @@ hr {
     background: url("/img/eye_back2.svg") center bottom no-repeat;
     background-size: cover;
     transition: .4s all .2s ease-in;
-    padding-top: 1.125em;
+    padding-top: .975em;
     top: -200%;
   }
 
@@ -264,6 +285,23 @@ hr {
     top: 0;
     opacity:1;
   }
+}
+
+.v-btn--fab.v-size--default {
+    height: 2.625em;
+    width: 2.625em;
+    font-size: 1em;
+
+  // @media only screen and (min-width: 1424px) {
+  //   width: 2.296789em;
+  //   height: 2.296789em;
+  //   font-size: 1.1429em;
+  // }
+}
+
+.v-btn--round {
+  width: 2.625em;
+  height: 2.625em;
 }
 
 span.descr {
@@ -278,6 +316,10 @@ span.descr {
   position: absolute;
   z-index: 1;
 }
+
+.v-btn:not(.v-btn--round).v-size--default {
+    height: 2.954em;
+}
   
 @media only screen and (min-width: 960px) {
   span.descr {
@@ -289,9 +331,13 @@ span.descr {
 @media only screen and (min-width: 1424px) {
   span.descr {
     font-size: .875em;
-    top: 9em;
-    left: 5em;
+    top: 9.142857em;
+    left: 4.571428em;
   }
+}
+
+.v-slide-group__next, .v-slide-group__prev {
+  display: none;
 }
 
 </style>

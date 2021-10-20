@@ -5,7 +5,7 @@
         fluid
       >
         <v-row
-          class="row justify-end justify-md-start"
+          class="justify-end justify-md-start"
         >
           <v-col
             cols=12
@@ -94,13 +94,9 @@ a:visited {
     }
   
     .col-12{
-      height: calc(80vh - 62px);
-      background: 
-        url("/img/Andy_web.png") no-repeat 67vw 10vh scroll; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-      background-size: contain;
-
       @media only screen and (min-width: 960px) {
-        height: calc(80vh - 77px);
+        height: 80vh;
+        margin-top: 4em;
         padding: .75em 1.5em;
         background: 
           url("/img/Andy_web.png") no-repeat right center scroll; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
@@ -210,7 +206,7 @@ a:visited {
 
 .v-dialog {
 
-  .v-sheet {
+  .v-sheet.theme--dark {
     position: relative;
     background: radial-gradient(circle at 100% 0, #5F6A75, #151D24 25%);
   }

@@ -51,7 +51,7 @@ export const actions = {
 
     try {
       let posts = await fetch(
-        `${siteURL}/wp-json/wp/v2/posts?page=1&per_page=100&_embed=1`
+        `${siteURL}/wp-json/wp/v2/posts?page=1&per_page=500&_embed=1`
       ).then(res => res.json())
 
       posts = posts
@@ -76,7 +76,7 @@ export const actions = {
 
     try {
       let pCases = await fetch(
-        `${siteURL}/wp-json/wp/v2/case?page=1&per_page=100&_embed=1`
+        `${siteURL}/wp-json/wp/v2/case?page=1&per_page=500&_embed=1`
       ).then(res => res.json())
 
       pCases = pCases

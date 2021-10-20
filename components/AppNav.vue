@@ -128,15 +128,16 @@
           >
           <ul>
             <li>
-              <search-toggle></search-toggle>
+              <search-toggle />
             </li>
             <li>
-              <nav-contacts></nav-contacts>
+              <nav-contacts />
             </li>
           </ul>
           </v-col>
         </v-row>
       </v-container>
+      <nav-presentations />
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
@@ -298,13 +299,15 @@
   import AppIcon from "./AppIcon.vue"
   import SearchToggle from "./SearchToggle.vue"
   import NavContacts from "./NavContacts.vue"
+  import NavPresentations from "./NavPresentations.vue"
 
   export default {
     name: "AppNav",
     components: {
       AppIcon,
       SearchToggle,
-      NavContacts
+      NavContacts,
+      NavPresentations
     },
     props: {
       categories: {
@@ -330,7 +333,10 @@
     },
     computed: {
       navItems() {
-        return this.categories.filter( cat => cat.parent === 0 );
+        return this.categories.filter( cat => cat.parent === 0 )
+      },
+      presentations() {
+        return this.navItems.map( value => value.acf.file)
       }
     },
     created() {

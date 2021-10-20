@@ -94,8 +94,8 @@
           >
             <v-btn
               fab
-              width="45px"
-              height="45px"
+              width="42px"
+              height="42px"
               elevated="false"
               class="social-fb-button"
             >
@@ -131,7 +131,7 @@
           </a> -->
           <hr
             class="andeOrange my-4" 
-            width="45px"
+            width="42px"
           />
           <p
             class="white--text"

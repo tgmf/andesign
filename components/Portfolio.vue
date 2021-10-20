@@ -6,87 +6,91 @@
       <v-row
         v-for="(category, index) in parentCategories"
         :key="category.id"
-        :class="[{even: (index%2 && category.count > 1) }, {'has-portfolio': category.count > 1 }, category.acf.theme, 'category']"
+        :class="[{'has-portfolio': category.count > 1 }, category.acf.theme, 'category']"
         :id="category.slug"
       >
         <v-col
           cols="12"
           md="4"
-          :offset-lg="(index%2 && category.count > 1)  ? 0:1"
-          :order-md="(index%2 && category.count > 1)  ? 1:0"
+          offset-lg="1"
         >
-        <img
-          :src="category.acf.cat_icon"
-          class="category-icon"
-        />
-        <hr
-          width="45px"
-          class="andeTeal my-2"
-        >
-          <h2>{{ category.name }}</h2>
-          <v-row>
-            <v-col
-              cols="12"
-              sm="6"
-              md="12"
-              :lg="category.count === 1 ? 8 : 6"
-              class="subcategories d-flex flex-column"
+          <div 
+            class="d-flex flex-column"
+            :style="'min-height: ' + (($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '0' : $vuetify.breakpoint.md ? '24.5625em' : '32em')"
+          >
+            <img
+              :src="category.acf.cat_icon"
+              class="category-icon"
+            />
+            <hr
+              width="45px"
+              class="andeTeal my-2"
             >
-              <ul
-                v-if="category.count > 1"
+            <h2>{{ category.name }}</h2>
+            <v-spacer />
+            <v-row>
+              <v-col
+                cols="12"
+                sm="6"
+                md="12"
+                :lg="category.count === 1 ? 8 : 6"
+                class="subcategories d-flex flex-column"
               >
-                <li v-for="child in getCategoryChildren(category.id)"
-                  :key="child.id"
+                <ul
+                  v-if="category.count > 1"
                 >
-                  <nuxt-link
-                    :to="{ name: 'slug', params: { slug: category.slug, option: child.id } }"
-                    class="with-dot ease-width"
+                  <li v-for="child in getCategoryChildren(category.id)"
+                    :key="child.id"
                   >
-                    {{ child.name }}
-                  </nuxt-link>
-                </li>
-              </ul>
-              <v-btn
-                color="andeTeal"
-                large
-                rounded
-                depressed
-                :class="[{'mb-auto': category.count > 1 }, {'mb-8': category.count === 1 }, 'white--text', 'view-button', 'mt-2']"
-                :to="{ path: '/' + category.slug }"
-              ><span>Смотреть</span></v-btn>
-              <p
-                v-if="category.count === 1"
-                class="mb-auto"
-                v-html="category.description.replace(/(?:\r\n|\r|\n)/g, '<br />')"
-              />
-              <div
-                class="mt-12 d-none d-md-flex flex-row justify-center"
-                v-if="index !== parentCategories.length - 1"
+                    <nuxt-link
+                      :to="{ name: 'slug', params: { slug: category.slug, option: child.id } }"
+                      class="with-dot ease-width"
+                    >
+                      {{ child.name }}
+                    </nuxt-link>
+                  </li>
+                </ul>
+                <v-btn
+                  color="andeTeal"
+                  rounded
+                  depressed
+                  :class="[{'mb-auto': category.count > 1 }, {'mb-8': category.count === 1 }, 'white--text', 'view-button', 'mt-2']"
+                  :to="{ path: '/' + category.slug }"
+                ><span>Смотреть</span></v-btn>
+                <p
+                  v-if="category.count === 1"
+                  class="mb-auto"
+                  v-html="category.description.replace(/(?:\r\n|\r|\n)/g, '<br />')"
+                />
+                <div
+                  class="mt-12 d-none d-md-flex flex-row justify-center"
+                  v-if="index !== parentCategories.length - 1"
+                >
+                  <hr
+                    width="7px"
+                    class="andeLightGray mr-1 ml-16"
+                  >
+                  <hr
+                    width="45px"
+                    class="andeLightGray"
+                  >
+                </div>
+              </v-col>
+              <v-col
+                v-if="category.count > 1"
+                cols="12"
+                sm="6"
+                md="12"
+                lg="6"
+                class="category-description d-flex align-md-end"
               >
-                <hr
-                  width="7px"
-                  class="andeLightGray mr-1 ml-16"
-                >
-                <hr
-                  width="45px"
-                  class="andeLightGray"
-                >
-              </div>
-            </v-col>
-            <v-col
-              v-if="category.count > 1"
-              cols="12"
-              sm="6"
-              md="12"
-              lg="6"
-              class="category-description d-flex align-md-end"
-            >
-              <p
-                class="mb-md-0 mt-0 mt-md-2"
-                v-html="category.description.replace(/(?:\r\n|\r|\n)/g, '<br />')"
-              />
-            </v-col>
-          </v-row>
+                <p
+                  class="mb-md-0 mt-0 mt-md-2"
+                  v-html="category.description.replace(/(?:\r\n|\r|\n)/g, '<br />')"
+                />
+              </v-col>
+            </v-row>
+          </div>
         </v-col>
         <v-col
           v-if="category.count > 1"
@@ -95,7 +99,7 @@
           lg="7"
           class="slider-container"
         >
-          <portfolio-slider :category="category.id" :theme="category.acf.theme" :even="index%2 ? true : false" :rowIndex="index" />
+          <portfolio-slider :category="category.id" :theme="category.acf.theme" :rowIndex="index" />
         </v-col>
         <div
           class="my-6 mx-auto d-flex d-md-none flex-row justify-center"
@@ -226,17 +230,17 @@ section.portfolio {
     padding: 2.5em 1.25em;
     position: relative;
     @media only screen and (min-width: 960px) {
-      padding: 2.5em 1.5em;
+      padding: 0 1.5em 2.5em;
     }
     @media only screen and (min-width: 1424px) {
-      padding: 2.5em 4em;
+      padding: 0 4em 2.5em;
     }
   }
 
   .category {
-    padding: 3em 0 0 1.25em;
-    margin-right: -1.25em;
-    margin-left: -2em;
+    padding: 3em 0 0;// 1.25em;
+    // margin-right: -1.25em;
+    // margin-left: -2em;
     
     @media only screen and (min-width: 960px) {
       padding: 3em 0 3em 1.5em;
@@ -252,30 +256,17 @@ section.portfolio {
 
     &.has-portfolio {
       background: var(--v-background-base);
-
+      
       .col-md-7 {
         overflow: hidden;
       }
     }
 
     .v-slide-group__wrapper {
-      margin-right: -.75em;
-    }
+      margin: 0 calc(12px - 1.25em);
 
-    &.even {
+      @media screen and (min-width: 960px) {
 
-      @media only screen and (min-width: 960px) {
-        padding-left: 0;
-        padding-right: 1.5em;
-
-        .v-slide-group__wrapper {
-          margin-right: 0;
-          margin-left: -1em;
-        }
-      }
-
-      @media only screen and (min-width: 1424px) {
-        padding-right: 4em;
       }
     }
 

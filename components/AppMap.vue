@@ -159,7 +159,6 @@ export default {
     onResize() {
       if (process.client) {
         let width = window.innerWidth
-        console.log(width)
         if (width < 960) {
           this.coords = [55.8678 + 0.0000005 * (width - 320), 37.5728 + 0.000001 * (width*3.6 - 1056)]
           this.style = "width: 100%; height: 100vh;"
@@ -173,7 +172,6 @@ export default {
     },
     onMapInit(myMap) {
       this.mapIsThere = true
-      console.log(myMap)
       let myPolyline = new ymaps.Polyline([
           // Указываем координаты вершин ломаной.
           [55.870071, 37.584380],

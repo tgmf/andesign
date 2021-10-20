@@ -147,7 +147,6 @@ div {
 
 .contacts-toggle {
   display: flex;
-  cursor: pointer;
   align-items: center;
   position: relative;
 

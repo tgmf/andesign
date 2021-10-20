@@ -1,104 +1,103 @@
 <template>
-  <v-slide-group
-    class="case-slider case-viewer"
-    ref="portfolioCaseSlider"
+<v-container
+  class="CaseViewer-container"
+>
+  <v-row
+    align="center"
+    class="fill-height"
   >
-    <v-slide-item
-      v-for="image in pCase.acf.media"
-      :key="image.id"
-      ref="portfolioCaseItem"
-      v-touch="{
-        left: () => nextSlide(),
-        right: () => prevSlide()
-      }"
+    <v-col
+      cols="12"
+      md="8"
     >
-      <v-sheet
-        width="100vw"
-        height="100vh"
+      <div
+        class="case-slider case-viewer"
+        ref="portfolioCaseSlider"
       >
-        <v-container
-          fluid
+        <div
+          class="slider-wrapper d-flex"
+          ref="portfolioCaseWrapper"
+          :style="'transform: translateX(-'+ slidePosition +'px)'"
         >
-          <v-row
-            class="fill-height justify-content-center align-center"
+          <v-sheet
+            v-for="image in pCase.acf.media"
+            :key="image.id"
+            ref="portfolioCaseItem"
+            v-touch="{
+              left: () => nextSlide(),
+              right: () => prevSlide(),
+            }"
           >
-            <v-col
-              cols="12"
-              md="1"
+            <v-container
+              fluid
             >
-              <div
-                v-if="pCase.acf.media.length > 1"
-                class="nav-buttons"
-              >
-                <v-btn
-                  fab
-                  depressed
-                  :disabled="prevIsDisabled"
-                  elevation="0"
-                  color="andeLightGray"
-                  class="prev-button ml-md-auto"
-                  @click="prevSlide"
-                  ref="prevButton"
-                >&nbsp;</v-btn>
-              </div>
-            </v-col>
-            <v-col
-              cols="12"
-              md="10"
-            >
-                <v-img
-                  :src="image.url"
-                  width="90%"
-                  max-height="100%"
-                  aspect-ratio="1.778"
-                  class="mx-auto"
-                />
-            </v-col>
-            <v-col
-              cols="12"
-              md="1"
-              class="d-flex flex-column"
-            >
-              <h3
-                v-html="pCase.title.rendered"
-              />
-              <hr
-                class="andeLightGray my-6 d-none d-md-block"
-              />
-              <p
-                v-html="image.caption"
-              />
-              <v-spacer/>
-              <div
-                v-if="pCase.acf.media.length > 1"
-                class="nav-buttons mt-md-2 mb-md-6">
-                <v-btn
-                  fab
-                  depressed
-                  :disabled="nextIsDisabled"
-                  elevation="0"
-                  color="andeLightGray"
-                  class="next-button"
-                  @click="nextSlide"
-                  ref="nextButton"
-                >&nbsp;</v-btn>
-              </div>
-              <div class="close-button">
-                <v-btn
-                  fab
-                  depressed
-                  elevation="0"
-                  color="andeLightGray"
-                  class="view-button"
-                  @click="close()"
-                >&nbsp;</v-btn>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-sheet>
-    </v-slide-item>
-  </v-slide-group>
+              <v-row>
+                <v-col
+                  class="ps-0 pe-sm-4"
+                >
+                  <v-img
+                    :src="image.url"
+                    class="mx-auto"
+                    :height="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '12.5em' : $vuetify.breakpoint.md ? '24.5625em' : '32em'"
+                    :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? pCase.acf.media[0].width/pCase.acf.media[0].height*12.5 + 'em' : $vuetify.breakpoint.md ? pCase.acf.media[0].width/pCase.acf.media[0].height*24.5625 + 'em' : pCase.acf.media[0].width/pCase.acf.media[0].height*32 + 'em'"
+                  />
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-sheet>
+        </div>
+      </div>
+    </v-col>
+    <v-col
+      cols="12"
+      md="4"
+    >
+      <h3
+        v-html="pCase.title.rendered"
+      />
+      <hr
+        class="andeLightGray my-6 d-none d-md-block"
+      />
+      <p
+        v-html="description"
+      />
+      <v-spacer/>
+      <div
+        class="nav-buttons mt-2">
+        <v-btn
+          v-if="pCase.acf.media.length > 1"
+          fab
+          depressed
+          :disabled="!slide"
+          elevation="0"
+          color="andeLightGray"
+          class="prev-button"
+          @click="prevSlide"
+          ref="prevButton"
+        >&nbsp;</v-btn>
+        <v-btn
+          v-if="pCase.acf.media.length > 1"
+          fab
+          depressed
+          :disabled="!(pCase.acf.media.length > slide + 1)"
+          elevation="0"
+          color="andeLightGray"
+          class="next-button"
+          @click="nextSlide"
+          ref="nextButton"
+        >&nbsp;</v-btn>
+        <v-btn
+          fab
+          depressed
+          elevation="0"
+          color="andeLightGray"
+          class="view-button"
+          @click="close()"
+        >&nbsp;</v-btn>
+      </div>
+    </v-col>
+  </v-row>
+</v-container>
 </template>
 
 <script>
@@ -112,103 +111,168 @@ export default {
   },
   data() {
     return {
-      prevIsDisabled: true,
-      nextIsDisabled: false
+      // description: this.pCase.acf.media[0].caption ? this.pCase.acf.media[0].caption : '',
+      slide: 0,
+      slidePosition: 0,
     };
   },
   computed: {
+    description () {
+      return this.pCase?.acf?.media[this.slide]?.caption ? this.pCase.acf.media[this.slide].caption : ''
+    }
   },
   created() {
   },
   methods: {
+    setSlide (slide = this.slide) {
+      this.$nextTick(function () {
+        this.slidePosition = this.$refs.portfolioCaseItem.slice(0, slide).reduce( (a, b) => (a + b.$el.clientWidth), 0)
+      })
+    },
     nextSlide() {
-      this.prevIsDisabled = false
-      const itemWidth = this.$refs.portfolioCaseItem[0].$el.clientWidth,
-      contentWidth = this.$refs.portfolioCaseSlider.$refs.content.clientWidth,
-      currentItem = Math.floor(this.$refs.portfolioCaseSlider.scrollOffset / itemWidth) + 1,
-      limit = contentWidth - itemWidth - 1
-      if (this.$refs.portfolioCaseSlider.scrollOffset + itemWidth >= limit) {
-        this.$refs.portfolioCaseSlider.scrollOffset = limit
-        return this.nextIsDisabled = true
+      if (this.slide < this.$refs.portfolioCaseItem.length - 1) {
+        this.slide++
+        return this.setSlide()
       }
-      return this.$refs.portfolioCaseSlider.scrollOffset = currentItem * itemWidth
+      return
     },
     prevSlide() {
-      this.nextIsDisabled = false
-      const itemWidth = this.$refs.portfolioCaseItem[0].$el.clientWidth,
-      currentItem = Math.floor(this.$refs.portfolioCaseSlider.scrollOffset / itemWidth) - 1
-      if (this.$refs.portfolioCaseSlider.scrollOffset - itemWidth <= 0 ) {
-        this.$refs.portfolioCaseSlider.scrollOffset = 0
-        return this.prevIsDisabled = true
+      if (this.slide) {
+        this.slide--
+        return this.setSlide()
       }
-      return this.$refs.portfolioCaseSlider.scrollOffset = currentItem * itemWidth
+      return
     },
     close() {
-      this.$refs.portfolioCaseSlider.scrollOffset = 0
-      this.prevIsDisabled = true
-      this.nextIsDisabled = false
+      this.slide = 0
+      this.setSlide()
       return this.$nuxt.$emit('close-case-viewer')
     },
   }
 };
 </script>
 
-<style lang="scss" scope>
+<style lang="scss">
+.CaseViewer-container {
+  width: 100vw;
+  height: 100vh;
+  align-content: center;
+  justify-content: center;
 
-.v-slide-group__wrapper {
-  touch-action: auto !important;
-}
+  div.case-slider.case-viewer {
+      overflow: hidden;
 
-div.case-slider.case-viewer {
-  .v-sheet {
-    .container {
-      padding: 6.5em 1.25em;
-      height:100%;
-      
-      @media only screen and (min-width: 960px) {
-      padding: 6.5em 1.5em;
+    .slider-wrapper{
+      touch-action: auto !important;
+      transition: ease 0.2s;
+
+      .v-sheet {
+        background: 0 0;
+        .container {
+          padding: 6.5em 1.25em;
+          height:100%;
+          
+          @media only screen and (min-width: 960px) {
+          padding: 6.5em 1.5em;
+          }
+          
+          @media only screen and (min-width: 960px) {
+          padding: 6.5em 4em;
+          }
+        }
       }
-      
-      @media only screen and (min-width: 960px) {
-      padding: 6.5em 4em;
+    }
+  }
+  hr {
+    height: 7px;
+    margin-left: 0;
+  }
+
+  .nav-buttons {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+
+    @media only screen and (min-width: 960px) {
+      position: relative;
+    }
+    
+    .v-btn {
+      z-index: 1;
+      overflow: hidden;
+      width: 42px;
+      height: 42px;
+      border-radius: 9999px;
+
+      &.prev-button {
+        margin-right: 0;
       }
 
-      hr {
-        height: 7px;
+      &.next-button {
         margin-left: 0;
-      }
-      
-      div.close-button {
-        position: absolute;
-        right: 5vw;
-        top: 0;
-        
+        align-self: flex-end;
         @media only screen and (min-width: 960px) {
-          position: relative;
-          right: auto;
-          top: auto;
-        }
-
-        .v-btn.view-button span {
-          background: url(/img/close.svg) center center no-repeat;
-        }
-
-        .view-button:after {
-          padding-top: .9em;
-          content: url(/img/close_white.svg);
+          align-self: auto;
         }
       }
 
-      .nav-buttons {
-        left: 5vw;
-
-        @media only screen and (min-width: 960px) {
-          left: 0;
-          .prev-button {
-              left: 5vw;
-            }
-        }
+      &:focus::before, &:hover::before {
+        opacity: 1;
       }
+    }
+
+    .prev-button::before, .next-button::before {
+      content: "";
+      width: 42px;
+      height: 42px;
+      background-color: var(--v-andeDarkOrange-base);
+      border-radius: 9999px;
+      background-image: url("/img/mail_back2.svg");
+      background-repeat: no-repeat;
+      background-position: center -114px;
+      transition: .2s all .2s ease-out;
+      opacity: 1;
+    }
+
+    .prev-button:hover::before, .next-button:hover::before {
+      background-position: center top;
+    }
+
+    .prev-button::after, .next-button::after {
+      content: url("/img/forward.svg");
+      position: absolute;
+      background-color: transparent;
+      background-image: url("/img/mail_back1.svg");
+      background-repeat: no-repeat;
+      background-position: center -114px;
+      transition: .4s all .2s ease-in;
+      opacity: 1;
+      width: 42px;
+      height: 42px;
+      border-radius: 9999px;
+      padding: 8px 14px;
+    }
+
+    .prev-button::after {
+      content: url("/img/back.svg");
+      padding: 8px 5px 0 0;
+    }
+
+    .next-button:hover::after, .prev-button:hover::after {
+      background-position: center top;
+    }
+
+    .v-btn--disabled {
+      opacity: 0.25;
+    }
+
+    .v-btn.view-button span {
+      background: url(/img/close.svg) center center no-repeat;
+    }
+
+    .view-button:after {
+      padding-top: .9em;
+      content: url(/img/close_white.svg);
     }
   }
 }
