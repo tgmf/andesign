@@ -1,5 +1,6 @@
 <template>
 <v-container
+  fluid
   class="CaseViewer-container"
 >
   <v-row
@@ -27,23 +28,15 @@
               left: () => nextSlide(),
               right: () => prevSlide(),
             }"
+            class="d-flex px-3"
           >
-            <v-container
-              fluid
-            >
-              <v-row>
-                <v-col
-                  class="ps-0 pe-sm-4"
-                >
-                  <v-img
-                    :src="image.url"
-                    class="mx-auto"
-                    :height="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? '12.5em' : $vuetify.breakpoint.md ? '24.5625em' : '32em'"
-                    :width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? pCase.acf.media[0].width/pCase.acf.media[0].height*12.5 + 'em' : $vuetify.breakpoint.md ? pCase.acf.media[0].width/pCase.acf.media[0].height*24.5625 + 'em' : pCase.acf.media[0].width/pCase.acf.media[0].height*32 + 'em'"
-                  />
-                </v-col>
-              </v-row>
-            </v-container>
+            <v-img
+              :src="image.url"
+              class="mx-auto"
+              contain
+              :max-height="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? 'calc(80vh - 2em)' : 'calc(100vh - 2em)'"
+              :max-width="($vuetify.breakpoint.xs || $vuetify.breakpoint.sm) ? 'calc(100vw - 2em)': 'calc(60vw - 2em)'"
+            />
           </v-sheet>
         </div>
       </div>
@@ -169,15 +162,15 @@ export default {
       .v-sheet {
         background: 0 0;
         .container {
-          padding: 6.5em 1.25em;
+          padding: 1em 1.25em;
           height:100%;
           
           @media only screen and (min-width: 960px) {
-          padding: 6.5em 1.5em;
+          padding: 1em 1.5em;
           }
           
           @media only screen and (min-width: 960px) {
-          padding: 6.5em 4em;
+          padding: 1em 4em;
           }
         }
       }
