@@ -6,6 +6,8 @@
       :style="style"
       :controls="['zoomControl', 'typeSelector']"
       zoom="17"
+      dragable="false"
+      scrollZoom="false"
       @map-was-initialized="onMapInit"
     >
       <ymap-marker
