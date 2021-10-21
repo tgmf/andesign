@@ -230,7 +230,6 @@ footer {
             a {
               font-weight: 300;
               text-transform: capitalize;
-              text-decoration: underline;
               line-height: 1.4;
             }
           }

@@ -196,7 +196,7 @@ export default {
           // Цвет линии.
           strokeColor: "#5F6A75",
           // Ширина линии.
-          strokeWidth: 6,
+          strokeWidth: 4,
           // Коэффициент прозрачности.
           strokeOpacity: 1
       });
